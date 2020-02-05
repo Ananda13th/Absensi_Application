@@ -63,19 +63,16 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> im
 
     @Override
     public void onClickCardView(UserModel userModel) {
-        Log.d("TEST", userModel.toString());
         clickListener.onClickCardView(userModel);
     }
 
     @Override
     public void onClickDeleteButton(String userId) {
-        Log.d("TEST", userId);
         clickListener.onClickDeleteButton(userId);
     }
 
     @Override
     public void onClickUpdateButton(UserModel userModel) {
-        Log.d("TEST", userModel.toString());
         clickListener.onClickUpdateButton(userModel);
     }
 

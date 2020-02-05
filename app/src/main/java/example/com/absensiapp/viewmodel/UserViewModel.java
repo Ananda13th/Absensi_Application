@@ -173,7 +173,6 @@ public class UserViewModel extends ViewModel {
                 .subscribeWith(new DisposableSingleObserver<UserModel>() {
                     @Override
                     public void onSuccess(UserModel userModel) {
-                        Log.d("LOG", "Sampe Sini");
                         user.setValue(userModel);
                     }
 

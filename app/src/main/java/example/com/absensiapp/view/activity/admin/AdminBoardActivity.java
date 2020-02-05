@@ -12,9 +12,12 @@ import example.com.absensiapp.view.adapter.UserAdapter;
 import example.com.absensiapp.view.listener.RecycleListener;
 import example.com.absensiapp.viewmodel.UserViewModel;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -24,7 +27,6 @@ public class AdminBoardActivity extends AppCompatActivity{
 
     private UserViewModel userViewModel = new UserViewModel();
     private UserAdapter adapter = new UserAdapter();
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

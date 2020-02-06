@@ -13,6 +13,7 @@ import example.com.data.repository.UserRepositoryImpl;
 import example.com.domain.repository.BaseResponseRepository;
 import example.com.domain.repository.UserRepository;
 import example.com.domain.usecase.user.AddUserUseCase;
+import example.com.domain.usecase.user.CheckInUseCase;
 import example.com.domain.usecase.user.DeleteUserUseCase;
 import example.com.domain.usecase.user.GetUserListUseCase;
 import example.com.domain.usecase.user.GetUserUseCase;
@@ -80,6 +81,11 @@ public class UserModule {
     @Provides
     UpdateUserUseCase provideUpdateUserUseCase(BaseResponseRepository baseResponseRepository) {
         return new UpdateUserUseCase(baseResponseRepository);
+    }
+
+    @Provides
+    CheckInUseCase provideCheckInUseCase (BaseResponseRepository baseResponseRepository) {
+        return new CheckInUseCase(baseResponseRepository);
     }
 
 }

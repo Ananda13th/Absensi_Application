@@ -3,6 +3,7 @@ package example.com.data.repository;
 import example.com.data.entity.mapper.UserEntityMapper;
 import example.com.data.net.Service;
 import example.com.domain.model.BaseResponse;
+import example.com.domain.model.CheckInReq;
 import example.com.domain.model.User;
 import example.com.domain.repository.BaseResponseRepository;
 import io.reactivex.Scheduler;
@@ -36,6 +37,13 @@ public class BaseResponseRepositoryImpl implements BaseResponseRepository {
     @Override
     public Single<BaseResponse> doUpdateUser(String userId, User user) {
         return Single.defer(()->service.updateUser(userId,userMapper.userToData(user)))
+                .map(userMapper::baseResponseToDomain)
+                .subscribeOn(scheduler);
+    }
+
+    @Override
+    public Single<BaseResponse> doCheckUser(CheckInReq check) {
+        return Single.defer(()->service.checkUser(userMapper.userToData(check)))
                 .map(userMapper::baseResponseToDomain)
                 .subscribeOn(scheduler);
     }

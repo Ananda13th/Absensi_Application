@@ -5,8 +5,10 @@ import android.util.Log;
 import java.util.ArrayList;
 import java.util.List;
 
+import example.com.absensiapp.model.CheckInReqModel;
 import example.com.absensiapp.model.UserModel;
 import example.com.absensiapp.model.UserRespModel;
+import example.com.domain.model.CheckInReq;
 import example.com.domain.model.User;
 import example.com.domain.model.UserResp;
 
@@ -47,5 +49,14 @@ public class UserMapper extends BaseResponseMapper {
         user.setPassword(userFromView.getPassword());
         user.setUserId(userFromView.getUserId());
         return user;
+    }
+
+    public CheckInReq checkToDomain(CheckInReqModel check) {
+        CheckInReq checkInReq = new CheckInReq();
+
+        checkInReq.setUserId(check.getUserId());
+        checkInReq.setState(check.getState());
+
+        return checkInReq;
     }
 }

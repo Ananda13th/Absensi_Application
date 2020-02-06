@@ -14,9 +14,11 @@ import example.com.data.net.ServiceGenerator;
 import example.com.data.repository.BaseResponseRepositoryImpl;
 import example.com.data.repository.UserRepositoryImpl;
 import example.com.domain.model.BaseResponse;
+import example.com.domain.model.CheckInReq;
 import example.com.domain.model.User;
 import example.com.domain.model.UserResp;
 import example.com.domain.usecase.user.AddUserUseCase;
+import example.com.domain.usecase.user.CheckInUseCase;
 import example.com.domain.usecase.user.DeleteUserUseCase;
 import example.com.domain.usecase.user.GetUserListUseCase;
 import example.com.domain.usecase.user.GetUserUseCase;
@@ -295,6 +297,23 @@ public class UserTest {
         AddUserUseCase addUseCase = new AddUserUseCase(userRepository);
         User user = new User();
         Single<BaseResponse> resp =addUseCase.execute(user);
+        TestObserver<BaseResponse> testObserver = new TestObserver<>();
+        resp.subscribe(testObserver);
+        testObserver.awaitTerminalEvent();
+        testObserver.assertComplete();
+        testObserver.assertNoErrors();
+        Assert.assertEquals("00", testObserver.values().get(0).getErrorCode());
+    }
+
+    @Test
+    public void T009_CheckStateUseCaseTest() {
+        UserEntityMapper userMapper = new UserEntityMapper();
+        Scheduler scheduler = Schedulers.io();
+        Service service = ServiceGenerator.getService();
+        BaseResponseRepositoryImpl userRepository = new BaseResponseRepositoryImpl(userMapper,scheduler,service);
+        CheckInUseCase checkInUseCase = new CheckInUseCase(userRepository);
+        CheckInReq check = new CheckInReq();
+        Single<BaseResponse> resp =checkInUseCase.execute(check);
         TestObserver<BaseResponse> testObserver = new TestObserver<>();
         resp.subscribe(testObserver);
         testObserver.awaitTerminalEvent();

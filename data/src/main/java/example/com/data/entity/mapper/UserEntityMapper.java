@@ -5,12 +5,14 @@ import android.util.Log;
 import java.util.ArrayList;
 import java.util.List;
 
+import example.com.data.entity.CheckInReqEntity;
 import example.com.data.entity.UserEntity;
 import example.com.data.entity.UserRespEntity;
+import example.com.domain.model.CheckInReq;
 import example.com.domain.model.User;
 import example.com.domain.model.UserResp;
 
-public class UserEntityMapper extends BaseResponseEntityMapper{
+public class UserEntityMapper extends BaseResponseEntityMapper {
 
     public UserResp userRespToDomain(UserRespEntity respEntity) {
         UserResp userResp = new UserResp();
@@ -50,6 +52,22 @@ public class UserEntityMapper extends BaseResponseEntityMapper{
         userEntity.setPassword(user.getPassword());
         userEntity.setUserId(user.getUserId());
         return userEntity;
+    }
+
+    public CheckInReq userToDomain(CheckInReqEntity checkEntity) {
+        CheckInReq check = new CheckInReq();
+
+        check.setUserId(checkEntity.getUserId());
+        check.setState(checkEntity.getState());
+        return check;
+    }
+
+    public CheckInReqEntity userToData(CheckInReq check) {
+        CheckInReqEntity checkInReqEntity = new CheckInReqEntity();
+
+        checkInReqEntity.setUserId(check.getUserId());
+        checkInReqEntity.setState(check.getState());
+        return checkInReqEntity;
     }
 
 }

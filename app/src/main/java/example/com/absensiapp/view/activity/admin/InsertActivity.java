@@ -7,15 +7,23 @@ import example.com.absensiapp.R;
 import example.com.absensiapp.databinding.ActivityInsertBinding;
 import example.com.absensiapp.model.BaseResponseModel;
 import example.com.absensiapp.model.UserModel;
+import example.com.absensiapp.view.activity.AeSimpleSHA1;
 import example.com.absensiapp.view.listener.InsertListener;
 import example.com.absensiapp.viewmodel.UserViewModel;
+
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Toast;
+
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
 
 public class InsertActivity extends AppCompatActivity implements InsertListener {
 
     private UserViewModel userViewModel = new UserViewModel();
     private ActivityInsertBinding insertBinding;
+    private AeSimpleSHA1 encrypt = new AeSimpleSHA1();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,12 +41,23 @@ public class InsertActivity extends AppCompatActivity implements InsertListener 
             @Override
             public void onChanged(BaseResponseModel baseResponseModel) {
                 Toast.makeText(InsertActivity.this, baseResponseModel.getErrorMessage(), Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getApplicationContext(), AdminBoardActivity.class);
+                startActivity(intent);
+                finish();
             }
         });
     }
     @Override
     public void onClickInsertListener(UserModel user) {
+        try {
+            user.setPassword(encrypt.SHA1(user.getPassword()));
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
         insertBinding.getUser();
+        Log.d("TET", user.toString());
         userViewModel.addUser(user);
     }
 }

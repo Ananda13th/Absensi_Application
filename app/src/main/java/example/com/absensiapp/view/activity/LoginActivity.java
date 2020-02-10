@@ -7,7 +7,7 @@ import example.com.absensiapp.R;
 import example.com.absensiapp.databinding.ActivityLoginBinding;
 import example.com.absensiapp.model.UserModel;
 import example.com.absensiapp.view.activity.admin.AdminBoardActivity;
-import example.com.absensiapp.view.activity.member.CheckInActivity;
+import example.com.absensiapp.view.activity.member.MemberDashboardActivity;
 import example.com.absensiapp.view.listener.LoginListener;
 import example.com.absensiapp.viewmodel.UserViewModel;
 import android.content.Intent;
@@ -33,7 +33,7 @@ public class LoginActivity extends AppCompatActivity implements LoginListener {
             startActivity(intent);
         }
         if(!new PrefManager(this).isUserLogedOut() && !new PrefManager(this).isAdmin()) {
-            Intent intent = new Intent(getApplicationContext(), CheckInActivity.class);
+            Intent intent = new Intent(getApplicationContext(), MemberDashboardActivity.class);
             startActivity(intent);
         }
         loginBinding.setOnClick(this);
@@ -55,7 +55,7 @@ public class LoginActivity extends AppCompatActivity implements LoginListener {
                 else
                 {
                     saveLoginDetails(userModel);
-                    Intent intent = new Intent(getApplicationContext(), CheckInActivity.class);
+                    Intent intent = new Intent(getApplicationContext(), MemberDashboardActivity.class);
                     intent.putExtra("LoginData", userModel.getUserId());
                     startActivity(intent);
                     finish();

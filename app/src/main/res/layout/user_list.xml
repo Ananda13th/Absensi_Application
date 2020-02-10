@@ -67,20 +67,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="100dp">
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/button_delete"
-                    android:text="DELETE"
-                    android:onClick="@{()->onClick.onClickDeleteButton(user.userId)}"/>
 
                 <Button
+                    android:id="@+id/button_delete"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/button_update"
-                    android:layout_toRightOf="@+id/button_delete"
-                    android:text="UPDATE"
-                    android:onClick="@{()->onClick.onClickUpdateButton(user)}"/>
+                    android:onClick="@{()->onClick.onClickDeleteButton(user.userId)}"
+                    android:text="DELETE" />
             </RelativeLayout>
         </LinearLayout>
     </androidx.cardview.widget.CardView>

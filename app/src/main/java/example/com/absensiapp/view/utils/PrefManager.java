@@ -1,4 +1,4 @@
-package example.com.absensiapp.view.activity;
+package example.com.absensiapp.view.utils;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -19,7 +19,9 @@ public class PrefManager {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString("UserId", userModel.getUserId());
         editor.putString("Password", userModel.getPassword());
+        editor.putString("Name", userModel.getName());
         editor.putString("Role", userModel.getRole());
+        editor.putString("Data", "null");
         editor.commit();
     }
 
@@ -34,5 +36,11 @@ public class PrefManager {
         SharedPreferences sharedPreferences = context.getSharedPreferences("LoginDetails", Context.MODE_PRIVATE);
         boolean isAdmin = sharedPreferences.getString("Role", "").matches("admin");
         return isAdmin;
+    }
+
+    public boolean isDataExist() {
+        SharedPreferences sharedPreferences = context.getSharedPreferences("LoginDetails", Context.MODE_PRIVATE);
+        boolean data = sharedPreferences.getString("Data", "").matches("true");
+        return data;
     }
 }

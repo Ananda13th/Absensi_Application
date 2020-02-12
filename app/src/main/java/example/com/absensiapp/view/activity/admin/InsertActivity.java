@@ -7,7 +7,7 @@ import example.com.absensiapp.R;
 import example.com.absensiapp.databinding.ActivityInsertBinding;
 import example.com.absensiapp.model.BaseResponseModel;
 import example.com.absensiapp.model.UserModel;
-import example.com.absensiapp.view.activity.AeSimpleSHA1;
+import example.com.absensiapp.view.utils.AeSimpleSHA1;
 import example.com.absensiapp.view.listener.InsertListener;
 import example.com.absensiapp.viewmodel.UserViewModel;
 

@@ -23,7 +23,8 @@ import example.com.absensiapp.databinding.ChangePasswordLayoutBinding;
 import example.com.absensiapp.databinding.FragmentSettingBinding;
 import example.com.absensiapp.model.BaseResponseModel;
 import example.com.absensiapp.model.UserModel;
-import example.com.absensiapp.view.activity.AeSimpleSHA1;
+import example.com.absensiapp.view.activity.member.InitDataTrainingActivity;
+import example.com.absensiapp.view.utils.AeSimpleSHA1;
 import example.com.absensiapp.view.activity.LoginActivity;
 import example.com.absensiapp.view.listener.SettingListener;
 import example.com.absensiapp.viewmodel.UserViewModel;
@@ -85,6 +86,12 @@ public class SettingFragment extends Fragment implements SettingListener {
         changePasswordLayoutBinding.getUser();
         Log.d("TEST", userModel.toString());
         userViewModel.updateUser(userModel);
+    }
+
+    @Override
+    public void onClickTrainButton() {
+        Intent intent = new Intent(getActivity().getApplicationContext(), InitDataTrainingActivity.class);
+        startActivity(intent);
     }
 
     private void changePasswordObserver() {

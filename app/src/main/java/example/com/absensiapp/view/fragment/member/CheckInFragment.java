@@ -47,7 +47,6 @@ public class CheckInFragment extends Fragment implements CheckInListener {
 
     @Override
     public void onClickInButton(CheckInReqModel check) {
-        Log.d("TEST", check.toString());
         check.setState("In");
         check.setUserId(userId);
         userViewModel.checkInUser(check);

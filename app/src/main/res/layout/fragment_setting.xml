@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
+<layout xmlns:tools="http://schemas.android.com/tools"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
@@ -31,14 +31,29 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="152dp"
-            android:layout_marginTop="53dp"
+            android:layout_marginTop="73dp"
             android:layout_marginEnd="152dp"
-            android:layout_marginBottom="387dp"
+            android:layout_marginBottom="264dp"
             android:onClick="@{()->onClick.onClickLogOutButton()}"
             android:text="LOG OUT"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.473"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btnChangePassword" />
+            app:layout_constraintTop_toBottomOf="@+id/btnTrainData" />
+
+        <Button
+            android:id="@+id/btnTrainData"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="150dp"
+            android:layout_marginTop="55dp"
+            android:layout_marginEnd="160dp"
+            android:text="TRAIN DATA"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btnChangePassword"
+            android:onClick="@{()->onClick.onClickTrainButton()}"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

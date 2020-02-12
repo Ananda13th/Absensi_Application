@@ -1,4 +1,4 @@
-package example.com.absensiapp.view.activity;
+package example.com.absensiapp.view.utils;
 
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;

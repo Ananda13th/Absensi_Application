@@ -6,7 +6,7 @@ android {
     defaultConfig {
         applicationId "example.com.absensiapp"
         minSdkVersion 21
-        targetSdkVersion 29
+        targetSdkVersion 21
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -82,7 +82,9 @@ dependencies {
     //Glide
     implementation 'com.github.bumptech.glide:glide:4.3.1'
 
-    implementation 'com.google.android.material:material:1.0.0-rc01'
+    implementation 'com.google.android.material:material:1.2.0-alpha04'
 
     implementation 'androidx.lifecycle:lifecycle-extensions:2.1.0'
+
+    implementation 'ch.zhaw:facerecognitionlibrary:1.5.3'
 }

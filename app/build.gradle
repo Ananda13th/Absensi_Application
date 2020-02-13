@@ -87,4 +87,6 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-extensions:2.1.0'
 
     implementation 'ch.zhaw:facerecognitionlibrary:1.5.3'
+
+    implementation 'com.shamanland:xdroid-toaster:0.0.10'
 }

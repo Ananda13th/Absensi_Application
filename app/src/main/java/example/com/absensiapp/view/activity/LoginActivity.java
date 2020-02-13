@@ -8,7 +8,6 @@ import example.com.absensiapp.R;
 import example.com.absensiapp.databinding.ActivityLoginBinding;
 import example.com.absensiapp.model.UserModel;
 import example.com.absensiapp.view.activity.admin.AdminBoardActivity;
-import example.com.absensiapp.view.activity.member.AddPersonFormActivity;
 import example.com.absensiapp.view.activity.member.MemberDashboardActivity;
 import example.com.absensiapp.view.activity.member.TrainingDataActivity;
 import example.com.absensiapp.view.listener.LoginListener;

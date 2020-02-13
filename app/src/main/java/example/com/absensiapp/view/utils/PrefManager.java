@@ -22,6 +22,7 @@ public class PrefManager {
         editor.putString("Name", userModel.getName());
         editor.putString("Role", userModel.getRole());
         editor.putString("Data", "null");
+        editor.putString("HasTrainData", "false");
         editor.commit();
     }
 

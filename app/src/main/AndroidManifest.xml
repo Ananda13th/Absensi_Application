@@ -27,16 +27,21 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".view.activity.member.AddPersonFormActivity"></activity>
+        <activity android:name=".view.activity.member.RecognitionActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen"
+            android:screenOrientation="landscape">
+        </activity>
+        <activity android:name=".view.activity.member.AddPersonFormActivity" />
         <activity
             android:name=".view.activity.member.InitDataTrainingActivity"
-            android:screenOrientation="landscape"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
-        <intent-filter tools:ignore="AppLinkUrlError">
-            <action android:name="android.intent.action.VIEW" />
-            <category android:name="android.intent.category.DEFAULT" />
-            <data android:mimeType="vnd.android.cursor.dir/image" />
-        </intent-filter>
+            <intent-filter tools:ignore="AppLinkUrlError">
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data android:mimeType="vnd.android.cursor.dir/image" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".view.activity.member.TrainingDataActivity"

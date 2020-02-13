@@ -54,7 +54,7 @@ public class InsertActivity extends AppCompatActivity implements InsertListener 
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
+            e.getMessage();
         }
         insertBinding.getUser();
         Log.d("TET", user.toString());

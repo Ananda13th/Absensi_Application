@@ -14,49 +14,49 @@
         android:background="#F2F4F5">
 
         <Button
-            android:id="@+id/btnChangePassword"
-            android:layout_width="wrap_content"
+            android:id="@+id/btn_change_password"
+            android:layout_width="120dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="161dp"
-            android:layout_marginTop="195dp"
-            android:layout_marginEnd="161dp"
+            android:layout_marginTop="180dp"
+            android:background="@drawable/rounded_button"
+            android:drawableTop="@drawable/ic_create"
             android:onClick="@{()->onClick.onClickChangePasswordButton()}"
             android:text="CHANGE PASSWORD"
-            app:layout_constraintBottom_toTopOf="@+id/btnTrainData"
+            android:textColor="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <Button
-            android:id="@+id/btnLogOut"
-            android:layout_width="wrap_content"
+            android:id="@+id/btn_train_data"
+            android:layout_width="120dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="152dp"
-            android:layout_marginEnd="152dp"
-            android:layout_marginBottom="264dp"
-            android:onClick="@{()->onClick.onClickLogOutButton()}"
-            android:text="LOG OUT"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.473"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="1.0" />
-
-        <Button
-            android:id="@+id/btnTrainData"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="150dp"
-            android:layout_marginEnd="150dp"
-            android:layout_marginBottom="40dp"
+            android:layout_marginTop="44dp"
             android:onClick="@{()->onClick.onClickTrainButton()}"
             android:text="TRAIN DATA"
-            app:layout_constraintBottom_toTopOf="@+id/btnLogOut"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.99" />
+            app:layout_constraintTop_toBottomOf="@id/btn_change_password"
+            android:background="@drawable/rounded_button"
+            android:textColor="@color/white"
+            android:drawableTop="@drawable/ic_camera"/>
+
+        <Button
+            android:id="@+id/btn_log_out"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="44dp"
+            android:onClick="@{()->onClick.onClickLogOutButton()}"
+            android:text="LOG OUT"
+            android:background="@drawable/rounded_button"
+            android:textColor="@color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btn_train_data"
+            android:drawableTop="@drawable/ic_exit_to_app"/>
+
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

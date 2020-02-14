@@ -169,7 +169,7 @@ public class RecognitionActivity extends AppCompatActivity implements CameraBrid
                 });
                 SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
                 String algorithm = sharedPref.getString("key_classification_method", getResources().getString(R.string.eigenfaces));
-                rec = RecognitionFactory.getRecognitionAlgorithm(getApplicationContext(), Recognition.RECOGNITION, algorithm);
+                rec = RecognitionFactory.getRecognitionAlgorithm(getApplicationContext(), Recognition.RECOGNITION, sharedPref.getString("key_classification_method", getResources().getString(R.string.eigenfaces)));
                 handler.post(new Runnable() {
                     @Override
                     public void run() {

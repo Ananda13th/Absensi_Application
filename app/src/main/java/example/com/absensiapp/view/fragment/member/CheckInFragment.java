@@ -52,7 +52,7 @@ public class CheckInFragment extends Fragment implements CheckInListener {
         checkInBinding.setCheck(new CheckInReqModel());
         checkInBinding.setOnClick(this);
         userId = sharedPreferences.getString("UserId", "");
-        checkInBinding.tvUserId.setText(userId);
+        checkInBinding.tvUserid.setText(userId);
         checkObserver();
     }
 

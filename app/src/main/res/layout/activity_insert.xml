@@ -20,61 +20,57 @@
             tools:context=".view.InsertActivity2">
 
             <TextView
-                android:id="@+id/tvUserId"
+                android:id="@+id/tv_userid"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="52dp"
+                android:layout_marginTop="75dp"
                 android:text="USER ID"
-                app:layout_constraintEnd_toStartOf="@+id/etUserId"
-                app:layout_constraintHorizontal_bias="0.489"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvName" />
+                app:layout_constraintStart_toStartOf="@id/tv_name"
+                app:layout_constraintTop_toBottomOf="@+id/tv_name" />
 
             <EditText
-                android:id="@+id/etName"
+                android:id="@+id/et_name"
                 android:layout_width="213dp"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="52dp"
+                android:layout_marginStart="56dp"
+                android:layout_marginTop="72dp"
+                android:layout_marginEnd="56dp"
                 android:ems="10"
                 android:inputType="textPersonName"
                 android:text="@={user.name}"
-                app:layout_constraintBottom_toBottomOf="@+id/tvName"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/tvName" />
+                app:layout_constraintStart_toEndOf="@+id/tv_name"
+                app:layout_constraintTop_toBottomOf="@id/tv_title" />
 
             <EditText
-                android:id="@+id/etUserId"
+                android:id="@+id/et_userId"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="52dp"
+                android:layout_marginTop="44dp"
+                android:layout_marginEnd="56dp"
                 android:ems="10"
                 android:inputType="textPersonName"
                 android:text="@={user.userId}"
-                app:layout_constraintBottom_toBottomOf="@+id/tvUserId"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/tvUserId"
-                app:layout_constraintVertical_bias="0.307" />
+                app:layout_constraintTop_toBottomOf="@+id/et_name" />
 
             <EditText
-                android:id="@+id/etPassword"
+                android:id="@+id/et_password"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="52dp"
+                android:layout_marginTop="44dp"
+                android:layout_marginEnd="56dp"
                 android:ems="10"
-                android:inputType="textPersonName"
+                android:inputType="textPassword"
                 android:text="@={user.password}"
-                app:layout_constraintBottom_toBottomOf="@+id/tvPassword"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/tvPassword"
-                app:layout_constraintVertical_bias="0.576" />
+                app:layout_constraintTop_toBottomOf="@+id/et_userId" />
 
             <TextView
-                android:id="@+id/tvTitle"
+                android:id="@+id/tv_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
                 android:layout_marginTop="88dp"
-                android:layout_marginEnd="8dp"
                 android:text="INSERT USER"
                 android:textAppearance="@style/TextAppearance.AppCompat.Display1"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -83,38 +79,34 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/tvName"
+                android:id="@+id/tv_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="68dp"
+                android:layout_marginStart="48dp"
+                android:layout_marginTop="83dp"
                 android:text="Name"
-                app:layout_constraintEnd_toStartOf="@+id/etName"
-                app:layout_constraintHorizontal_bias="0.487"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvTitle" />
+                app:layout_constraintTop_toBottomOf="@+id/tv_title" />
 
             <TextView
-                android:id="@+id/tvPassword"
+                android:id="@+id/tv_password"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="64dp"
+                android:layout_marginTop="70dp"
                 android:text="PASSWORD"
-                app:layout_constraintEnd_toStartOf="@+id/etPassword"
-                app:layout_constraintHorizontal_bias="0.479"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvUserId" />
+                app:layout_constraintStart_toStartOf="@id/tv_name"
+                app:layout_constraintTop_toBottomOf="@+id/tv_userid" />
 
             <Button
-                android:id="@+id/btnInsert"
+                android:id="@+id/btn_add"
                 android:layout_width="wrap_content"
                 android:layout_height="48dp"
                 android:layout_marginTop="132dp"
                 android:onClick="@{()->clickListener.onClickInsertListener(user)}"
                 android:text="ADD"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/etPassword"
+                app:layout_constraintTop_toBottomOf="@+id/et_password"
                 app:layout_constraintVertical_bias="0.0" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

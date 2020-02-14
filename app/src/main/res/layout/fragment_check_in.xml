@@ -17,7 +17,7 @@
         tools:context=".view.activity.member.MemberDashboardActivity">
 
         <Button
-            android:id="@+id/btnOut"
+            android:id="@+id/btn_out"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="76dp"
@@ -27,22 +27,26 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.651" />
+            app:layout_constraintVertical_bias="0.651"
+            android:textColor="@color/white"
+            android:background="@drawable/rounded_button"/>
 
         <Button
-            android:id="@+id/btnIn"
+            android:id="@+id/btn_in"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="76dp"
             android:onClick="@{()->onClick.onClickInButton(check)}"
             android:text="IN"
-            app:layout_constraintBottom_toBottomOf="@+id/btnOut"
+            app:layout_constraintBottom_toBottomOf="@+id/btn_out"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/btnOut"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintTop_toTopOf="@+id/btn_out"
+            app:layout_constraintVertical_bias="0.0"
+            android:textColor="@color/white"
+            android:background="@drawable/rounded_button"/>
 
         <TextView
-            android:id="@+id/tvChekIn"
+            android:id="@+id/tv_chek_in"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="161dp"
@@ -55,7 +59,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/tvUserId"
+            android:id="@+id/tv_userid"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="176dp"
@@ -64,7 +68,7 @@
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvChekIn"/>
+            app:layout_constraintTop_toBottomOf="@+id/tv_chek_in"/>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

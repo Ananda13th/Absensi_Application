@@ -15,6 +15,7 @@ import example.com.absensiapp.view.fragment.member.CheckInFragment;
 import example.com.absensiapp.view.fragment.member.SettingFragment;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -45,32 +46,32 @@ public class MemberDashboardActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_member_dashboard);
-        new initTrainingModel().execute();
-//        sharedPreferences = this.getSharedPreferences("LoginDetails", Context.MODE_PRIVATE);
-//        String hasTrainData = sharedPreferences.getString("HasTrainData", "");
-//        if(hasTrainData.equals("false")) {
-//            new initTrainingModel().execute();
-//            sharedPreferences.edit().putString("HasTrainData", "true").apply();
-//        }
+        //new initTrainingModel().execute();
+        SharedPreferences sharedPreferences = this.getSharedPreferences("LoginDetails", Context.MODE_PRIVATE);
+        String hasTrainData = sharedPreferences.getString("HasTrainData", "");
+        if(hasTrainData.equals("false")) {
+            new initTrainingModel().execute();
+            sharedPreferences.edit().putString("HasTrainData", "true").apply();
+        }
         fragment = new CheckInFragment();
-        fragmentManager.beginTransaction().replace(R.id.fragmentLayout, fragment).commit();
+        fragmentManager.beginTransaction().replace(R.id.fragment_layout, fragment).commit();
         setBottomNavgiation();
     }
 
 
     private void setBottomNavgiation() {
-        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation_view);
         bottomNavigationView.setOnNavigationItemReselectedListener(new BottomNavigationView.OnNavigationItemReselectedListener() {
             @Override
             public void onNavigationItemReselected(@NonNull MenuItem menuItem) {
                 switch (menuItem.getItemId()) {
                     case R.id.navigationCheckIn :
                         fragment = new CheckInFragment();
-                        fragmentManager.beginTransaction().replace(R.id.fragmentLayout, fragment).commit();
+                        fragmentManager.beginTransaction().replace(R.id.fragment_layout, fragment).commit();
                         break;
                     case R.id.navigationSetting:
                         fragment = new SettingFragment();
-                        fragmentManager.beginTransaction().replace(R.id.fragmentLayout, fragment).commit();
+                        fragmentManager.beginTransaction().replace(R.id.fragment_layout, fragment).commit();
                         break;
                 }
             }

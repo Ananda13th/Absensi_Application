@@ -4,6 +4,8 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -27,6 +29,7 @@ import example.com.absensiapp.view.activity.member.InitDataTrainingActivity;
 import example.com.absensiapp.view.utils.AeSimpleSHA1;
 import example.com.absensiapp.view.activity.LoginActivity;
 import example.com.absensiapp.view.listener.SettingListener;
+import example.com.absensiapp.view.utils.CustomDialog;
 import example.com.absensiapp.viewmodel.UserViewModel;
 
 public class SettingFragment extends Fragment implements SettingListener {
@@ -58,10 +61,12 @@ public class SettingFragment extends Fragment implements SettingListener {
 
     @Override
     public void onClickLogOutButton() {
-        sharedPreferences.edit().clear().apply();
-        Intent intent = new Intent(getActivity(), LoginActivity.class);
-        startActivity(intent);
-        getActivity().finish();
+        CustomDialog customDialog = new CustomDialog(this.getActivity());
+        customDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        customDialog.show();
+//        Intent intent = new Intent(getActivity(), LoginActivity.class);
+//        startActivity(intent);
+//        getActivity().finish();
     }
 
     @Override

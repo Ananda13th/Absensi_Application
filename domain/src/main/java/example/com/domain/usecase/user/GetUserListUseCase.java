@@ -1,11 +1,11 @@
 package example.com.domain.usecase.user;
 
-import example.com.domain.model.UserResp;
+import example.com.domain.model.UserList;
 import example.com.domain.repository.UserRepository;
 import example.com.domain.usecase.SingleUseCase;
 import io.reactivex.Single;
 
-public class GetUserListUseCase implements SingleUseCase<UserResp> {
+public class GetUserListUseCase implements SingleUseCase<UserList> {
 
     private final UserRepository userRepository;
 
@@ -14,7 +14,7 @@ public class GetUserListUseCase implements SingleUseCase<UserResp> {
     }
 
     @Override
-    public Single<UserResp> execute() {
+    public Single<UserList> execute() {
         return userRepository.doGetListUser();
     }
 }

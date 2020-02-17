@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="onClick"
+            type="example.com.absensiapp.view.listener.HistoryRecycleListener" />
+        <variable
+            name="inputHistory"
+            type="example.com.absensiapp.model.InputHistoryModel" />
+    </data>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".view.fragment.member.HistoryFragment">
+
+        <FrameLayout
+            android:id="@+id/fragment_search"
+            android:layout_width="409dp"
+            android:layout_height="100dp"
+            android:layout_marginStart="1dp"
+            android:layout_marginTop="1dp"
+            android:layout_marginEnd="1dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/recycler_view_history">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/search_window"
+                android:layout_width="match_parent"
+                android:layout_height="100dp">
+
+                <Spinner
+                    android:id="@+id/month_spinner"
+                    android:layout_width="200dp"
+                    android:layout_height="35dp"
+                    android:layout_marginStart="40dp"
+                    android:layout_marginTop="33dp"
+                    android:layout_marginEnd="22dp"
+                    android:layout_marginBottom="32dp"
+                    android:entries="@array/month"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/et_year"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.0" />
+
+                <EditText
+                    android:id="@+id/et_year"
+                    android:layout_width="71dp"
+                    android:layout_height="43dp"
+                    android:layout_marginEnd="13dp"
+                    android:ems="10"
+                    android:inputType="date"
+                    android:text="@={inputHistory.year}"
+                    app:layout_constraintBottom_toBottomOf="@+id/month_spinner"
+                    app:layout_constraintEnd_toStartOf="@+id/btn_search"
+                    app:layout_constraintTop_toTopOf="@+id/month_spinner" />
+
+                <ImageButton
+                    android:id="@+id/btn_search"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="32dp"
+                    android:onClick="@{()->onClick.onClickSearchButton(inputHistory)}"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:srcCompat="@drawable/ic_search_black" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </FrameLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view_history"
+            android:layout_width="match_parent"
+            android:layout_height="620dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

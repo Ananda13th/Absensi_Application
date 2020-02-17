@@ -1,6 +1,5 @@
 package example.com.absensiapp.view.adapter;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
@@ -13,19 +12,19 @@ import androidx.recyclerview.widget.RecyclerView;
 import example.com.absensiapp.R;
 import example.com.absensiapp.databinding.UserListBinding;
 import example.com.absensiapp.model.UserModel;
-import example.com.absensiapp.view.listener.RecycleListener;
+import example.com.absensiapp.view.listener.UserRecycleListener;
 
-public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> implements RecycleListener {
+public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> implements UserRecycleListener {
 
     private List<UserModel> userList = new ArrayList<>();
-    private RecycleListener clickListener;
+    private UserRecycleListener clickListener;
 
     public void setUserList(List<UserModel> userList) {
         this.userList = userList;
         notifyDataSetChanged();
     }
 
-    public void setOnClick(RecycleListener listener) {
+    public void setOnClick(UserRecycleListener listener) {
 
         this.clickListener = listener;
     }

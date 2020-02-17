@@ -1,28 +1,31 @@
 package example.com.domain;
 
-import android.os.UserManager;
-
 import org.junit.Assert;
 import org.junit.Test;
 
 import example.com.data.entity.BaseResponseEntity;
 import example.com.data.entity.UserEntity;
 import example.com.data.entity.UserRespEntity;
+import example.com.data.entity.mapper.HistoryEntityMapper;
 import example.com.data.entity.mapper.UserEntityMapper;
 import example.com.data.net.Service;
 import example.com.data.net.ServiceGenerator;
 import example.com.data.repository.BaseResponseRepositoryImpl;
+import example.com.data.repository.HistoryRepositoryImpl;
 import example.com.data.repository.UserRepositoryImpl;
 import example.com.domain.model.BaseResponse;
 import example.com.domain.model.CheckInReq;
+import example.com.domain.model.InputHistory;
+import example.com.domain.model.OutputHistory;
 import example.com.domain.model.User;
-import example.com.domain.model.UserResp;
+import example.com.domain.model.UserList;
 import example.com.domain.usecase.user.AddUserUseCase;
 import example.com.domain.usecase.user.CheckInUseCase;
 import example.com.domain.usecase.user.DeleteUserUseCase;
 import example.com.domain.usecase.user.GetUserListUseCase;
 import example.com.domain.usecase.user.GetUserUseCase;
 import example.com.domain.usecase.user.LoginUseCase;
+import example.com.domain.usecase.user.SearchHistoryUseCase;
 import example.com.domain.usecase.user.UpdateUserUseCase;
 import io.reactivex.Scheduler;
 import io.reactivex.Single;
@@ -107,9 +110,9 @@ public class UserTest {
         Scheduler scheduler = Schedulers.io();
         Service service = ServiceGenerator.getService();
         UserRepositoryImpl userRepository = new UserRepositoryImpl(userMapper,scheduler,service);
-        Single<UserResp> resp = userRepository.doGetListUser();
+        Single<UserList> resp = userRepository.doGetListUser();
 
-        TestObserver<UserResp> testObserver = new TestObserver<>();
+        TestObserver<UserList> testObserver = new TestObserver<>();
         resp.subscribe(testObserver);
         testObserver.awaitTerminalEvent();
         testObserver.assertComplete();
@@ -205,8 +208,8 @@ public class UserTest {
 
         GetUserListUseCase userUseCase = new GetUserListUseCase(userRepository);
 
-        Single<UserResp> resp = userUseCase.execute();
-        TestObserver<UserResp> testObserver = new TestObserver<>();
+        Single<UserList> resp = userUseCase.execute();
+        TestObserver<UserList> testObserver = new TestObserver<>();
         resp.subscribe(testObserver);
         testObserver.awaitTerminalEvent();
         testObserver.assertComplete();
@@ -306,7 +309,7 @@ public class UserTest {
     }
 
     @Test
-    public void T009_CheckStateUseCaseTest() {
+    public void T019_CheckStateUseCaseTest() {
         UserEntityMapper userMapper = new UserEntityMapper();
         Scheduler scheduler = Schedulers.io();
         Service service = ServiceGenerator.getService();
@@ -315,6 +318,23 @@ public class UserTest {
         CheckInReq check = new CheckInReq();
         Single<BaseResponse> resp =checkInUseCase.execute(check);
         TestObserver<BaseResponse> testObserver = new TestObserver<>();
+        resp.subscribe(testObserver);
+        testObserver.awaitTerminalEvent();
+        testObserver.assertComplete();
+        testObserver.assertNoErrors();
+        Assert.assertEquals("00", testObserver.values().get(0).getErrorCode());
+    }
+
+    @Test
+    public void T020_SearchHistoryUseCaseTest() {
+        HistoryEntityMapper mapper = new HistoryEntityMapper();
+        Scheduler scheduler = Schedulers.io();
+        Service service = ServiceGenerator.getService();
+        HistoryRepositoryImpl historyRepository = new HistoryRepositoryImpl(mapper,scheduler,service);
+        SearchHistoryUseCase historyUseCase = new SearchHistoryUseCase(historyRepository);
+        InputHistory inputHistory = new InputHistory();
+        Single<OutputHistory> resp = historyUseCase.execute(inputHistory);
+        TestObserver<OutputHistory> testObserver = new TestObserver<>();
         resp.subscribe(testObserver);
         testObserver.awaitTerminalEvent();
         testObserver.assertComplete();

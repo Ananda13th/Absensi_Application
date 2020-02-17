@@ -25,7 +25,9 @@ import example.com.absensiapp.databinding.ChangePasswordLayoutBinding;
 import example.com.absensiapp.databinding.FragmentSettingBinding;
 import example.com.absensiapp.model.BaseResponseModel;
 import example.com.absensiapp.model.UserModel;
+import example.com.absensiapp.view.activity.member.AddPersonFormActivity;
 import example.com.absensiapp.view.activity.member.InitDataTrainingActivity;
+import example.com.absensiapp.view.activity.member.TrainingDataActivity;
 import example.com.absensiapp.view.utils.AeSimpleSHA1;
 import example.com.absensiapp.view.activity.LoginActivity;
 import example.com.absensiapp.view.listener.SettingListener;
@@ -64,9 +66,6 @@ public class SettingFragment extends Fragment implements SettingListener {
         CustomDialog customDialog = new CustomDialog(this.getActivity());
         customDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         customDialog.show();
-//        Intent intent = new Intent(getActivity(), LoginActivity.class);
-//        startActivity(intent);
-//        getActivity().finish();
     }
 
     @Override
@@ -94,8 +93,14 @@ public class SettingFragment extends Fragment implements SettingListener {
     }
 
     @Override
-    public void onClickTrainButton() {
+    public void onClickSyncButton() {
         Intent intent = new Intent(getActivity().getApplicationContext(), InitDataTrainingActivity.class);
+        startActivity(intent);
+    }
+
+    @Override
+    public void onClickTrainButton() {
+        Intent intent = new Intent(getActivity().getApplicationContext(), AddPersonFormActivity.class);
         startActivity(intent);
     }
 

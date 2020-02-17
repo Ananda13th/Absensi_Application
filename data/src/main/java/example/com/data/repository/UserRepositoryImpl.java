@@ -4,7 +4,7 @@ import example.com.data.entity.mapper.UserEntityMapper;
 import example.com.data.net.Service;
 import example.com.data.net.ServiceGenerator;
 import example.com.domain.model.User;
-import example.com.domain.model.UserResp;
+import example.com.domain.model.UserList;
 import example.com.domain.repository.UserRepository;
 import io.reactivex.Scheduler;
 import io.reactivex.Single;
@@ -22,7 +22,7 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
-    public Single<UserResp> doGetListUser() {
+    public Single<UserList> doGetListUser() {
         final Service service = ServiceGenerator.getService();
         return Single.defer(()->service.getUserList())
                 .map(userMapper::userRespToDomain)

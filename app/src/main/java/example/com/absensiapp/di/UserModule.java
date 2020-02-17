@@ -3,14 +3,18 @@ package example.com.absensiapp.di;
 import dagger.Module;
 import dagger.Provides;
 import example.com.absensiapp.model.mapper.BaseResponseMapper;
+import example.com.absensiapp.model.mapper.HistoryMapper;
 import example.com.absensiapp.model.mapper.UserMapper;
 import example.com.data.entity.mapper.BaseResponseEntityMapper;
+import example.com.data.entity.mapper.HistoryEntityMapper;
 import example.com.data.entity.mapper.UserEntityMapper;
 import example.com.data.net.Service;
 import example.com.data.net.ServiceGenerator;
 import example.com.data.repository.BaseResponseRepositoryImpl;
+import example.com.data.repository.HistoryRepositoryImpl;
 import example.com.data.repository.UserRepositoryImpl;
 import example.com.domain.repository.BaseResponseRepository;
+import example.com.domain.repository.HistoryRepository;
 import example.com.domain.repository.UserRepository;
 import example.com.domain.usecase.user.AddUserUseCase;
 import example.com.domain.usecase.user.CheckInUseCase;
@@ -18,6 +22,7 @@ import example.com.domain.usecase.user.DeleteUserUseCase;
 import example.com.domain.usecase.user.GetUserListUseCase;
 import example.com.domain.usecase.user.GetUserUseCase;
 import example.com.domain.usecase.user.LoginUseCase;
+import example.com.domain.usecase.user.SearchHistoryUseCase;
 import example.com.domain.usecase.user.UpdateUserUseCase;
 import io.reactivex.Scheduler;
 import io.reactivex.schedulers.Schedulers;
@@ -32,10 +37,16 @@ public class UserModule {
     UserMapper provideUserMapper() {return new UserMapper();}
 
     @Provides
+    HistoryMapper provideHistoryMapper() {return new HistoryMapper();}
+
+    @Provides
     BaseResponseEntityMapper provideBaseResponseEntityMapper() {return new BaseResponseEntityMapper();}
 
     @Provides
     UserEntityMapper provideUserEntityMapper() {return new UserEntityMapper();}
+
+    @Provides
+    HistoryEntityMapper provideHistoryEntityMapper() {return new HistoryEntityMapper();}
 
     @Provides
     Scheduler provideScheduler() {return Schedulers.io();}
@@ -46,6 +57,11 @@ public class UserModule {
     @Provides
     UserRepository provideUserRepository(UserEntityMapper userEntityMapper, Scheduler scheduler, Service service) {
         return new UserRepositoryImpl(userEntityMapper, scheduler, service);
+    }
+
+    @Provides
+    HistoryRepository provideHistoryRepository(HistoryEntityMapper historyEntityMapper, Scheduler scheduler, Service service) {
+        return new HistoryRepositoryImpl(historyEntityMapper, scheduler,service);
     }
 
     @Provides
@@ -86,6 +102,11 @@ public class UserModule {
     @Provides
     CheckInUseCase provideCheckInUseCase (BaseResponseRepository baseResponseRepository) {
         return new CheckInUseCase(baseResponseRepository);
+    }
+
+    @Provides
+    SearchHistoryUseCase provideHistoryUseCase (HistoryRepository historyRepository) {
+        return new SearchHistoryUseCase(historyRepository);
     }
 
 }

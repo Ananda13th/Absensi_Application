@@ -4,9 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import ch.zhaw.facerecognitionlibrary.Helpers.FileHelper;
 import example.com.absensiapp.R;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -17,16 +15,14 @@ import android.widget.ToggleButton;
 import java.io.File;
 
 public class AddPersonFormActivity extends AppCompatActivity {
-    SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_person_form);
-        sharedPreferences = this.getSharedPreferences("LoginDetails", Context.MODE_PRIVATE);
-        final ToggleButton btnTrainingTest = (ToggleButton)findViewById(R.id.btnTrainingTest);
-        final ToggleButton btnReferenceDeviation = (ToggleButton)findViewById(R.id.btnReferenceDeviation);
-        final ToggleButton btnTimeManually = (ToggleButton)findViewById(R.id.btnTimeManually);
+        final ToggleButton btnTrainingTest = findViewById(R.id.btnTrainingTest);
+        final ToggleButton btnReferenceDeviation = findViewById(R.id.btnReferenceDeviation);
+        final ToggleButton btnTimeManually = findViewById(R.id.btnTimeManually);
         btnTrainingTest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -38,12 +34,11 @@ public class AddPersonFormActivity extends AppCompatActivity {
             }
         });
 
-        Button btn_Start = (Button)findViewById(R.id.btn_Start);
+        Button btn_Start = findViewById(R.id.btn_Start);
         btn_Start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                EditText txt_Name = (EditText)findViewById(R.id.txt_Name);
-                txt_Name.setText(sharedPreferences.getString("Name", ""));
+                EditText txt_Name = findViewById(R.id.txt_Name);
                 String name = txt_Name.getText().toString();
                 Intent intent = new Intent(v.getContext(), TrainingDataActivity.class);
                 intent.putExtra("Name", name);
@@ -56,7 +51,6 @@ public class AddPersonFormActivity extends AppCompatActivity {
                 }
 
                 if(btnTrainingTest.isChecked()){
-                    // Add photos to "Test" folder
                     if(isNameAlreadyUsed(new FileHelper().getTestList(), name)){
                         Toast.makeText(getApplicationContext(), "This name is already used. Please choose another one.", Toast.LENGTH_SHORT).show();
                     } else {
@@ -69,7 +63,6 @@ public class AddPersonFormActivity extends AppCompatActivity {
                         startActivity(intent);
                     }
                 } else {
-                    // Add photos to "Training" folder
 
                     if(isNameAlreadyUsed(new FileHelper().getTrainingList(), name)){
                         Toast.makeText(getApplicationContext(), "This name is already used. Please choose another one.", Toast.LENGTH_SHORT).show();
@@ -86,7 +79,6 @@ public class AddPersonFormActivity extends AppCompatActivity {
         boolean used = false;
         if(list != null && list.length > 0){
             for(File person : list){
-                // The last token is the name --> Folder name = Person name
                 String[] tokens = person.getAbsolutePath().split("/");
                 final String foldername = tokens[tokens.length-1];
                 if(foldername.equals(name)){

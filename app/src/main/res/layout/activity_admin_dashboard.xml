@@ -3,7 +3,7 @@
     <data>
         <variable
             name="onCLick"
-            type="example.com.absensiapp.view.listener.RecycleListener" />
+            type="example.com.absensiapp.view.listener.UserRecycleListener" />
     </data>
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
@@ -14,7 +14,7 @@
     tools:context=".view.activity.LoginActivity">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_view"
+        android:id="@+id/recycler_view_history"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:layout_editor_absoluteX="16dp" />

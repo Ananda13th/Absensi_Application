@@ -7,6 +7,6 @@ import lombok.EqualsAndHashCode;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
-public class UserResp extends BaseResponse{
+public class UserList extends BaseResponse{
     private List<User> userList;
 }

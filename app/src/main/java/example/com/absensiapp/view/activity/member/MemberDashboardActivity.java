@@ -12,6 +12,7 @@ import ch.zhaw.facerecognitionlibrary.Recognition.Recognition;
 import ch.zhaw.facerecognitionlibrary.Recognition.RecognitionFactory;
 import example.com.absensiapp.R;
 import example.com.absensiapp.view.fragment.member.CheckInFragment;
+import example.com.absensiapp.view.fragment.member.HistoryFragment;
 import example.com.absensiapp.view.fragment.member.SettingFragment;
 
 import android.app.ProgressDialog;
@@ -71,6 +72,10 @@ public class MemberDashboardActivity extends AppCompatActivity{
                         break;
                     case R.id.navigationSetting:
                         fragment = new SettingFragment();
+                        fragmentManager.beginTransaction().replace(R.id.fragment_layout, fragment).commit();
+                        break;
+                    case R.id.navigationHistory:
+                        fragment = new HistoryFragment();
                         fragmentManager.beginTransaction().replace(R.id.fragment_layout, fragment).commit();
                         break;
                 }

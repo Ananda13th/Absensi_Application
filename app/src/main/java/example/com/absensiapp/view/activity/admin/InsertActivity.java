@@ -60,4 +60,6 @@ public class InsertActivity extends AppCompatActivity implements InsertListener 
         Log.d("TET", user.toString());
         userViewModel.addUser(user);
     }
+
+
 }

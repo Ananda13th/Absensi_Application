@@ -2,7 +2,7 @@ package example.com.absensiapp.view.listener;
 
 import example.com.absensiapp.model.UserModel;
 
-public interface RecycleListener {
+public interface UserRecycleListener {
 
     void onClickCardView(UserModel userModel);
     void onClickDeleteButton(String userId);

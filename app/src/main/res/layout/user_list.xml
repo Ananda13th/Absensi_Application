@@ -6,7 +6,7 @@
             type="example.com.absensiapp.model.UserModel" />
         <variable
             name="onClick"
-            type="example.com.absensiapp.view.listener.RecycleListener" />
+            type="example.com.absensiapp.view.listener.UserRecycleListener" />
     </data>
     <androidx.cardview.widget.CardView
 

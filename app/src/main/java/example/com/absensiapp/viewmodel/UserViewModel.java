@@ -1,7 +1,5 @@
 package example.com.absensiapp.viewmodel;
 
-import android.util.Log;
-
 import javax.inject.Inject;
 
 import androidx.lifecycle.LiveData;
@@ -11,7 +9,7 @@ import example.com.absensiapp.di.DaggerUserComponent;
 import example.com.absensiapp.model.BaseResponseModel;
 import example.com.absensiapp.model.CheckInReqModel;
 import example.com.absensiapp.model.UserModel;
-import example.com.absensiapp.model.UserRespModel;
+import example.com.absensiapp.model.UserListModel;
 import example.com.absensiapp.model.mapper.BaseResponseMapper;
 import example.com.absensiapp.model.mapper.UserMapper;
 import example.com.domain.usecase.user.AddUserUseCase;
@@ -27,7 +25,7 @@ import io.reactivex.observers.DisposableSingleObserver;
 
 public class UserViewModel extends ViewModel {
 
-    private MutableLiveData<UserRespModel> userResp;
+    private MutableLiveData<UserListModel> userResp;
     private MutableLiveData<BaseResponseModel> baseResp;
     private MutableLiveData<UserModel> user;
 
@@ -57,7 +55,7 @@ public class UserViewModel extends ViewModel {
     @Inject
     public CheckInUseCase checkInUseCase;
 
-    public LiveData<UserRespModel> getRespUser() {
+    public LiveData<UserListModel> getRespUser() {
         if(userResp == null) {
             userResp = new MutableLiveData<>();
             loadUserResp();
@@ -81,13 +79,13 @@ public class UserViewModel extends ViewModel {
 
     private void loadUserResp() {
         getUserListUseCase.execute()
-                .map(userMapper::userRespToView)
+                .map(userMapper::userListRespToView)
                 .subscribeOn(scheduler)
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribeWith(new DisposableSingleObserver<UserRespModel>() {
+                .subscribeWith(new DisposableSingleObserver<UserListModel>() {
                     @Override
-                    public void onSuccess(UserRespModel userRespModel) {
-                        userResp.setValue(userRespModel);
+                    public void onSuccess(UserListModel userListModel) {
+                        userResp.setValue(userListModel);
                     }
 
                     @Override

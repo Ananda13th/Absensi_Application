@@ -1,7 +1,5 @@
 package example.com.data.entity.mapper;
 
-import android.util.Log;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,12 +8,12 @@ import example.com.data.entity.UserEntity;
 import example.com.data.entity.UserRespEntity;
 import example.com.domain.model.CheckInReq;
 import example.com.domain.model.User;
-import example.com.domain.model.UserResp;
+import example.com.domain.model.UserList;
 
 public class UserEntityMapper extends BaseResponseEntityMapper {
 
-    public UserResp userRespToDomain(UserRespEntity respEntity) {
-        UserResp userResp = new UserResp();
+    public UserList userRespToDomain(UserRespEntity respEntity) {
+        UserList userResp = new UserList();
         List<User> userList = new ArrayList<>();
 
         userResp.setErrorCode(respEntity.getErrorCode());

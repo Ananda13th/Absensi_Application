@@ -1,20 +1,19 @@
 package example.com.absensiapp.model.mapper;
 
-import android.util.Log;
-
 import java.util.ArrayList;
 import java.util.List;
 
 import example.com.absensiapp.model.CheckInReqModel;
 import example.com.absensiapp.model.UserModel;
-import example.com.absensiapp.model.UserRespModel;
+import example.com.absensiapp.model.UserListModel;
 import example.com.domain.model.CheckInReq;
 import example.com.domain.model.User;
-import example.com.domain.model.UserResp;
+import example.com.domain.model.UserList;
 
 public class UserMapper extends BaseResponseMapper {
-    public UserRespModel userRespToView(UserResp userRespFromDomain) {
-        UserRespModel userRespModel = new UserRespModel();
+
+    public UserListModel userListRespToView(UserList userRespFromDomain) {
+        UserListModel userListModel = new UserListModel();
         List<UserModel> userList = new ArrayList<>();
 
         for(int i=0;i<userRespFromDomain.getUserList().size();i++)
@@ -28,8 +27,8 @@ public class UserMapper extends BaseResponseMapper {
             userModel.setRole(user.getRole());
             userList.add(userModel);
         }
-        userRespModel.setUserList(userList);
-        return userRespModel;
+        userListModel.setUserList(userList);
+        return userListModel;
     }
 
     public UserModel userToView(User userFromDomain) {

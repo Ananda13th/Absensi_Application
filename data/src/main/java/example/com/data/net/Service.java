@@ -2,6 +2,8 @@ package example.com.data.net;
 
 import example.com.data.entity.BaseResponseEntity;
 import example.com.data.entity.CheckInReqEntity;
+import example.com.data.entity.InputHistoryEntity;
+import example.com.data.entity.OutputHistoryEntity;
 import example.com.data.entity.UserEntity;
 import example.com.data.entity.UserRespEntity;
 import io.reactivex.Single;
@@ -32,6 +34,9 @@ public interface Service {
     @PUT("interns/{userId}")
     Single<BaseResponseEntity> updateUser(@Path("userId") String id, @Body UserEntity user);
 
-    @POST("interns/state")
+    @POST("/absentmg-in-out/absent")
     Single<BaseResponseEntity> checkUser(@Body CheckInReqEntity check);
+
+    @POST("/absentmg-in-out/history")
+    Single<OutputHistoryEntity> historyUser(@Body InputHistoryEntity inputHistory);
 }

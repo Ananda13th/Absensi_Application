@@ -17,7 +17,7 @@
             android:id="@+id/btn_change_password"
             android:layout_width="120dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="180dp"
+            android:layout_marginTop="150dp"
             android:background="@drawable/rounded_button"
             android:drawableTop="@drawable/ic_create"
             android:onClick="@{()->onClick.onClickChangePasswordButton()}"
@@ -43,6 +43,20 @@
             android:drawableTop="@drawable/ic_camera"/>
 
         <Button
+            android:id="@+id/btn_synching"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="44dp"
+            android:onClick="@{()->onClick.onClickSyncButton()}"
+            android:text="SYNCH DATA"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btn_train_data"
+            android:background="@drawable/rounded_button"
+            android:textColor="@color/white"
+            android:drawableTop="@drawable/ic_sync"/>
+
+        <Button
             android:id="@+id/btn_log_out"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
@@ -54,7 +68,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/btn_train_data"
+            app:layout_constraintTop_toBottomOf="@id/btn_synching"
             android:drawableTop="@drawable/ic_exit_to_app"/>
 
 

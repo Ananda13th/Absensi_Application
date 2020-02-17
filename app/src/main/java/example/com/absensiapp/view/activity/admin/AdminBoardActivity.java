@@ -9,7 +9,7 @@ import example.com.absensiapp.R;
 import example.com.absensiapp.model.BaseResponseModel;
 import example.com.absensiapp.model.UserModel;
 import example.com.absensiapp.view.adapter.UserAdapter;
-import example.com.absensiapp.view.listener.RecycleListener;
+import example.com.absensiapp.view.listener.UserRecycleListener;
 import example.com.absensiapp.viewmodel.UserViewModel;
 
 import android.content.DialogInterface;
@@ -38,11 +38,11 @@ public class AdminBoardActivity extends AppCompatActivity{
             }
         });
         setUserList();
-        RecyclerView recyclerView = findViewById(R.id.recycler_view);
+        RecyclerView recyclerView = findViewById(R.id.recycler_view_history);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
-        adapter.setOnClick(new RecycleListener() {
+        adapter.setOnClick(new UserRecycleListener() {
             @Override
             public void onClickCardView(UserModel userModel) {
             }

@@ -66,8 +66,7 @@ public class RecognitionActivity extends AppCompatActivity implements CameraBrid
         sharedPreferences = this.getSharedPreferences("LoginDetails", Context.MODE_PRIVATE);
         Intent intent = this.getIntent();
         check = (CheckInReqModel) getIntent().getSerializableExtra("checkModel");
-        Log.d("TET", check.toString());
-        progressBar = (ProgressBar)findViewById(R.id.progressBar);
+        progressBar = findViewById(R.id.progressBar);
         FileHelper fileHelper = new FileHelper();
         File folder = new File(fileHelper.getFolderPath());
         if(folder.mkdir() || folder.isDirectory()){
@@ -75,8 +74,7 @@ public class RecognitionActivity extends AppCompatActivity implements CameraBrid
         } else {
             Log.i(TAG,"Photos directory already existing");
         }
-        mRecognitionView = (CustomCameraView) findViewById(R.id.RecognitionView);
-        // Use camera which is selected in settings
+        mRecognitionView = findViewById(R.id.RecognitionView);
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
         front_camera = sharedPref.getBoolean("key_front_camera", true);
         night_portrait = sharedPref.getBoolean("key_night_portrait", false);
@@ -126,11 +124,11 @@ public class RecognitionActivity extends AppCompatActivity implements CameraBrid
     public Mat onCameraFrame(CameraBridgeViewBase.CvCameraViewFrame inputFrame) {
         Mat imgRgba = inputFrame.rgba();
         Mat img = new Mat();
+        boolean state = true;
         imgRgba.copyTo(img);
         List<Mat> images = ppF.getProcessedImage(img, PreProcessorFactory.PreprocessingMode.RECOGNITION);
         Rect[] faces = ppF.getFacesForRecognition();
 
-        // Selfie / Mirror mode
         if(front_camera){
             Core.flip(imgRgba,imgRgba,1);
         }
@@ -142,10 +140,9 @@ public class RecognitionActivity extends AppCompatActivity implements CameraBrid
             for(int i = 0; i<faces.length; i++){
                 MatOperation.drawRectangleAndLabelOnPreview(imgRgba, faces[i], rec.recognize(images.get(i), ""), front_camera);
                 String name = rec.recognize(images.get(i), "");
-                if(name.equals(sharedPreferences.getString("Name", "")))
+                state = name.equals(sharedPreferences.getString("Name", ""));
+                if(state)
                     userViewModel.checkInUser(check);
-                else
-                    toast("Wrong Face");
             }
             return imgRgba;
         }
@@ -169,7 +166,7 @@ public class RecognitionActivity extends AppCompatActivity implements CameraBrid
                 });
                 SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
                 String algorithm = sharedPref.getString("key_classification_method", getResources().getString(R.string.eigenfaces));
-                rec = RecognitionFactory.getRecognitionAlgorithm(getApplicationContext(), Recognition.RECOGNITION, sharedPref.getString("key_classification_method", getResources().getString(R.string.eigenfaces)));
+                rec = RecognitionFactory.getRecognitionAlgorithm(getApplicationContext(), Recognition.RECOGNITION, algorithm);
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
@@ -181,7 +178,6 @@ public class RecognitionActivity extends AppCompatActivity implements CameraBrid
 
         t.start();
 
-        // Wait until Eigenfaces loading thread has finished
         try {
             t.join();
         } catch (InterruptedException e) {

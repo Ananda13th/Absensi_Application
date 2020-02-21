@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:tools="http://schemas.android.com/tools"
+<layout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
@@ -29,20 +29,6 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <Button
-            android:id="@+id/btn_train_data"
-            android:layout_width="120dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="44dp"
-            android:onClick="@{()->onClick.onClickTrainButton()}"
-            android:text="TRAIN DATA"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/btn_change_password"
-            android:background="@drawable/rounded_button"
-            android:textColor="@color/white"
-            android:drawableTop="@drawable/ic_camera"/>
-
-        <Button
             android:id="@+id/btn_synching"
             android:layout_width="120dp"
             android:layout_height="wrap_content"
@@ -51,7 +37,7 @@
             android:text="SYNCH DATA"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/btn_train_data"
+            app:layout_constraintTop_toBottomOf="@id/btn_change_password"
             android:background="@drawable/rounded_button"
             android:textColor="@color/white"
             android:drawableTop="@drawable/ic_sync"/>

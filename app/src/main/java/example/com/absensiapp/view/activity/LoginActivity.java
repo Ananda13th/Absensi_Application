@@ -41,10 +41,12 @@ public class LoginActivity extends AppCompatActivity implements LoginListener {
         if(!new PrefManager(this).isUserLogedOut() && new PrefManager(this).isAdmin()) {
             Intent intent = new Intent(getApplicationContext(), AdminBoardActivity.class);
             startActivity(intent);
+            finish();
         }
         if(!new PrefManager(this).isUserLogedOut() && !new PrefManager(this).isAdmin()) {
             Intent intent = new Intent(getApplicationContext(), MemberDashboardActivity.class);
             startActivity(intent);
+            finish();
         }
         loginBinding.setOnClick(this);
         loginBinding.setUser(new UserModel());

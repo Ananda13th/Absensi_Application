@@ -4,6 +4,7 @@ import example.com.data.entity.mapper.UserEntityMapper;
 import example.com.data.net.Service;
 import example.com.domain.model.BaseResponse;
 import example.com.domain.model.CheckInReq;
+import example.com.domain.model.OverrideReq;
 import example.com.domain.model.User;
 import example.com.domain.repository.BaseResponseRepository;
 import io.reactivex.Scheduler;
@@ -47,4 +48,5 @@ public class BaseResponseRepositoryImpl implements BaseResponseRepository {
                 .map(userMapper::baseResponseToDomain)
                 .subscribeOn(scheduler);
     }
+
 }

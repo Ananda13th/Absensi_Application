@@ -5,18 +5,14 @@ import org.junit.Test;
 
 import example.com.data.entity.BaseResponseEntity;
 import example.com.data.entity.UserEntity;
-import example.com.data.entity.UserRespEntity;
-import example.com.data.entity.mapper.HistoryEntityMapper;
+import example.com.data.entity.UserListEntity;
 import example.com.data.entity.mapper.UserEntityMapper;
 import example.com.data.net.Service;
 import example.com.data.net.ServiceGenerator;
 import example.com.data.repository.BaseResponseRepositoryImpl;
-import example.com.data.repository.HistoryRepositoryImpl;
 import example.com.data.repository.UserRepositoryImpl;
 import example.com.domain.model.BaseResponse;
 import example.com.domain.model.CheckInReq;
-import example.com.domain.model.InputHistory;
-import example.com.domain.model.OutputHistory;
 import example.com.domain.model.User;
 import example.com.domain.model.UserList;
 import example.com.domain.usecase.user.AddUserUseCase;
@@ -25,7 +21,6 @@ import example.com.domain.usecase.user.DeleteUserUseCase;
 import example.com.domain.usecase.user.GetUserListUseCase;
 import example.com.domain.usecase.user.GetUserUseCase;
 import example.com.domain.usecase.user.LoginUseCase;
-import example.com.domain.usecase.user.SearchHistoryUseCase;
 import example.com.domain.usecase.user.UpdateUserUseCase;
 import io.reactivex.Scheduler;
 import io.reactivex.Single;
@@ -36,9 +31,9 @@ public class UserTest {
     @Test
     public void T001_GetUserListTest() {
         Service service = ServiceGenerator.getService();
-        Single<UserRespEntity> resp = service.getUserList();
+        Single<UserListEntity> resp = service.getUserList();
 
-        TestObserver<UserRespEntity> testObserver = new TestObserver<>();
+        TestObserver<UserListEntity> testObserver = new TestObserver<>();
         resp.subscribe(testObserver);
         testObserver.assertComplete();
         testObserver.assertNoErrors();
@@ -325,20 +320,7 @@ public class UserTest {
         Assert.assertEquals("00", testObserver.values().get(0).getErrorCode());
     }
 
-    @Test
-    public void T020_SearchHistoryUseCaseTest() {
-        HistoryEntityMapper mapper = new HistoryEntityMapper();
-        Scheduler scheduler = Schedulers.io();
-        Service service = ServiceGenerator.getService();
-        HistoryRepositoryImpl historyRepository = new HistoryRepositoryImpl(mapper,scheduler,service);
-        SearchHistoryUseCase historyUseCase = new SearchHistoryUseCase(historyRepository);
-        InputHistory inputHistory = new InputHistory();
-        Single<OutputHistory> resp = historyUseCase.execute(inputHistory);
-        TestObserver<OutputHistory> testObserver = new TestObserver<>();
-        resp.subscribe(testObserver);
-        testObserver.awaitTerminalEvent();
-        testObserver.assertComplete();
-        testObserver.assertNoErrors();
-        Assert.assertEquals("00", testObserver.values().get(0).getErrorCode());
-    }
+
+
+
 }

@@ -1,7 +1,6 @@
 package example.com.absensiapp.view.activity.member;
 
 import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 import ch.zhaw.facerecognitionlibrary.Helpers.CustomCameraView;
 import ch.zhaw.facerecognitionlibrary.Helpers.FileHelper;
 import ch.zhaw.facerecognitionlibrary.Helpers.MatName;
@@ -15,14 +14,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.SurfaceView;
-import android.view.View;
-import android.widget.ImageButton;
-import android.widget.Toast;
 
 import org.opencv.android.CameraBridgeViewBase;
 import org.opencv.android.OpenCVLoader;
@@ -31,6 +28,9 @@ import org.opencv.core.Mat;
 import org.opencv.core.Rect;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 
@@ -38,27 +38,24 @@ public class TrainingDataActivity extends Activity implements CameraBridgeViewBa
     public static final int TIME = 0;
     public static final int MANUALLY = 1;
     private CustomCameraView mAddPersonView;
-    // The timerDiff defines after how many milliseconds a picture is taken
     private long timerDiff;
     private long lastTime;
     private PreProcessorFactory ppF;
     private FileHelper fh;
-    private String folder;
-    private String subfolder;
+    //    private String subfolder;
     private String name;
     private int total;
     private int numberOfPictures;
     private int method;
-    private ImageButton btn_Capture;
+//    private ImageButton btn_Capture;
     private boolean capturePressed;
     private boolean front_camera;
     private boolean night_portrait;
     private int exposure_compensation;
-    private SharedPreferences sharedPreferences;
 
     static {
         if (!OpenCVLoader.initDebug()) {
-            // Handle initialization error
+            Log.d("OpenCV", "OpenCV Not Loaded");
         }
     }
 
@@ -67,25 +64,25 @@ public class TrainingDataActivity extends Activity implements CameraBridgeViewBa
         super.onCreate(savedInstanceState);
         checkPermission();
         setContentView(R.layout.activity_training_data);
-        sharedPreferences = this.getSharedPreferences("LoginDetails", Context.MODE_PRIVATE);
+        SharedPreferences sharedPreferences = this.getSharedPreferences("LoginDetails", Context.MODE_PRIVATE);
         Intent intent = getIntent();
-        folder = intent.getStringExtra("Folder");
-        if(folder.equals("Test")){
-            subfolder = intent.getStringExtra("Subfolder");
-        }
+        String folder = intent.getStringExtra("Folder");
+//        if(folder.equals("Test")){
+//            subfolder = intent.getStringExtra("Subfolder");
+//        }
         name = sharedPreferences.getString("Name", "");
         method = intent.getIntExtra("Method", 0);
         capturePressed = false;
-        if(method == MANUALLY){
-            btn_Capture = (ImageButton)findViewById(R.id.btn_Capture);
-            btn_Capture.setVisibility(View.VISIBLE);
-            btn_Capture.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    capturePressed = true;
-                }
-            });
-        }
+//        if(method == MANUALLY){
+//            btn_Capture = (ImageButton)findViewById(R.id.btn_Capture);
+//            btn_Capture.setVisibility(View.VISIBLE);
+//            btn_Capture.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    capturePressed = true;
+//                }
+//            });
+//        }
 
         fh = new FileHelper();
         total = 0;
@@ -95,7 +92,6 @@ public class TrainingDataActivity extends Activity implements CameraBridgeViewBa
         timerDiff = Integer.valueOf(sharedPrefs.getString("key_timerDiff", "500"));
 
         mAddPersonView = (CustomCameraView) findViewById(R.id.AddPersonPreview);
-        // Use camera which is selected in settings
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
         front_camera = sharedPref.getBoolean("key_front_camera", true);
 
@@ -138,7 +134,6 @@ public class TrainingDataActivity extends Activity implements CameraBridgeViewBa
         Mat imgRgba = inputFrame.rgba();
         Mat imgCopy = new Mat();
         imgRgba.copyTo(imgCopy);
-        // Selfie / Mirror mode
         if(front_camera){
             Core.flip(imgRgba,imgRgba,1);
         }
@@ -147,25 +142,34 @@ public class TrainingDataActivity extends Activity implements CameraBridgeViewBa
         if((method == MANUALLY) || (method == TIME) && (lastTime + timerDiff < time)){
             lastTime = time;
 
-            // Check that only 1 face is found. Skip if any or more than 1 are found.
             List<Mat> images = ppF.getCroppedImage(imgCopy);
             if (images != null && images.size() == 1){
                 Mat img = images.get(0);
                 if(img != null){
                     Rect[] faces = ppF.getFacesForRecognition();
-                    //Only proceed if 1 face has been detected, ignore if 0 or more than 1 face have been detected
                     if((faces != null) && (faces.length == 1)){
                         faces = MatOperation.rotateFaces(imgRgba, faces, ppF.getAngleForRecognition());
                         if(((method == MANUALLY) && capturePressed) || (method == TIME)){
+
                             MatName m = new MatName(name + "_" + total, img);
-                            if (folder.equals("Test")) {
-                                String wholeFolderPath = fh.TEST_PATH + name + "/" + subfolder;
-                                new File(wholeFolderPath).mkdirs();
-                                fh.saveMatToImage(m, wholeFolderPath + "/");
-                            } else {
-                                String wholeFolderPath = fh.TRAINING_PATH + name;
-                                new File(wholeFolderPath).mkdirs();
-                                fh.saveMatToImage(m, wholeFolderPath + "/");
+                            String wholeFolderPath = fh.TRAINING_PATH + name;
+                            new File(wholeFolderPath).mkdirs();
+                            fh.saveMatToImage(m, wholeFolderPath + "/");
+
+                            //Save Dummy Data 2
+                            Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.unknown);
+                            String dummyFolderPath = fh.TRAINING_PATH + "???";
+                            File file = new File(dummyFolderPath, "???"+"_"+total+".png");
+                            new File(dummyFolderPath).mkdirs();
+                            try {
+                                FileOutputStream out = new FileOutputStream(file);
+                                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, out);
+                                out.flush();
+                                out.close();
+                            } catch (FileNotFoundException e) {
+                                e.printStackTrace();
+                            } catch (IOException e) {
+                                e.getMessage();
                             }
 
                             for(int i = 0; i<faces.length; i++){
@@ -174,10 +178,8 @@ public class TrainingDataActivity extends Activity implements CameraBridgeViewBa
 
                             total++;
 
-                            // Stop after numberOfPictures (settings option)
                             if(total >= numberOfPictures){
                                 Intent intent = new Intent(getApplicationContext(),MemberDashboardActivity.class);
-                                //intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                 startActivity(intent);
                             }
                             capturePressed = false;

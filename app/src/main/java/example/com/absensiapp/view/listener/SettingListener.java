@@ -7,5 +7,4 @@ public interface SettingListener {
     void onClickChangePasswordButton();
     void onClickSubmitButton(UserModel userModel);
     void onClickSyncButton();
-    void onClickTrainButton();
 }

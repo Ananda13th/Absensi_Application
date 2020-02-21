@@ -2,6 +2,7 @@ package example.com.domain.repository;
 
 import example.com.domain.model.BaseResponse;
 import example.com.domain.model.CheckInReq;
+import example.com.domain.model.OverrideReq;
 import example.com.domain.model.User;
 import io.reactivex.Single;
 

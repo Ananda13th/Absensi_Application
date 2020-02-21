@@ -11,6 +11,6 @@ public class OutputHistoryModel extends BaseResponseModel{
     private String outputUserId;
     private String outputMm;
     private String outputYyyy;
-    private int outputAttend;
+    private String outputAttend;
     private List<HistDataModel> histData;
 }

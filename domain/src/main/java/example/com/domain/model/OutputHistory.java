@@ -10,6 +10,6 @@ public class OutputHistory extends BaseResponse{
     private String outputUserId;
     private String outputMm;
     private String outputYyyy;
-    private int outputAttend;
+    private String outputAttend;
     private List<HistData> histData;
 }

@@ -1,6 +1,5 @@
 package example.com.absensiapp.view.activity.member;
 
-import androidx.appcompat.app.AppCompatActivity;
 import ch.zhaw.facerecognitionlibrary.Helpers.FileHelper;
 import ch.zhaw.facerecognitionlibrary.Helpers.MatName;
 import ch.zhaw.facerecognitionlibrary.Helpers.PreferencesHelper;
@@ -15,6 +14,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.text.method.ScrollingMovementMethod;
+import android.util.Log;
 import android.widget.TextView;
 
 import org.opencv.android.OpenCVLoader;
@@ -33,7 +33,7 @@ public class InitDataTrainingActivity extends Activity {
 
     static {
         if (!OpenCVLoader.initDebug()) {
-            // Handle initialization error
+            Log.d("OpenCV", "OpenCV Not Loaded");
         }
     }
 
@@ -41,7 +41,7 @@ public class InitDataTrainingActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_init_data_training);
-        progress = (TextView) findViewById(R.id.progressText);
+        progress = findViewById(R.id.progressText);
         progress.setMovementMethod(new ScrollingMovementMethod());
     }
 
@@ -83,7 +83,6 @@ public class InitDataTrainingActivity extends Activity {
                                         if (processedImage.empty()) {
                                             continue;
                                         }
-                                        // The last token is the name --> Folder name = Person name
                                         String[] tokens = file.getParent().split("/");
                                         final String name = tokens[tokens.length - 1];
 
@@ -94,7 +93,6 @@ public class InitDataTrainingActivity extends Activity {
 
 //                                      fileHelper.saveCroppedImage(imgRgb, ppF, file, name, counter);
 
-                                        // Update screen to show the progress
                                         final int counterPost = counter;
                                         final int filesLength = files.length;
                                         progress.post(new Runnable() {

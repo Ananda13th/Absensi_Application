@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/navigation_override"
+        android:icon="@drawable/ic_priority"
+        android:title="Override"/>
+
+    <item
+        android:id="@+id/navigation_user"
+        android:icon="@drawable/ic_user"
+        android:title="User"/>
+
+    <item
+        android:id="@+id/navigation_log_out"
+        android:icon="@drawable/ic_exit_to_app"
+        android:title="Log Out"/>
+</menu>

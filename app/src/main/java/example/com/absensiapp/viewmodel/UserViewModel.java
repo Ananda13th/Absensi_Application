@@ -1,5 +1,7 @@
 package example.com.absensiapp.viewmodel;
 
+import android.annotation.SuppressLint;
+
 import javax.inject.Inject;
 
 import androidx.lifecycle.LiveData;
@@ -36,24 +38,25 @@ public class UserViewModel extends ViewModel {
     @Inject
     public Scheduler scheduler;
     @Inject
-    public UserMapper userMapper;
+    UserMapper userMapper;
     @Inject
-    public BaseResponseMapper baseResponseMapper;
+    BaseResponseMapper baseResponseMapper;
+
     //Inject UseCase
     @Inject
-    public LoginUseCase loginUseCase;
+    LoginUseCase loginUseCase;
     @Inject
-    public GetUserListUseCase getUserListUseCase;
+    GetUserListUseCase getUserListUseCase;
     @Inject
-    public DeleteUserUseCase deleteUserUseCase;
+    DeleteUserUseCase deleteUserUseCase;
     @Inject
-    public AddUserUseCase addUserUseCase;
+    AddUserUseCase addUserUseCase;
     @Inject
-    public UpdateUserUseCase updateUserUseCase;
+    UpdateUserUseCase updateUserUseCase;
     @Inject
-    public GetUserUseCase getUserUseCase;
+    GetUserUseCase getUserUseCase;
     @Inject
-    public CheckInUseCase checkInUseCase;
+    CheckInUseCase checkInUseCase;
 
     public LiveData<UserListModel> getRespUser() {
         if(userResp == null) {
@@ -77,6 +80,7 @@ public class UserViewModel extends ViewModel {
         return baseResp;
     }
 
+    @SuppressLint("CheckResult")
     private void loadUserResp() {
         getUserListUseCase.execute()
                 .map(userMapper::userListRespToView)
@@ -95,6 +99,7 @@ public class UserViewModel extends ViewModel {
                 });
     }
 
+    @SuppressLint("CheckResult")
     public void deleteUser(String userId) {
         deleteUserUseCase.execute(userId)
                 .map(baseResponseMapper::baseResponseToView)
@@ -113,6 +118,7 @@ public class UserViewModel extends ViewModel {
                 });
     }
 
+    @SuppressLint("CheckResult")
     public void addUser(UserModel userModel) {
         addUserUseCase.execute(userMapper.userToDomain(userModel))
                 .map(baseResponseMapper::baseResponseToView)
@@ -131,6 +137,7 @@ public class UserViewModel extends ViewModel {
                 });
     }
 
+    @SuppressLint("CheckResult")
     public void updateUser(UserModel userModel) {
         updateUserUseCase.execute(userMapper.userToDomain(userModel))
                 .map(baseResponseMapper::baseResponseToView)
@@ -149,6 +156,7 @@ public class UserViewModel extends ViewModel {
                 });
     }
 
+    @SuppressLint("CheckResult")
     public void login(UserModel userModel) {
         loginUseCase.execute(userMapper.userToDomain(userModel))
                 .map(userMapper::userToView)
@@ -167,6 +175,7 @@ public class UserViewModel extends ViewModel {
                 });
     }
 
+    @SuppressLint("CheckResult")
     public void checkInUser(CheckInReqModel check) {
         checkInUseCase.execute(userMapper.checkToDomain(check))
                 .map(baseResponseMapper::baseResponseToView)

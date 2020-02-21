@@ -5,14 +5,14 @@ import java.util.List;
 
 import example.com.data.entity.CheckInReqEntity;
 import example.com.data.entity.UserEntity;
-import example.com.data.entity.UserRespEntity;
+import example.com.data.entity.UserListEntity;
 import example.com.domain.model.CheckInReq;
 import example.com.domain.model.User;
 import example.com.domain.model.UserList;
 
 public class UserEntityMapper extends BaseResponseEntityMapper {
 
-    public UserList userRespToDomain(UserRespEntity respEntity) {
+    public UserList userRespToDomain(UserListEntity respEntity) {
         UserList userResp = new UserList();
         List<User> userList = new ArrayList<>();
 
@@ -52,13 +52,6 @@ public class UserEntityMapper extends BaseResponseEntityMapper {
         return userEntity;
     }
 
-    public CheckInReq userToDomain(CheckInReqEntity checkEntity) {
-        CheckInReq check = new CheckInReq();
-
-        check.setUserId(checkEntity.getUserId());
-        check.setState(checkEntity.getState());
-        return check;
-    }
 
     public CheckInReqEntity userToData(CheckInReq check) {
         CheckInReqEntity checkInReqEntity = new CheckInReqEntity();

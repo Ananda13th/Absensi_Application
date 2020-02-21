@@ -1,9 +1,7 @@
 package example.com.absensiapp.view.adapter;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,12 +11,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import example.com.absensiapp.R;
 import example.com.absensiapp.databinding.HistoryListBinding;
 import example.com.absensiapp.model.HistDataModel;
-import example.com.absensiapp.view.listener.HistoryRecycleListener;
+import lombok.SneakyThrows;
 
 public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHolder> {
 
     private List<HistDataModel> historyList = new ArrayList<>();
-    private HistoryRecycleListener historyClickListener;
 
     public HistoryAdapter(){}
 
@@ -34,6 +31,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHold
         return new ViewHolder(listBinding);
     }
 
+    @SneakyThrows
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         HistDataModel histDataModel = historyList.get(position);
@@ -41,7 +39,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHold
 
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    class ViewHolder extends RecyclerView.ViewHolder {
         HistoryListBinding listBinding;
 
         private ViewHolder( HistoryListBinding listBinding) {

@@ -1,4 +1,4 @@
-package example.com.domain.usecase.user;
+package example.com.domain.usecase.history;
 
 import example.com.domain.model.InputHistory;
 import example.com.domain.model.OutputHistory;

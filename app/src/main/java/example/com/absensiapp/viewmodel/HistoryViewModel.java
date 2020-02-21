@@ -1,5 +1,7 @@
 package example.com.absensiapp.viewmodel;
 
+import android.annotation.SuppressLint;
+
 import javax.inject.Inject;
 
 import androidx.lifecycle.LiveData;
@@ -10,8 +12,7 @@ import example.com.absensiapp.model.InputHistoryModel;
 import example.com.absensiapp.model.OutputHistoryModel;
 import example.com.absensiapp.model.mapper.HistoryMapper;
 import example.com.data.entity.mapper.HistoryEntityMapper;
-import example.com.domain.model.InputHistory;
-import example.com.domain.usecase.user.SearchHistoryUseCase;
+import example.com.domain.usecase.history.SearchHistoryUseCase;
 import io.reactivex.Scheduler;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.observers.DisposableSingleObserver;
@@ -25,16 +26,16 @@ public class HistoryViewModel extends ViewModel {
     }
 
     @Inject
-    public Scheduler scheduler;
+    Scheduler scheduler;
 
     @Inject
-    public HistoryMapper historyMapper;
+    HistoryMapper historyMapper;
 
     @Inject
-    public HistoryEntityMapper historyEntityMapper;
+    HistoryEntityMapper historyEntityMapper;
 
     @Inject
-    public SearchHistoryUseCase searchHistoryUseCase;
+    SearchHistoryUseCase searchHistoryUseCase;
 
     public LiveData<OutputHistoryModel> getHistory() {
         if(historyResp == null) {
@@ -43,6 +44,7 @@ public class HistoryViewModel extends ViewModel {
         return historyResp;
     }
 
+    @SuppressLint("CheckResult")
     public void loadHistory(InputHistoryModel inputHistoryModel) {
         searchHistoryUseCase.execute(historyMapper.inputHistoryToDomain(inputHistoryModel))
                 .map(historyMapper::outputHistoryRespToView)
@@ -61,6 +63,9 @@ public class HistoryViewModel extends ViewModel {
                 });
     }
 
+    public void resetHistory() {
+        historyResp.setValue(null);
+    }
 
 
 

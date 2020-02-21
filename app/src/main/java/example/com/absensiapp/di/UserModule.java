@@ -4,25 +4,32 @@ import dagger.Module;
 import dagger.Provides;
 import example.com.absensiapp.model.mapper.BaseResponseMapper;
 import example.com.absensiapp.model.mapper.HistoryMapper;
+import example.com.absensiapp.model.mapper.OverrideMapper;
 import example.com.absensiapp.model.mapper.UserMapper;
 import example.com.data.entity.mapper.BaseResponseEntityMapper;
 import example.com.data.entity.mapper.HistoryEntityMapper;
+import example.com.data.entity.mapper.OverrideReqEntityMapper;
 import example.com.data.entity.mapper.UserEntityMapper;
 import example.com.data.net.Service;
 import example.com.data.net.ServiceGenerator;
 import example.com.data.repository.BaseResponseRepositoryImpl;
 import example.com.data.repository.HistoryRepositoryImpl;
+import example.com.data.repository.OverrideRepositoryImpl;
 import example.com.data.repository.UserRepositoryImpl;
 import example.com.domain.repository.BaseResponseRepository;
 import example.com.domain.repository.HistoryRepository;
+import example.com.domain.repository.OverrideRepository;
 import example.com.domain.repository.UserRepository;
+import example.com.domain.usecase.override.AcceptOverrideUseCase;
 import example.com.domain.usecase.user.AddUserUseCase;
 import example.com.domain.usecase.user.CheckInUseCase;
 import example.com.domain.usecase.user.DeleteUserUseCase;
+import example.com.domain.usecase.override.GetOverrideListUseCase;
 import example.com.domain.usecase.user.GetUserListUseCase;
 import example.com.domain.usecase.user.GetUserUseCase;
 import example.com.domain.usecase.user.LoginUseCase;
-import example.com.domain.usecase.user.SearchHistoryUseCase;
+import example.com.domain.usecase.override.OverrideUseCase;
+import example.com.domain.usecase.history.SearchHistoryUseCase;
 import example.com.domain.usecase.user.UpdateUserUseCase;
 import io.reactivex.Scheduler;
 import io.reactivex.schedulers.Schedulers;
@@ -31,6 +38,13 @@ import io.reactivex.schedulers.Schedulers;
 public class UserModule {
 
     @Provides
+    Scheduler provideScheduler() {return Schedulers.io();}
+
+    @Provides
+    Service provideService() {return ServiceGenerator.getService();}
+
+    //Provide Mapper
+    @Provides
     BaseResponseMapper provideBaseResponseMapper() {return new BaseResponseMapper();}
 
     @Provides
@@ -38,6 +52,9 @@ public class UserModule {
 
     @Provides
     HistoryMapper provideHistoryMapper() {return new HistoryMapper();}
+
+    @Provides
+    OverrideMapper provideOverrideMapper() {return new OverrideMapper();}
 
     @Provides
     BaseResponseEntityMapper provideBaseResponseEntityMapper() {return new BaseResponseEntityMapper();}
@@ -49,11 +66,9 @@ public class UserModule {
     HistoryEntityMapper provideHistoryEntityMapper() {return new HistoryEntityMapper();}
 
     @Provides
-    Scheduler provideScheduler() {return Schedulers.io();}
+    OverrideReqEntityMapper provideOverrideEntityMapper() {return new OverrideReqEntityMapper();}
 
-    @Provides
-    Service provideService() {return ServiceGenerator.getService();}
-
+    //Provide Repository
     @Provides
     UserRepository provideUserRepository(UserEntityMapper userEntityMapper, Scheduler scheduler, Service service) {
         return new UserRepositoryImpl(userEntityMapper, scheduler, service);
@@ -69,6 +84,12 @@ public class UserModule {
         return new BaseResponseRepositoryImpl(userEntityMapper, scheduler, service);
     }
 
+    @Provides
+    OverrideRepository provideOverrideRepository(OverrideReqEntityMapper overrideReqEntityMapper, Scheduler scheduler, Service service) {
+        return new OverrideRepositoryImpl(overrideReqEntityMapper, scheduler, service);
+    }
+
+    //Provide UseCase
     @Provides
     AddUserUseCase proviceAddUserUseCase(BaseResponseRepository baseResponseRepository) {
         return new AddUserUseCase(baseResponseRepository);
@@ -107,6 +128,21 @@ public class UserModule {
     @Provides
     SearchHistoryUseCase provideHistoryUseCase (HistoryRepository historyRepository) {
         return new SearchHistoryUseCase(historyRepository);
+    }
+
+    @Provides
+    OverrideUseCase provideOverrideUseCase(OverrideRepository overrideRepository) {
+        return new OverrideUseCase(overrideRepository);
+    }
+
+    @Provides
+    GetOverrideListUseCase provideOverridelistUseCase(OverrideRepository overrideRepository) {
+        return new GetOverrideListUseCase(overrideRepository);
+    }
+
+    @Provides
+    AcceptOverrideUseCase provideAcceptOverrideUseCase(OverrideRepository overrideRepository) {
+        return new AcceptOverrideUseCase(overrideRepository);
     }
 
 }

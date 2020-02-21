@@ -16,6 +16,7 @@ import android.widget.Toast;
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
 
+import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
@@ -27,9 +28,7 @@ import example.com.absensiapp.model.BaseResponseModel;
 import example.com.absensiapp.model.UserModel;
 import example.com.absensiapp.view.activity.member.AddPersonFormActivity;
 import example.com.absensiapp.view.activity.member.InitDataTrainingActivity;
-import example.com.absensiapp.view.activity.member.TrainingDataActivity;
 import example.com.absensiapp.view.utils.AeSimpleSHA1;
-import example.com.absensiapp.view.activity.LoginActivity;
 import example.com.absensiapp.view.listener.SettingListener;
 import example.com.absensiapp.view.utils.CustomDialog;
 import example.com.absensiapp.viewmodel.UserViewModel;
@@ -44,15 +43,15 @@ public class SettingFragment extends Fragment implements SettingListener {
     private AeSimpleSHA1 encrypt = new AeSimpleSHA1();
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         fragmentSettingBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_setting, container, false);
         changePasswordLayoutBinding = DataBindingUtil.inflate(inflater, R.layout.change_password_layout, container, false);
         return fragmentSettingBinding.getRoot();
     }
 
     @Override
-    public void onViewCreated(View view, Bundle savedInstanceState) {
-        sharedPreferences = this.getActivity().getSharedPreferences("LoginDetails", Context.MODE_PRIVATE);
+    public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
+        sharedPreferences = this.requireActivity().getSharedPreferences("LoginDetails", Context.MODE_PRIVATE);
         fragmentSettingBinding.setOnClick(this);
         changePasswordLayoutBinding.setOnClick(this);
         changePasswordLayoutBinding.setUser(new UserModel());
@@ -85,7 +84,7 @@ public class SettingFragment extends Fragment implements SettingListener {
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
+            e.getMessage();
         }
         changePasswordLayoutBinding.getUser();
         Log.d("TEST", userModel.toString());
@@ -94,13 +93,7 @@ public class SettingFragment extends Fragment implements SettingListener {
 
     @Override
     public void onClickSyncButton() {
-        Intent intent = new Intent(getActivity().getApplicationContext(), InitDataTrainingActivity.class);
-        startActivity(intent);
-    }
-
-    @Override
-    public void onClickTrainButton() {
-        Intent intent = new Intent(getActivity().getApplicationContext(), AddPersonFormActivity.class);
+        Intent intent = new Intent(requireActivity().getApplicationContext(), InitDataTrainingActivity.class);
         startActivity(intent);
     }
 

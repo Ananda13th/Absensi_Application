@@ -47,13 +47,12 @@ public class MemberDashboardActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_member_dashboard);
-        //new initTrainingModel().execute();
         SharedPreferences sharedPreferences = this.getSharedPreferences("LoginDetails", Context.MODE_PRIVATE);
         String hasTrainData = sharedPreferences.getString("HasTrainData", "");
-        if(hasTrainData.equals("false")) {
-            new initTrainingModel().execute();
-            sharedPreferences.edit().putString("HasTrainData", "true").apply();
-        }
+//        if(hasTrainData.equals("false")) {
+//            new initTrainingModel().execute();
+//            sharedPreferences.edit().putString("HasTrainData", "true").apply();
+//        }
         fragment = new CheckInFragment();
         fragmentManager.beginTransaction().replace(R.id.fragment_layout, fragment).commit();
         setBottomNavgiation();
@@ -66,15 +65,15 @@ public class MemberDashboardActivity extends AppCompatActivity{
             @Override
             public void onNavigationItemReselected(@NonNull MenuItem menuItem) {
                 switch (menuItem.getItemId()) {
-                    case R.id.navigationCheckIn :
+                    case R.id.navigation_check_in:
                         fragment = new CheckInFragment();
                         fragmentManager.beginTransaction().replace(R.id.fragment_layout, fragment).commit();
                         break;
-                    case R.id.navigationSetting:
+                    case R.id.navigation_setting:
                         fragment = new SettingFragment();
                         fragmentManager.beginTransaction().replace(R.id.fragment_layout, fragment).commit();
                         break;
-                    case R.id.navigationHistory:
+                    case R.id.navigation_history:
                         fragment = new HistoryFragment();
                         fragmentManager.beginTransaction().replace(R.id.fragment_layout, fragment).commit();
                         break;
@@ -116,7 +115,6 @@ public class MemberDashboardActivity extends AppCompatActivity{
                                 imgRgb.copyTo(processedImage);
                                 List<Mat> images = ppF.getProcessedImage(processedImage, PreProcessorFactory.PreprocessingMode.RECOGNITION);
                                 if (images == null || images.size() > 1) {
-                                    // More than 1 face detected --> cannot use this file for training
                                     continue;
                                 } else {
                                     processedImage = images.get(0);
@@ -124,7 +122,6 @@ public class MemberDashboardActivity extends AppCompatActivity{
                                 if (processedImage.empty()) {
                                     continue;
                                 }
-                                // The last token is the name --> Folder name = Person name
                                 String[] tokens = file.getParent().split("/");
                                 final String name = tokens[tokens.length - 1];
 

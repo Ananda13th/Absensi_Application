@@ -24,7 +24,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 public class HistoryFragment extends Fragment implements HistoryRecycleListener {
 
@@ -32,7 +31,7 @@ public class HistoryFragment extends Fragment implements HistoryRecycleListener 
     private HistoryViewModel historyViewModel = new HistoryViewModel();
     private InputHistoryModel inputHistoryModel = new InputHistoryModel();
     private MonthFormatter monthFormatter = new MonthFormatter();
-    public HistoryAdapter historyAdapter = new HistoryAdapter();
+    private HistoryAdapter historyAdapter = new HistoryAdapter();
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -52,10 +51,7 @@ public class HistoryFragment extends Fragment implements HistoryRecycleListener 
         inputHistoryModel.setMonth(month);
         historyBinding.setInputHistory(inputHistoryModel);
         historyBinding.setOnClick(this);
-        RecyclerView recyclerView = requireView().findViewById(R.id.recycler_view_history);
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(requireActivity());
-        recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setAdapter(historyAdapter);
+        setRecycleView();
         setHistory();
         historyObserver();
     }
@@ -69,7 +65,7 @@ public class HistoryFragment extends Fragment implements HistoryRecycleListener 
         historyViewModel.getHistory().observe(this, new Observer<OutputHistoryModel>() {
             @Override
             public void onChanged(OutputHistoryModel outputHistoryModel) {
-                Toast.makeText(requireContext(), outputHistoryModel.getErrorMessage(), Toast.LENGTH_SHORT).show();
+                Log.d("History", outputHistoryModel.getErrorMessage());
             }
         });
     }
@@ -78,9 +74,23 @@ public class HistoryFragment extends Fragment implements HistoryRecycleListener 
         historyViewModel.getHistory().observe(requireActivity(), new Observer<OutputHistoryModel>() {
             @Override
             public void onChanged(OutputHistoryModel outputHistoryModel) {
-                Log.d("TET", outputHistoryModel.getHistData().toString());
                 historyAdapter.setHistoryList(outputHistoryModel.getHistData());
+                Log.d("TET", outputHistoryModel.toString());
+                historyBinding.tvNumberOfAttend.setText(outputHistoryModel.getOutputAttend());
             }
         });
+    }
+
+    private void setRecycleView() {
+        RecyclerView recyclerView = requireView().findViewById(R.id.recycler_view_history);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(requireActivity());
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setAdapter(historyAdapter);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        //historyViewModel.resetHistory();
     }
 }

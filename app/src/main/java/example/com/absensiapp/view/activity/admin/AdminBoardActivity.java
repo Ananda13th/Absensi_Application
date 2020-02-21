@@ -1,34 +1,36 @@
 package example.com.absensiapp.view.activity.admin;
 
-import androidx.appcompat.app.AlertDialog;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.Observer;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import example.com.absensiapp.R;
-import example.com.absensiapp.model.BaseResponseModel;
-import example.com.absensiapp.model.UserModel;
-import example.com.absensiapp.view.adapter.UserAdapter;
-import example.com.absensiapp.view.listener.UserRecycleListener;
-import example.com.absensiapp.viewmodel.UserViewModel;
+import example.com.absensiapp.view.fragment.admin.OverrideFragment;
+import example.com.absensiapp.view.fragment.admin.UserListFragment;
+import example.com.absensiapp.view.fragment.member.HistoryFragment;
+import example.com.absensiapp.view.fragment.member.SettingFragment;
+import example.com.absensiapp.view.utils.CustomDialog;
 
-import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-public class AdminBoardActivity extends AppCompatActivity{
+public class AdminBoardActivity extends AppCompatActivity {
 
-    private UserViewModel userViewModel = new UserViewModel();
-    private UserAdapter adapter = new UserAdapter();
+    private Fragment fragment;
+    private FragmentManager fragmentManager = getSupportFragmentManager();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_dashboard);
+        setBottomNavgiation();
         FloatingActionButton addButton = findViewById(R.id.fab_add);
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -37,53 +39,30 @@ public class AdminBoardActivity extends AppCompatActivity{
                 startActivity(goToInsertActivity);
             }
         });
-        setUserList();
-        RecyclerView recyclerView = findViewById(R.id.recycler_view_history);
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setAdapter(adapter);
-        adapter.setOnClick(new UserRecycleListener() {
-            @Override
-            public void onClickCardView(UserModel userModel) {
-            }
-
-            @Override
-            public void onClickDeleteButton(String userId) {
-                deleteConfirmation(userId);
-            }
-
-            @Override
-            public void onClickUpdateButton(UserModel userModel) {
-
-            }
-        });
-        deleteUserObserver();
+        fragment = new UserListFragment();
+        fragmentManager.beginTransaction().replace(R.id.fragment_layout, fragment).commit();
     }
 
-    private void setUserList() {
-
-        userViewModel.getRespUser().observe(this, userRespModel -> adapter.setUserList(userRespModel.getUserList()));
-    }
-
-    private void deleteConfirmation(final String id) {
-        AlertDialog deleteDialog = new AlertDialog.Builder(this)
-                .setTitle("Delete")
-                .setMessage("Do you want to Delete")
-                .setPositiveButton("Delete", (dialog, whichButton) -> userViewModel.deleteUser(id))
-                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                })
-                .create();
-        deleteDialog.show();
-    }
-
-    private void deleteUserObserver() {
-        userViewModel.getBaseResp().observe(this, new Observer<BaseResponseModel>() {
+    private void setBottomNavgiation() {
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation_view);
+        bottomNavigationView.setOnNavigationItemReselectedListener(new BottomNavigationView.OnNavigationItemReselectedListener() {
             @Override
-            public void onChanged(BaseResponseModel baseResponseModel) {
-                Toast.makeText(AdminBoardActivity.this, baseResponseModel.getErrorMessage(), Toast.LENGTH_SHORT).show();
+            public void onNavigationItemReselected(@NonNull MenuItem menuItem) {
+                switch (menuItem.getItemId()) {
+                    case R.id.navigation_override :
+                        fragment = new OverrideFragment();
+                        fragmentManager.beginTransaction().replace(R.id.fragment_layout, fragment).commit();
+                        break;
+                    case R.id.navigation_user:
+                        fragment = new UserListFragment();
+                        fragmentManager.beginTransaction().replace(R.id.fragment_layout, fragment).commit();
+                        break;
+                    case R.id.navigation_log_out:
+                        CustomDialog customDialog = new CustomDialog(AdminBoardActivity.this);
+                        customDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                        customDialog.show();
+                        break;
+                }
             }
         });
     }

@@ -29,7 +29,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> im
         this.clickListener = listener;
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    class ViewHolder extends RecyclerView.ViewHolder {
         UserListBinding listBinding;
 
         private ViewHolder(UserListBinding listBinding) {
@@ -60,19 +60,10 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> im
             return 0;
     }
 
-    @Override
-    public void onClickCardView(UserModel userModel) {
-        clickListener.onClickCardView(userModel);
-    }
 
     @Override
     public void onClickDeleteButton(String userId) {
         clickListener.onClickDeleteButton(userId);
-    }
-
-    @Override
-    public void onClickUpdateButton(UserModel userModel) {
-        clickListener.onClickUpdateButton(userModel);
     }
 
 }

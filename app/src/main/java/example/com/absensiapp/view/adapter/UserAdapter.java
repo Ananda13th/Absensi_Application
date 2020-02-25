@@ -60,7 +60,6 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> im
             return 0;
     }
 
-
     @Override
     public void onClickDeleteButton(String userId) {
         clickListener.onClickDeleteButton(userId);

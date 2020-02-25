@@ -7,8 +7,6 @@ import androidx.fragment.app.FragmentManager;
 import example.com.absensiapp.R;
 import example.com.absensiapp.view.fragment.admin.OverrideFragment;
 import example.com.absensiapp.view.fragment.admin.UserListFragment;
-import example.com.absensiapp.view.fragment.member.HistoryFragment;
-import example.com.absensiapp.view.fragment.member.SettingFragment;
 import example.com.absensiapp.view.utils.CustomDialog;
 
 import android.content.Intent;
@@ -30,7 +28,7 @@ public class AdminBoardActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_dashboard);
-        setBottomNavgiation();
+        setBottomNavigation();
         FloatingActionButton addButton = findViewById(R.id.fab_add);
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -43,12 +41,12 @@ public class AdminBoardActivity extends AppCompatActivity {
         fragmentManager.beginTransaction().replace(R.id.fragment_layout, fragment).commit();
     }
 
-    private void setBottomNavgiation() {
+    private void setBottomNavigation() {
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation_view);
-        bottomNavigationView.setOnNavigationItemReselectedListener(new BottomNavigationView.OnNavigationItemReselectedListener() {
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
-            public void onNavigationItemReselected(@NonNull MenuItem menuItem) {
-                switch (menuItem.getItemId()) {
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()) {
                     case R.id.navigation_override :
                         fragment = new OverrideFragment();
                         fragmentManager.beginTransaction().replace(R.id.fragment_layout, fragment).commit();
@@ -63,6 +61,7 @@ public class AdminBoardActivity extends AppCompatActivity {
                         customDialog.show();
                         break;
                 }
+                return false;
             }
         });
     }

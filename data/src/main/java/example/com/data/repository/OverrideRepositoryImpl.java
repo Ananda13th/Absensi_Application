@@ -42,4 +42,11 @@ public class OverrideRepositoryImpl implements OverrideRepository {
                 .map(overrideMapper::baseResponseToDomain)
                 .subscribeOn(scheduler);
     }
+
+    @Override
+    public Single<BaseResponse> doRejectOverride(Integer id) {
+        return Single.defer(()->service.rejectOverride(id))
+                .map(overrideMapper::baseResponseToDomain)
+                .subscribeOn(scheduler);
+    }
 }

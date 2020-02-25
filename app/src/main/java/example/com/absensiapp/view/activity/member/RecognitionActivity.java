@@ -191,8 +191,8 @@ public class RecognitionActivity extends AppCompatActivity implements CameraBrid
         userViewModel.getBaseResp().observe(this, new Observer<BaseResponseModel>() {
             @Override
             public void onChanged(BaseResponseModel baseResponseModel) {
-                Toast.makeText(RecognitionActivity.this, baseResponseModel.getErrorMessage(), Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(getApplicationContext(), MemberDashboardActivity.class);
+                intent.putExtra("Result", baseResponseModel.getErrorMessage());
                 startActivity(intent);
             }
         });

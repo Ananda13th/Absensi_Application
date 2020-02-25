@@ -146,7 +146,8 @@
                 android:src="@drawable/ic_no"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintCircleRadius="50dp"
-                app:layout_constraintStart_toEndOf="@+id/btn_accept"/>
+                app:layout_constraintStart_toEndOf="@+id/btn_accept"
+                android:onClick="@{()->onClick.onClickRejectButoon(overrideItem)}"/>
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

@@ -29,8 +29,8 @@ public class OverrideListAdapter extends RecyclerView.Adapter<OverrideListAdapte
     }
 
     @Override
-    public void onClickRejectButoon() {
-
+    public void onClickRejectButoon(OverrideRespModel overrideRespModel) {
+        overrideRecycleListener.onClickRejectButoon(overrideRespModel);
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {

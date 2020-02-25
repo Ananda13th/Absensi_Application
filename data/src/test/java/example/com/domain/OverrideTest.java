@@ -14,6 +14,7 @@ import example.com.domain.model.OverrideRespList;
 import example.com.domain.usecase.override.AcceptOverrideUseCase;
 import example.com.domain.usecase.override.GetOverrideListUseCase;
 import example.com.domain.usecase.override.OverrideUseCase;
+import example.com.domain.usecase.override.RejectOverrideUseCase;
 import io.reactivex.Scheduler;
 import io.reactivex.Single;
 import io.reactivex.observers.TestObserver;
@@ -65,6 +66,24 @@ public class OverrideTest {
         AcceptOverrideUseCase acceptOverrideUseCasetOverrideListUseCase = new  AcceptOverrideUseCase(overrideRepository);
         OverrideResp overrideResp = new OverrideResp();
         Single<BaseResponse> resp = acceptOverrideUseCasetOverrideListUseCase.execute(overrideResp);
+        TestObserver<BaseResponse> testObserver = new TestObserver<>();
+        resp.subscribe(testObserver);
+        testObserver.awaitTerminalEvent();
+        testObserver.assertComplete();
+        testObserver.assertNoErrors();
+        Assert.assertEquals("00", testObserver.values().get(0).getErrorCode());
+    }
+
+    @Test
+    public void T004_RejectOverrideUseCaseTest() {
+        OverrideReqEntityMapper mapper = new OverrideReqEntityMapper();
+        Scheduler scheduler = Schedulers.io();
+        Service service = ServiceGenerator.getService();
+        OverrideRepositoryImpl overrideRepository = new OverrideRepositoryImpl(mapper, scheduler, service);
+        RejectOverrideUseCase rejectOverrideUseCase = new  RejectOverrideUseCase(overrideRepository);
+        OverrideResp overrideResp = new OverrideResp();
+        overrideResp.setId(1);
+        Single<BaseResponse> resp = rejectOverrideUseCase.execute(overrideResp.getId());
         TestObserver<BaseResponse> testObserver = new TestObserver<>();
         resp.subscribe(testObserver);
         testObserver.awaitTerminalEvent();

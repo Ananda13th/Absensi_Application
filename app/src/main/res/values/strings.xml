@@ -21,6 +21,9 @@
         <item>O</item>
     </string-array>
 
+    <string name="shr_hint_userid">UserId</string>
+    <string name="shr_hint_password">Password</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

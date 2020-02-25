@@ -50,4 +50,7 @@ public interface Service {
 
     @POST("/absentmg-in-out/override/accept")
     Single<BaseResponseEntity> acceptOverride(@Body OverrideRespEntity overrideInput);
+
+    @DELETE("/absentmg-in-out/override/reject/{id}")
+    Single<BaseResponseEntity> rejectOverride(@Path("id") Integer id);
 }

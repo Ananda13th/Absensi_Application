@@ -3,7 +3,7 @@
     <item
         android:id="@+id/navigation_override"
         android:icon="@drawable/ic_priority"
-        android:title="Override"/>
+        android:title="Override" />
 
     <item
         android:id="@+id/navigation_user"

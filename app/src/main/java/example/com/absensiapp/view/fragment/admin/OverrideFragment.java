@@ -1,9 +1,11 @@
 package example.com.absensiapp.view.fragment.admin;
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 
@@ -54,11 +56,13 @@ public class OverrideFragment extends Fragment{
             }
 
             @Override
-            public void onClickRejectButoon() {
+            public void onClickRejectButoon(OverrideRespModel overrideRespModel) {
+                overrideListBinding.getOverrideList();
+                deleteConfirmation(overrideRespModel);
 
             }
         });
-        acceptOverrideObserver();
+        overrideObserver();
     }
 
     private void setOverrideList() {
@@ -71,7 +75,7 @@ public class OverrideFragment extends Fragment{
         });
     }
 
-    private void acceptOverrideObserver() {
+    private void overrideObserver() {
         Activity activity = getActivity();
         overrideViewModel.getBaseResp().observe(requireActivity(), new Observer<BaseResponseModel>() {
             @Override
@@ -87,5 +91,19 @@ public class OverrideFragment extends Fragment{
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(requireActivity());
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(overrideAdapter);
+    }
+
+    private void deleteConfirmation(OverrideRespModel overrideRespModel) {
+        AlertDialog deleteDialog = new AlertDialog.Builder(requireActivity())
+                .setTitle("REJECT")
+                .setMessage("Do you want to Reject")
+                .setPositiveButton("Reject", (dialog, whichButton) -> overrideViewModel.rejectOverride(overrideRespModel))
+                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                })
+                .create();
+        deleteDialog.show();
     }
 }

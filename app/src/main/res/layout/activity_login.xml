@@ -31,7 +31,7 @@
             android:id="@+id/tv_userid"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="100dp"
+            android:layout_marginTop="80dp"
             android:layout_marginStart="60dp"
             android:hint="@string/shr_hint_userid"
             app:layout_constraintStart_toStartOf="parent"
@@ -63,21 +63,19 @@
                 android:background="@android:color/transparent"
                 android:inputType="textPassword"
                 android:text="@={user.password}" />
-
         </com.google.android.material.textfield.TextInputLayout>
 
         <Button
             android:id="@+id/btn_login"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="160dp"
-            android:layout_marginBottom="180dp"
+            android:layout_marginBottom="168dp"
             android:onClick="@{()->onClick.onCLickLoginButton(user)}"
             android:text="LOGIN"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="parent"
-            style="@style/Widget.MaterialComponents.Button.TextButton"/>
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

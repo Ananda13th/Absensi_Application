@@ -13,11 +13,20 @@
         android:layout_height="match_parent"
         android:paddingBottom="50dp">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler_view_override"
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:layout_editor_absoluteX="16dp" />
+            android:id="@+id/swipe_refresh">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_view_override"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:layout_editor_absoluteX="16dp" />
+
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

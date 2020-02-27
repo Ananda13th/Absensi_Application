@@ -1,5 +1,7 @@
 package example.com.data.net;
 
+import android.graphics.Bitmap;
+
 import example.com.data.entity.BaseResponseEntity;
 import example.com.data.entity.CheckInReqEntity;
 import example.com.data.entity.InputHistoryEntity;
@@ -53,4 +55,7 @@ public interface Service {
 
     @DELETE("/absentmg-in-out/override/reject/{id}")
     Single<BaseResponseEntity> rejectOverride(@Path("id") Integer id);
+
+    @PUT("/interns/upload-image/{userid}")
+    Single<BaseResponseEntity> uploadImage(@Path("userid") String userid, Bitmap image);
 }

@@ -50,7 +50,7 @@ public class UserListFragment extends Fragment {
     private void deleteConfirmation(final String id) {
         AlertDialog deleteDialog = new AlertDialog.Builder(requireActivity())
                 .setTitle("Delete")
-                .setMessage("Do you want to Delete")
+                .setMessage("Do you want to delete selected member?")
                 .setPositiveButton("Delete", (dialog, whichButton) -> userViewModel.deleteUser(id))
                 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {

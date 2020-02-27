@@ -101,8 +101,8 @@ public class SettingFragment extends Fragment implements SettingListener {
         userViewModel.getBaseResp().observe(requireActivity(), new Observer<BaseResponseModel>() {
             @Override
             public void onChanged(BaseResponseModel baseResponseModel) {
-                changePasswordDialog.dismiss();
-                Toast.makeText(getActivity(), baseResponseModel.getErrorMessage(), Toast.LENGTH_SHORT).show();
+                if(changePasswordDialog!=null)
+                    changePasswordDialog.dismiss();
             }
         });
     }

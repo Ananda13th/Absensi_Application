@@ -24,6 +24,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.Spinner;
+import android.widget.Toast;
 
 public class HistoryFragment extends Fragment implements HistoryRecycleListener {
 
@@ -47,8 +50,22 @@ public class HistoryFragment extends Fragment implements HistoryRecycleListener 
         SharedPreferences sharedPreferences = this.requireActivity().getSharedPreferences("LoginDetails", Context.MODE_PRIVATE);
         String userId = sharedPreferences.getString("UserId", "");
         inputHistoryModel.setUserId(userId);
-        String month = monthFormatter.StringToNumberMonth(historyBinding.monthSpinner.getSelectedItem().toString());
-        inputHistoryModel.setMonth(month);
+
+        historyBinding.monthSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                final String spinnerValue =historyBinding.monthSpinner.getSelectedItem().toString();
+                String month = monthFormatter.StringToNumberMonth(spinnerValue);
+                inputHistoryModel.setMonth(month);
+                Log.d("Month", inputHistoryModel.getMonth());
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
         historyBinding.setInputHistory(inputHistoryModel);
         historyBinding.setOnClick(this);
         setRecycleView();

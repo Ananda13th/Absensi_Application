@@ -9,6 +9,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +19,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import example.com.absensiapp.R;
 import example.com.absensiapp.databinding.FragmentOverrideBinding;
 import example.com.absensiapp.model.BaseResponseModel;
@@ -29,11 +31,12 @@ import example.com.absensiapp.viewmodel.OverrideViewModel;
 import lombok.SneakyThrows;
 
 
-public class OverrideFragment extends Fragment{
+public class OverrideFragment extends Fragment {
 
     private FragmentOverrideBinding overrideListBinding;
     private OverrideViewModel overrideViewModel = new OverrideViewModel();
     private OverrideListAdapter overrideAdapter = new OverrideListAdapter();
+    private SwipeRefreshLayout swipeRefreshLayout;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -46,8 +49,21 @@ public class OverrideFragment extends Fragment{
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         overrideViewModel = ViewModelProviders.of(requireActivity()).get(OverrideViewModel.class);
+        swipeRefreshLayout = overrideListBinding.swipeRefresh;
         setRecycleView();
         setOverrideList();
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        swipeRefreshLayout.setRefreshing(false);
+                        setOverrideList();
+                    }
+                }, 3000);
+            }
+        });
         overrideAdapter.setOnClick(new OverrideRecycleListener() {
             @Override
             public void onClickAcceptButton(OverrideRespModel overrideRespModel) {
@@ -106,4 +122,5 @@ public class OverrideFragment extends Fragment{
                 .create();
         deleteDialog.show();
     }
+
 }

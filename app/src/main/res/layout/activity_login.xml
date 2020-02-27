@@ -16,23 +16,54 @@
         android:layout_height="match_parent"
         tools:context=".view.activity.admin.AdminBoardActivity">
 
+        <ImageView
+            android:id="@+id/title_logo"
+            android:layout_width="wrap_content"
+            android:layout_height="200dp"
+            android:src="@drawable/bca_logo"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="50dp"/>
+
         <TextView
             android:id="@+id/tv_login"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="68dp"
-            android:text="LOGIN"
+            android:layout_marginTop="190dp"
+            android:text="Enter UserId  And Password To Login"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             app:layout_constraintEnd_toEndOf="parent"
+            android:textSize="10sp"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:textColor="#808080	"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="310dp"
+            android:layout_marginEnd="8dp"
+            android:src="@drawable/ic_person_blue"
+            app:layout_constraintEnd_toStartOf="@id/tv_userid"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="390dp"
+            android:layout_marginEnd="8dp"
+            android:src="@drawable/ic_lock_blue"
+            app:layout_constraintEnd_toStartOf="@id/tv_password"
             app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/tv_userid"
-            android:layout_width="300dp"
+            android:layout_width="250dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="80dp"
-            android:layout_marginStart="60dp"
+            android:layout_marginTop="70dp"
+            android:layout_marginStart="90dp"
             android:hint="@string/shr_hint_userid"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_login">
@@ -42,14 +73,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
-                android:text="@={user.userId}" />
+                android:text="@={user.userId}"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/tv_password"
-            android:layout_width="300dp"
+            android:layout_width="250dp"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="5dp"
             android:layout_marginTop="20dp"
             android:hint="@string/shr_hint_password"
             app:layout_constraintStart_toStartOf="@id/tv_userid"
@@ -62,7 +92,7 @@
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
                 android:inputType="textPassword"
-                android:text="@={user.password}" />
+                android:text="@={user.password}"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <Button
@@ -70,7 +100,7 @@
             style="@style/Widget.MaterialComponents.Button.TextButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="168dp"
+            android:layout_marginBottom="130dp"
             android:onClick="@{()->onClick.onCLickLoginButton(user)}"
             android:text="LOGIN"
             app:layout_constraintBottom_toBottomOf="parent"

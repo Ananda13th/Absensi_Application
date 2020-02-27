@@ -63,6 +63,8 @@ public class UserViewModel extends ViewModel {
             userResp = new MutableLiveData<>();
             loadUserResp();
         }
+        else
+            loadUserResp();
         return userResp;
     }
 

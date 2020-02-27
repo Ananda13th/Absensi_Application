@@ -55,8 +55,8 @@ public class OverrideViewModel extends ViewModel {
     public LiveData<OverrideRespListModel> getOverrideList() {
         if(overrideList == null) {
             overrideList = new MutableLiveData<>();
-            loadOverrideList();
         }
+        loadOverrideList();
         return overrideList;
     }
 

@@ -16,11 +16,17 @@ import example.com.absensiapp.view.utils.PrefManager;
 import example.com.absensiapp.viewmodel.UserViewModel;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.view.MotionEvent;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
@@ -36,6 +42,9 @@ public class LoginActivity extends AppCompatActivity implements LoginListener {
         super.onCreate(savedInstanceState);
         checkPermission();
         setContentView(R.layout.activity_login);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().hide();
+        }
         PreferenceManager.setDefaultValues(this, R.xml.mypreferences, false);
         loginBinding = DataBindingUtil.setContentView(this, R.layout.activity_login);
         if(!new PrefManager(this).isUserLogedOut() && new PrefManager(this).isAdmin()) {
@@ -51,6 +60,7 @@ public class LoginActivity extends AppCompatActivity implements LoginListener {
         loginBinding.setOnClick(this);
         loginBinding.setUser(new UserModel());
         loginObserver();
+        setupUI(findViewById(android.R.id.content).getRootView());
     }
 
     public void loginObserver() {
@@ -116,6 +126,32 @@ public class LoginActivity extends AppCompatActivity implements LoginListener {
         if (!hasPermissions(this, PERMISSIONS)) {
             ActivityCompat.requestPermissions(this, PERMISSIONS, PERMISSION_ALL);
         }
+    }
+
+    public void setupUI(View view) {
+        if(!(view instanceof EditText)) {
+            view.setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View view, MotionEvent motionEvent) {
+                    hideSoftKeyboard(LoginActivity.this);
+                    return false;
+                }
+            });
+        }
+        if (view instanceof ViewGroup) {
+            for (int i = 0; i < ((ViewGroup) view).getChildCount(); i++) {
+                View innerView = ((ViewGroup) view).getChildAt(i);
+                setupUI(innerView);
+            }
+        }
+    }
+
+    public static void hideSoftKeyboard(Activity activity) {
+        InputMethodManager inputMethodManager =
+                (InputMethodManager) activity.getSystemService(
+                        Activity.INPUT_METHOD_SERVICE);
+        inputMethodManager.hideSoftInputFromWindow(
+                activity.getCurrentFocus().getWindowToken(), 0);
     }
 
 

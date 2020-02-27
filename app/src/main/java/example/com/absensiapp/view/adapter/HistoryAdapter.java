@@ -1,11 +1,14 @@
 package example.com.absensiapp.view.adapter;
 
+import android.content.Context;
+import android.content.res.Resources;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.List;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 import example.com.absensiapp.R;
@@ -16,6 +19,7 @@ import lombok.SneakyThrows;
 public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHolder> {
 
     private List<HistDataModel> historyList = new ArrayList<>();
+    private Context context;
 
     public HistoryAdapter(){}
 
@@ -27,6 +31,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHold
     @NonNull
     @Override
     public HistoryAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        context = parent.getContext();
         HistoryListBinding listBinding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()), R.layout.history_list, parent, false);
         return new ViewHolder(listBinding);
     }
@@ -36,7 +41,20 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHold
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         HistDataModel histDataModel = historyList.get(position);
         holder.listBinding.setHistoryData(histDataModel);
+        if(holder.listBinding.getHistoryData().getOutputDesc().equals(""))
+            holder.listBinding.statusFrame.setBackgroundColor(context.getResources().getColor(R.color.green));
+        else
+            holder.listBinding.statusFrame.setBackgroundColor(context.getResources().getColor(R.color.red));
 
+        if(holder.listBinding.getHistoryData().getOutputDesc().equals("Not 9 Hours Working Time"))
+            holder.listBinding.statusFrame.setBackgroundColor(context.getResources().getColor(R.color.yellow));
+
+        if(holder.listBinding.getHistoryData().getOutputTimeIn().equals(""))
+            holder.listBinding.timeInFrame.setBackgroundColor(context.getResources().getColor(R.color.red));
+
+
+        if(holder.listBinding.getHistoryData().getOutputTimeOut().equals(""))
+            holder.listBinding.timeOutFrame.setBackgroundColor(context.getResources().getColor(R.color.red));
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {

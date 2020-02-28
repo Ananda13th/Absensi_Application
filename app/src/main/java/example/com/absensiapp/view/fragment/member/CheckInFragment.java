@@ -149,12 +149,15 @@ public class CheckInFragment extends Fragment implements CheckInListener {
 
     @Override
     public void onClickRequestButton(OverrideReqModel overrideReqModel) {
-        overrideBinding.getOverrideInput();
-        overrideViewModel.sendOverrideReq(overrideReqModel);
-        overrideDialog.dismiss();
-        overrideBinding.etTime.setText(null);
-        overrideBinding.etDate.setText(null);
-
+        if(checkIfFilled())
+            Toast.makeText(requireActivity(), "All Field Must Be Filled!", Toast.LENGTH_SHORT).show();
+        else {
+            overrideBinding.getOverrideInput();
+            overrideViewModel.sendOverrideReq(overrideReqModel);
+            overrideDialog.dismiss();
+            overrideBinding.etTime.setText(null);
+            overrideBinding.etDate.setText(null);
+        }
     }
 
     private void checkObserver() {
@@ -181,6 +184,10 @@ public class CheckInFragment extends Fragment implements CheckInListener {
         overrideBuilder.setView(overrideBinding.getRoot());
         overrideDialog = overrideBuilder.create();
 
+    }
+
+    public boolean checkIfFilled() {
+        return overrideBinding.etTime.getText().toString().matches("") || overrideBinding.etDate.getText().toString().matches("");
     }
 
 }

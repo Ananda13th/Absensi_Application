@@ -8,7 +8,7 @@ import example.com.absensiapp.model.UserModel;
 
 public class PrefManager {
 
-    Context context;
+    private Context context;
 
     public PrefManager(Context context) {
         this.context = context;
@@ -21,27 +21,16 @@ public class PrefManager {
         editor.putString("Password", userModel.getPassword());
         editor.putString("Name", userModel.getName());
         editor.putString("Role", userModel.getRole());
-        editor.putString("Data", "null");
-        editor.putString("HasTrainData", "false");
-        editor.commit();
+        editor.apply();
     }
 
     public boolean isUserLogedOut() {
         SharedPreferences sharedPreferences = context.getSharedPreferences("LoginDetails", Context.MODE_PRIVATE);
-        boolean isUserIdEmpty = sharedPreferences.getString("UserId", "").isEmpty();
-        boolean isPasswordEmpty = sharedPreferences.getString("Password", "").isEmpty();
-        return isUserIdEmpty;
+        return sharedPreferences.getString("UserId", "").isEmpty();
     }
 
     public boolean isAdmin() {
         SharedPreferences sharedPreferences = context.getSharedPreferences("LoginDetails", Context.MODE_PRIVATE);
-        boolean isAdmin = sharedPreferences.getString("Role", "").matches("admin");
-        return isAdmin;
-    }
-
-    public boolean isDataExist() {
-        SharedPreferences sharedPreferences = context.getSharedPreferences("LoginDetails", Context.MODE_PRIVATE);
-        boolean data = sharedPreferences.getString("Data", "").matches("true");
-        return data;
+        return sharedPreferences.getString("Role", "").matches("admin");
     }
 }

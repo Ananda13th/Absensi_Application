@@ -7,7 +7,6 @@ import example.com.absensiapp.R;
 import example.com.absensiapp.databinding.ActivityInsertMemberBinding;
 import example.com.absensiapp.model.BaseResponseModel;
 import example.com.absensiapp.model.UserModel;
-import example.com.absensiapp.view.activity.LoginActivity;
 import example.com.absensiapp.view.utils.AeSimpleSHA1;
 import example.com.absensiapp.view.listener.InsertListener;
 import example.com.absensiapp.viewmodel.UserViewModel;
@@ -15,7 +14,6 @@ import example.com.absensiapp.viewmodel.UserViewModel;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -57,16 +55,21 @@ public class InsertActivity extends AppCompatActivity implements InsertListener 
     }
     @Override
     public void onClickInsertListener(UserModel user) {
-        try {
-            user.setPassword(encrypt.SHA1(user.getPassword()));
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        } catch (UnsupportedEncodingException e) {
-            e.getMessage();
-        }
         insertBinding.getUser();
-        Log.d("TET", user.toString());
-        userViewModel.addUser(user);
+        if(checkIfFilled())
+            Toast.makeText(this, "Fill All Field!", Toast.LENGTH_SHORT).show();
+        else {
+            try {
+                user.setPassword(encrypt.SHA1(user.getPassword()));
+            } catch (NoSuchAlgorithmException e) {
+                e.printStackTrace();
+            } catch (UnsupportedEncodingException e) {
+                e.getMessage();
+            }
+            insertBinding.getUser();
+            userViewModel.addUser(user);
+        }
+
     }
 
     public void setupUI(View view) {
@@ -95,6 +98,7 @@ public class InsertActivity extends AppCompatActivity implements InsertListener 
                 activity.getCurrentFocus().getWindowToken(), 0);
     }
 
-
-
+    public boolean checkIfFilled() {
+        return insertBinding.etUserId.getText().toString().matches("") || insertBinding.etPassword.getText().toString().matches("") || insertBinding.etName.getText().toString().matches("");
+    }
 }

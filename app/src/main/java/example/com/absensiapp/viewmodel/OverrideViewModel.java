@@ -32,8 +32,7 @@ public class OverrideViewModel extends ViewModel {
     }
 
     @Inject
-    public Scheduler scheduler;
-
+    Scheduler scheduler;
     @Inject
     OverrideMapper overrideMapper;
     @Inject
@@ -87,7 +86,7 @@ public class OverrideViewModel extends ViewModel {
     }
 
     @SuppressLint("CheckResult")
-    public void loadOverrideList() {
+    private void loadOverrideList() {
         getOverrideListUseCase.execute()
                 .map(overrideMapper::getOverrideListToView)
                 .subscribeOn(scheduler)

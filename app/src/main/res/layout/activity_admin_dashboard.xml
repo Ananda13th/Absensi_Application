@@ -27,7 +27,7 @@
         android:layout_alignParentBottom="true"
         android:layout_marginStart="312dp"
         android:layout_marginBottom="32dp"
-        android:src="@drawable/ic_add_white"
+        android:src="@drawable/ic_person_add"
         app:fabSize="normal"
         android:backgroundTint="@color/colorPrimary"
         app:tint="@color/white"

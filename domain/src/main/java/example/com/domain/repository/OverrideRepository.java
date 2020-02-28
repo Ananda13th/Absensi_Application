@@ -11,5 +11,5 @@ public interface OverrideRepository {
     Single<OverrideRespList> doGetOverrideList();
     Single<BaseResponse> doOverrideUser(OverrideReq overrideReq);
     Single<BaseResponse> doAcceptOverride(OverrideResp overrideResp);
-    Single<BaseResponse> doRejectOverride(Integer id);
+    Single<BaseResponse> doRejectOverride(String id);
 }

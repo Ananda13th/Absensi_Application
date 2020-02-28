@@ -4,7 +4,7 @@ import lombok.Data;
 
 @Data
 public class OverrideResp {
-    private int id;
+    private String id;
     private String action;
     private String userId;
     private String date;

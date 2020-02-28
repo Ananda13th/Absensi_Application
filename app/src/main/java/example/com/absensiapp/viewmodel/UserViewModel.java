@@ -36,7 +36,7 @@ public class UserViewModel extends ViewModel {
     }
 
     @Inject
-    public Scheduler scheduler;
+    Scheduler scheduler;
     @Inject
     UserMapper userMapper;
     @Inject

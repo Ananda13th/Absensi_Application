@@ -7,7 +7,6 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,9 +23,9 @@ import androidx.lifecycle.ViewModelProviders;
 import example.com.absensiapp.R;
 import example.com.absensiapp.databinding.ChangePasswordLayoutBinding;
 import example.com.absensiapp.databinding.FragmentSettingBinding;
+import example.com.absensiapp.databinding.FramentSettingGridviewBinding;
 import example.com.absensiapp.model.BaseResponseModel;
 import example.com.absensiapp.model.UserModel;
-import example.com.absensiapp.view.activity.member.AddPersonFormActivity;
 import example.com.absensiapp.view.activity.member.InitDataTrainingActivity;
 import example.com.absensiapp.view.utils.AeSimpleSHA1;
 import example.com.absensiapp.view.listener.SettingListener;
@@ -35,7 +34,7 @@ import example.com.absensiapp.viewmodel.UserViewModel;
 
 public class SettingFragment extends Fragment implements SettingListener {
 
-    private FragmentSettingBinding fragmentSettingBinding;
+    private FramentSettingGridviewBinding fragmentSettingBinding;
     private SharedPreferences sharedPreferences;
     private AlertDialog changePasswordDialog;
     private ChangePasswordLayoutBinding changePasswordLayoutBinding;
@@ -44,7 +43,7 @@ public class SettingFragment extends Fragment implements SettingListener {
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        fragmentSettingBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_setting, container, false);
+        fragmentSettingBinding = DataBindingUtil.inflate(inflater, R.layout.frament_setting_gridview, container, false);
         changePasswordLayoutBinding = DataBindingUtil.inflate(inflater, R.layout.change_password_layout, container, false);
         return fragmentSettingBinding.getRoot();
     }
@@ -78,18 +77,23 @@ public class SettingFragment extends Fragment implements SettingListener {
 
     @Override
     public void onClickSubmitButton(UserModel userModel) {
-        userModel.setUserId(sharedPreferences.getString("UserId", ""));
-        try {
-            userModel.setPassword(encrypt.SHA1(userModel.getPassword()));
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        } catch (UnsupportedEncodingException e) {
-            e.getMessage();
+        if (checkIfFilled())
+            Toast.makeText(requireActivity(), "Field Not Filled!", Toast.LENGTH_SHORT).show();
+        else {
+            userModel.setUserId(sharedPreferences.getString("UserId", ""));
+            try {
+                userModel.setPassword(encrypt.SHA1(userModel.getPassword()));
+            } catch (NoSuchAlgorithmException e) {
+                e.printStackTrace();
+            } catch (UnsupportedEncodingException e) {
+                e.getMessage();
+            }
+            changePasswordLayoutBinding.getUser();
+            userViewModel.updateUser(userModel);
         }
-        changePasswordLayoutBinding.getUser();
-        Log.d("TEST", userModel.toString());
-        userViewModel.updateUser(userModel);
     }
+
+
 
     @Override
     public void onClickSyncButton() {
@@ -105,5 +109,9 @@ public class SettingFragment extends Fragment implements SettingListener {
                     changePasswordDialog.dismiss();
             }
         });
+    }
+
+    private boolean checkIfFilled() {
+        return changePasswordLayoutBinding.etPassword.getText().toString().matches("");
     }
 }

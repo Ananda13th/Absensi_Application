@@ -5,7 +5,7 @@ import example.com.domain.repository.OverrideRepository;
 import example.com.domain.usecase.SingleUseCaseWithParam;
 import io.reactivex.Single;
 
-public class RejectOverrideUseCase implements SingleUseCaseWithParam<Integer, BaseResponse> {
+public class RejectOverrideUseCase implements SingleUseCaseWithParam<String, BaseResponse> {
 
     private final OverrideRepository overrideRepository;
 
@@ -14,7 +14,7 @@ public class RejectOverrideUseCase implements SingleUseCaseWithParam<Integer, Ba
     }
 
     @Override
-    public Single<BaseResponse> execute(Integer parameter) {
+    public Single<BaseResponse> execute(String parameter) {
         return overrideRepository.doRejectOverride(parameter);
     }
 }

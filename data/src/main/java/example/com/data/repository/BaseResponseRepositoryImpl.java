@@ -9,6 +9,7 @@ import example.com.domain.model.User;
 import example.com.domain.repository.BaseResponseRepository;
 import io.reactivex.Scheduler;
 import io.reactivex.Single;
+import okhttp3.MultipartBody;
 
 public class BaseResponseRepositoryImpl implements BaseResponseRepository {
     private final UserEntityMapper userMapper;

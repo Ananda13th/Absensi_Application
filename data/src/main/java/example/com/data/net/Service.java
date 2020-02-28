@@ -12,11 +12,15 @@ import example.com.data.entity.OverrideRespListEntity;
 import example.com.data.entity.UserEntity;
 import example.com.data.entity.UserListEntity;
 import io.reactivex.Single;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
+import retrofit2.http.Part;
 import retrofit2.http.Path;
 
 public interface Service {
@@ -54,8 +58,12 @@ public interface Service {
     Single<BaseResponseEntity> acceptOverride(@Body OverrideRespEntity overrideInput);
 
     @DELETE("/absentmg-in-out/override/reject/{id}")
-    Single<BaseResponseEntity> rejectOverride(@Path("id") Integer id);
+    Single<BaseResponseEntity> rejectOverride(@Path("id") String id);
 
+    @Multipart
     @PUT("/interns/upload-image/{userid}")
-    Single<BaseResponseEntity> uploadImage(@Path("userid") String userid, Bitmap image);
+    Single<BaseResponseEntity> uploadImage(
+            @Part("userid") String id,
+            @Part MultipartBody.Part image
+    );
 }

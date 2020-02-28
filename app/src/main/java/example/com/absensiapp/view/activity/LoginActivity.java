@@ -27,6 +27,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
@@ -88,15 +89,21 @@ public class LoginActivity extends AppCompatActivity implements LoginListener {
 
     @Override
     public void onCLickLoginButton(UserModel userModel) {
-        try {
-            userModel.setPassword(encrypt.SHA1(userModel.getPassword()));
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        } catch (UnsupportedEncodingException e) {
-            e.getMessage();
+        if( checkIfFilled())
+            Toast.makeText(this, "All Field Must Be Filled!", Toast.LENGTH_SHORT).show();
+        else
+        {
+            try {
+                userModel.setPassword(encrypt.SHA1(userModel.getPassword()));
+            } catch (NoSuchAlgorithmException e) {
+                e.printStackTrace();
+            } catch (UnsupportedEncodingException e) {
+                e.getMessage();
+            }
+            loginBinding.getUser();
+            userViewModel.login(userModel);
         }
-        loginBinding.getUser();
-        userViewModel.login(userModel);
+
     }
 
     private void saveLoginDetails(UserModel userModel) {
@@ -154,5 +161,7 @@ public class LoginActivity extends AppCompatActivity implements LoginListener {
                 activity.getCurrentFocus().getWindowToken(), 0);
     }
 
-
+    public boolean checkIfFilled() {
+        return loginBinding.etUserid.getText().toString().matches("") || loginBinding.etPassword.getText().toString().matches("");
+    }
 }

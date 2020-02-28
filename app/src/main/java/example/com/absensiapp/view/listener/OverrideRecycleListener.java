@@ -6,5 +6,5 @@ import example.com.absensiapp.model.OverrideRespModel;
 public interface OverrideRecycleListener {
 
     void onClickAcceptButton(OverrideRespModel overrideRespModel);
-    void onClickRejectButoon(OverrideRespModel overrideRespModel);
+    void onClickRejectButton(OverrideRespModel overrideRespModel);
 }

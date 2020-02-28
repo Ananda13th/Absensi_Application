@@ -49,7 +49,7 @@ public class MemberDashboardActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_member_dashboard);
-
+        setTitle("");
         SharedPreferences sharedPreferences = this.getSharedPreferences("LoginDetails", Context.MODE_PRIVATE);
         String hasTrainData = sharedPreferences.getString("HasTrainData", "");
 //        if(hasTrainData.equals("false")) {

@@ -61,7 +61,7 @@ public class OverrideFragment extends Fragment {
                         swipeRefreshLayout.setRefreshing(false);
                         setOverrideList();
                     }
-                }, 3000);
+                }, 2000);
             }
         });
         overrideAdapter.setOnClick(new OverrideRecycleListener() {
@@ -72,7 +72,7 @@ public class OverrideFragment extends Fragment {
             }
 
             @Override
-            public void onClickRejectButoon(OverrideRespModel overrideRespModel) {
+            public void onClickRejectButton(OverrideRespModel overrideRespModel) {
                 overrideListBinding.getOverrideList();
                 deleteConfirmation(overrideRespModel);
 

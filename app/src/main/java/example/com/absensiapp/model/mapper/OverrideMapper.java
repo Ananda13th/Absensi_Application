@@ -16,8 +16,8 @@ public class OverrideMapper extends BaseResponseMapper{
         OverrideReq overrideReq = new OverrideReq();
 
         overrideReq.setAction(overrideReqModel.getAction());
-        overrideReq.setDate(overrideReqModel.getDate());
-        overrideReq.setTime(overrideReqModel.getTime());
+        overrideReq.setDates(overrideReqModel.getDates());
+        overrideReq.setTimes(overrideReqModel.getTimes());
         overrideReq.setUserId(overrideReqModel.getUserId());
 
         return overrideReq;
@@ -28,8 +28,8 @@ public class OverrideMapper extends BaseResponseMapper{
 
         overrideResp.setId(overrideRespModel.getId());
         overrideResp.setAction(overrideRespModel.getAction());
-        overrideResp.setDate(overrideRespModel.getDate());
-        overrideResp.setTime(overrideRespModel.getTime());
+        overrideResp.setDates(overrideRespModel.getDates());
+        overrideResp.setTimes(overrideRespModel.getTimes());
         overrideResp.setUserId(overrideRespModel.getUserId());
 
         return overrideResp;
@@ -48,8 +48,8 @@ public class OverrideMapper extends BaseResponseMapper{
 
             overrideRespModel.setId(overrideResp.getId());
             overrideRespModel.setUserId(overrideResp.getUserId());
-            overrideRespModel.setTime(overrideResp.getTime());
-            overrideRespModel.setDate(overrideResp.getDate());
+            overrideRespModel.setTimes(overrideResp.getTimes());
+            overrideRespModel.setDates(overrideResp.getDates());
             overrideRespModel.setAction(overrideResp.getAction());
 
             overrideList.add(overrideRespModel);

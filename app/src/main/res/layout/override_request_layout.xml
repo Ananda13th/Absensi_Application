@@ -71,7 +71,7 @@
             android:focusable="false"
             app:layout_constraintBottom_toTopOf="@id/et_time"
             app:layout_constraintStart_toEndOf="@id/tv_password"
-            android:text="@={overrideInput.date}"/>
+            android:text="@={overrideInput.dates}"/>
 
         <EditText
             android:id="@+id/et_time"
@@ -84,7 +84,7 @@
             android:focusable="false"
             app:layout_constraintBottom_toTopOf="@id/btn_request"
             app:layout_constraintStart_toEndOf="@id/tv_time"
-            android:text="@={overrideInput.time}"/>
+            android:text="@={overrideInput.times}"/>
 
         <Button
             android:id="@+id/btn_request"

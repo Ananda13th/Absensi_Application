@@ -1,9 +1,11 @@
 package example.com.absensiapp.view.adapter;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import androidx.annotation.NonNull;
@@ -18,9 +20,17 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> im
 
     private List<UserModel> userList = new ArrayList<>();
     private UserRecycleListener clickListener;
+    private UserAdapter userAdapter = this;
 
     public void setUserList(List<UserModel> userList) {
         this.userList = userList;
+
+        for(Iterator<UserModel> iterator = userList.iterator();iterator.hasNext();) {
+            UserModel user = iterator.next();
+            if(user.getUserId().equals("admin")) {
+                iterator.remove();
+            }
+        }
         notifyDataSetChanged();
     }
 

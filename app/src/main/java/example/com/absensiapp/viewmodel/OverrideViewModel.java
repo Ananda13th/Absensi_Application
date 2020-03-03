@@ -114,6 +114,7 @@ public class OverrideViewModel extends ViewModel {
                     @Override
                     public void onSuccess(BaseResponseModel baseResponseModel) {
                         baseResp.setValue(baseResponseModel);
+                        getOverrideList();
                     }
 
                     @Override
@@ -134,6 +135,7 @@ public class OverrideViewModel extends ViewModel {
                     @Override
                     public void onSuccess(BaseResponseModel baseResponseModel) {
                         baseResp.setValue(baseResponseModel);
+                        getOverrideList();
                     }
 
                     @Override

@@ -103,7 +103,7 @@
                 android:id="@+id/tv_password"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@={overrideItem.date}"
+                android:text="@={overrideItem.dates}"
                 app:layout_constraintStart_toStartOf="@+id/tv_userid"
                 app:layout_constraintTop_toBottomOf="@+id/tv_userid" />
 
@@ -111,7 +111,7 @@
                 android:id="@+id/tv_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@={overrideItem.time}"
+                android:text="@={overrideItem.times}"
                 app:layout_constraintStart_toStartOf="@+id/tv_userid"
                 app:layout_constraintTop_toBottomOf="@+id/tv_password" />
 

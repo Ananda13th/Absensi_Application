@@ -6,6 +6,6 @@ import lombok.Data;
 public class OverrideReqModel {
     private String action;
     private String userId;
-    private String date;
-    private String time;
+    private String dates;
+    private String times;
 }

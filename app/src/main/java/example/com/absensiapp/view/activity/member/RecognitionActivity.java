@@ -141,8 +141,11 @@ public class RecognitionActivity extends AppCompatActivity implements CameraBrid
                 MatOperation.drawRectangleAndLabelOnPreview(imgRgba, faces[i], rec.recognize(images.get(i), ""), front_camera);
                 String name = rec.recognize(images.get(i), "");
                 state = name.equals(sharedPreferences.getString("Name", ""));
-                if(state)
+                if(state) {
+                    Log.d("Posisi", "Sampe Sini");
                     userViewModel.checkInUser(check);
+                    Log.d("Posisi", "Sampe Sini 2");
+                }
             }
             return imgRgba;
         }

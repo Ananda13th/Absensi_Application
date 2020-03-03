@@ -34,6 +34,8 @@ public class UserMapper extends BaseResponseMapper {
     public UserModel userToView(User userFromDomain) {
         UserModel userModel = new UserModel();
 
+        userModel.setErrorCode(userFromDomain.getErrorCode());
+        userModel.setErrorMessage(userFromDomain.getErrorMessage());
         userModel.setName(userFromDomain.getName());
         userModel.setPassword(userFromDomain.getPassword());
         userModel.setUserId(userFromDomain.getUserId());

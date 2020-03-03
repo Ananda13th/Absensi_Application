@@ -55,7 +55,6 @@ public class HistoryFragment extends Fragment implements HistoryRecycleListener 
                 final String spinnerValue =historyBinding.monthSpinner.getSelectedItem().toString();
                 String month = monthFormatter.StringToNumberMonth(spinnerValue);
                 inputHistoryModel.setMonth(month);
-                Log.d("Month", inputHistoryModel.getMonth());
             }
 
             @Override

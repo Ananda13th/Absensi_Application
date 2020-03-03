@@ -7,6 +7,6 @@ public class OverrideRespEntity {
     private String id;
     private String action;
     private String userId;
-    private String date;
-    private String time;
+    private String dates;
+    private String times;
 }

@@ -1,6 +1,7 @@
 package example.com.absensiapp.viewmodel;
 
 import android.annotation.SuppressLint;
+import android.util.Log;
 
 import javax.inject.Inject;
 
@@ -83,7 +84,7 @@ public class UserViewModel extends ViewModel {
     }
 
     @SuppressLint("CheckResult")
-    private void loadUserResp() {
+    public void loadUserResp() {
         getUserListUseCase.execute()
                 .map(userMapper::userListRespToView)
                 .subscribeOn(scheduler)
@@ -111,6 +112,7 @@ public class UserViewModel extends ViewModel {
                     @Override
                     public void onSuccess(BaseResponseModel baseResponseModel) {
                         baseResp.setValue(baseResponseModel);
+                        getRespUser();
                     }
 
                     @Override

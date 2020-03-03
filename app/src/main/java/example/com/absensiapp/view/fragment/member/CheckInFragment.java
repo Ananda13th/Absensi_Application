@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.DatePicker;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -90,7 +91,7 @@ public class CheckInFragment extends Fragment implements CheckInListener {
                         overrideBinding.etDate.setText(selectedyear+"-"+selectedmonth+"-"+selectedday);
                     }
                 },mYear, mMonth, mDay);
-                mDatePicker.setTitle("Select date");
+                mDatePicker.setTitle("Select dates");
                 mDatePicker.show();  }
         });
 
@@ -107,7 +108,7 @@ public class CheckInFragment extends Fragment implements CheckInListener {
                     public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
                         overrideBinding.etTime.setText( String.format("%02d:%02d", selectedHour, selectedMinute));
                     }
-                }, hour, minute, true);//Yes 24 hour time
+                }, hour, minute, true);//Yes 24 hour times
                 mTimePicker.setTitle("Select Time");
                 mTimePicker.show();
 
@@ -116,8 +117,20 @@ public class CheckInFragment extends Fragment implements CheckInListener {
 
         //Buat Object Baru Untuk Simpan UserId & Data Dari Spinner
         OverrideReqModel overrideReqModel = new OverrideReqModel();
+        overrideBinding.spinnerStatus.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                final String spinnerValue =overrideBinding.spinnerStatus.getSelectedItem().toString();
+                overrideReqModel.setAction(spinnerValue);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
         overrideReqModel.setUserId(userId);
-        overrideReqModel.setAction(overrideBinding.spinnerStatus.getSelectedItem().toString());
         overrideBinding.setOverrideInput(overrideReqModel);
         initializeDialog();
         checkObserver();

@@ -31,6 +31,7 @@ import android.widget.Toast;
 
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
+import java.util.Objects;
 
 public class LoginActivity extends AppCompatActivity implements LoginListener {
 
@@ -68,7 +69,7 @@ public class LoginActivity extends AppCompatActivity implements LoginListener {
         userViewModel.getuser().observe(this, new Observer<UserModel>() {
             @Override
             public void onChanged(UserModel userModel) {
-                if(userModel.getRole().equals("admin")) {
+                if(userModel.getRole().matches("admin")) {
                     saveLoginDetails(userModel);
                     Intent intent = new Intent(getApplicationContext(), AdminBoardActivity.class);
                     startActivity(intent);
@@ -157,8 +158,9 @@ public class LoginActivity extends AppCompatActivity implements LoginListener {
         InputMethodManager inputMethodManager =
                 (InputMethodManager) activity.getSystemService(
                         Activity.INPUT_METHOD_SERVICE);
+        assert inputMethodManager != null;
         inputMethodManager.hideSoftInputFromWindow(
-                activity.getCurrentFocus().getWindowToken(), 0);
+                Objects.requireNonNull(activity.getCurrentFocus()).getWindowToken(), 0);
     }
 
     public boolean checkIfFilled() {

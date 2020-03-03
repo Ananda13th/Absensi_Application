@@ -18,13 +18,15 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
     flavorDimensions "default"
-    productFlavors {
+
+    productFlavors{
         develop {
-            buildConfigField("String", "BASE_URL", "\"https://private-6fdd31-intern1.apiary-mock.com/\"")
+            buildConfigField("String", "BASE_URL", "\"http://private-6fdd31-intern1.apiary-mock.com/\"")
         }
         production {
-            buildConfigField("String", "BASE_URL", "\"https://private-8a0488-dosenapp.apiary-mock.com/\"")
+            buildConfigField("String", "BASE_URL", "\"http://absen-service.apps.pcf.dti.co.id/\"")
         }
     }
 

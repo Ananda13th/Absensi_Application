@@ -1,7 +1,6 @@
 package example.com.absensiapp.viewmodel;
 
 import android.annotation.SuppressLint;
-import android.util.Log;
 
 import javax.inject.Inject;
 
@@ -11,6 +10,7 @@ import androidx.lifecycle.ViewModel;
 import example.com.absensiapp.di.DaggerUserComponent;
 import example.com.absensiapp.model.BaseResponseModel;
 import example.com.absensiapp.model.CheckInReqModel;
+import example.com.absensiapp.model.UploadImageReqModel;
 import example.com.absensiapp.model.UserModel;
 import example.com.absensiapp.model.UserListModel;
 import example.com.absensiapp.model.mapper.BaseResponseMapper;
@@ -22,6 +22,7 @@ import example.com.domain.usecase.user.GetUserListUseCase;
 import example.com.domain.usecase.user.GetUserUseCase;
 import example.com.domain.usecase.user.LoginUseCase;
 import example.com.domain.usecase.user.UpdateUserUseCase;
+import example.com.domain.usecase.user.UploadImageUseCase;
 import io.reactivex.Scheduler;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.observers.DisposableSingleObserver;
@@ -58,6 +59,8 @@ public class UserViewModel extends ViewModel {
     GetUserUseCase getUserUseCase;
     @Inject
     CheckInUseCase checkInUseCase;
+    @Inject
+    UploadImageUseCase uploadImageUseCase;
 
     public LiveData<UserListModel> getRespUser() {
         if(userResp == null) {
@@ -182,6 +185,25 @@ public class UserViewModel extends ViewModel {
     @SuppressLint("CheckResult")
     public void checkInUser(CheckInReqModel check) {
         checkInUseCase.execute(userMapper.checkToDomain(check))
+                .map(baseResponseMapper::baseResponseToView)
+                .subscribeOn(scheduler)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(new DisposableSingleObserver<BaseResponseModel>() {
+                    @Override
+                    public void onSuccess(BaseResponseModel baseResponseModel) {
+                        baseResp.setValue(baseResponseModel);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+                });
+    }
+
+    @SuppressLint("CheckResult")
+    public void uploadImage(UploadImageReqModel uploadImageReqModel) {
+        uploadImageUseCase.execute(userMapper.imageToDomain(uploadImageReqModel))
                 .map(baseResponseMapper::baseResponseToView)
                 .subscribeOn(scheduler)
                 .observeOn(AndroidSchedulers.mainThread())

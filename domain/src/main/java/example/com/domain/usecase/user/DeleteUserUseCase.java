@@ -1,21 +1,20 @@
 package example.com.domain.usecase.user;
 
 import example.com.domain.model.BaseResponse;
-import example.com.domain.repository.BaseResponseRepository;
 import example.com.domain.repository.UserRepository;
 import example.com.domain.usecase.SingleUseCaseWithParam;
 import io.reactivex.Single;
 
 public class DeleteUserUseCase implements SingleUseCaseWithParam<String, BaseResponse> {
 
-    private final BaseResponseRepository baseResponseRepository;
+    private final UserRepository userRepository;
 
-    public DeleteUserUseCase(BaseResponseRepository userRepository) {
-        this.baseResponseRepository = userRepository;
+    public DeleteUserUseCase(UserRepository userRepository) {
+        this.userRepository = userRepository;
     }
 
     @Override
     public Single<BaseResponse> execute(String parameter) {
-        return baseResponseRepository.doDeleteUser(parameter);
+        return userRepository.doDeleteUser(parameter);
     }
 }

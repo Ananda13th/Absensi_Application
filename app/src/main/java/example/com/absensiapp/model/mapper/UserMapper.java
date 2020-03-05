@@ -4,9 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import example.com.absensiapp.model.CheckInReqModel;
+import example.com.absensiapp.model.UploadImageReqModel;
 import example.com.absensiapp.model.UserModel;
 import example.com.absensiapp.model.UserListModel;
 import example.com.domain.model.CheckInReq;
+import example.com.domain.model.UploadImageReq;
 import example.com.domain.model.User;
 import example.com.domain.model.UserList;
 
@@ -59,5 +61,14 @@ public class UserMapper extends BaseResponseMapper {
         checkInReq.setState(check.getState());
 
         return checkInReq;
+    }
+
+    public UploadImageReq imageToDomain(UploadImageReqModel uploadImageReqModel) {
+        UploadImageReq uploadImageReq = new UploadImageReq();
+
+        uploadImageReq.setMultipart(uploadImageReqModel.getMultipart());
+        uploadImageReq.setUserid(uploadImageReqModel.getUserid());
+
+        return uploadImageReq;
     }
 }

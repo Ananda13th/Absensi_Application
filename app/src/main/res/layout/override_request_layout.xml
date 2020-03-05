@@ -18,8 +18,8 @@
             android:id="@+id/tv_password"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="48dp"
-            android:layout_marginBottom="96dp"
+            android:layout_marginStart="44dp"
+            android:layout_marginBottom="84dp"
             android:text="DATE"
             app:layout_constraintBottom_toTopOf="@id/btn_request"
             app:layout_constraintStart_toStartOf="parent" />
@@ -28,25 +28,22 @@
             android:id="@+id/tv_status"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="20dp"
             android:layout_marginBottom="30dp"
             android:text="STATUS"
             app:layout_constraintBottom_toTopOf="@id/tv_password"
             app:layout_constraintStart_toStartOf="@+id/tv_password"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.781" />
+            app:layout_constraintVertical_bias="0.709" />
 
         <TextView
             android:id="@+id/tv_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="30dp"
+            android:layout_marginTop="36dp"
             android:text="TIME"
-            app:layout_constraintBottom_toTopOf="@id/btn_request"
             app:layout_constraintStart_toStartOf="@+id/tv_password"
-            app:layout_constraintTop_toBottomOf="@id/tv_password"
-            app:layout_constraintVertical_bias="1.0" />
+            app:layout_constraintTop_toBottomOf="@id/tv_password" />
 
         <Spinner
             android:id="@+id/spinner_status"
@@ -65,13 +62,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
-            android:layout_marginBottom="20dp"
+            android:layout_marginBottom="12dp"
             android:ems="10"
-            android:inputType="date"
             android:focusable="false"
+            android:inputType="date"
+            android:text="@={overrideInput.dates}"
             app:layout_constraintBottom_toTopOf="@id/et_time"
-            app:layout_constraintStart_toEndOf="@id/tv_password"
-            android:text="@={overrideInput.dates}"/>
+            app:layout_constraintStart_toEndOf="@id/tv_password" />
 
         <EditText
             android:id="@+id/et_time"

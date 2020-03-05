@@ -12,11 +12,9 @@ import example.com.data.entity.mapper.OverrideReqEntityMapper;
 import example.com.data.entity.mapper.UserEntityMapper;
 import example.com.data.net.Service;
 import example.com.data.net.ServiceGenerator;
-import example.com.data.repository.BaseResponseRepositoryImpl;
 import example.com.data.repository.HistoryRepositoryImpl;
 import example.com.data.repository.OverrideRepositoryImpl;
 import example.com.data.repository.UserRepositoryImpl;
-import example.com.domain.repository.BaseResponseRepository;
 import example.com.domain.repository.HistoryRepository;
 import example.com.domain.repository.OverrideRepository;
 import example.com.domain.repository.UserRepository;
@@ -32,6 +30,7 @@ import example.com.domain.usecase.user.LoginUseCase;
 import example.com.domain.usecase.override.OverrideUseCase;
 import example.com.domain.usecase.history.SearchHistoryUseCase;
 import example.com.domain.usecase.user.UpdateUserUseCase;
+import example.com.domain.usecase.user.UploadImageUseCase;
 import io.reactivex.Scheduler;
 import io.reactivex.schedulers.Schedulers;
 
@@ -81,24 +80,19 @@ public class UserModule {
     }
 
     @Provides
-    BaseResponseRepository provideBaseResponseRepository(UserEntityMapper userEntityMapper, Scheduler scheduler, Service service) {
-        return new BaseResponseRepositoryImpl(userEntityMapper, scheduler, service);
-    }
-
-    @Provides
     OverrideRepository provideOverrideRepository(OverrideReqEntityMapper overrideReqEntityMapper, Scheduler scheduler, Service service) {
         return new OverrideRepositoryImpl(overrideReqEntityMapper, scheduler, service);
     }
 
     //Provide UseCase
     @Provides
-    AddUserUseCase proviceAddUserUseCase(BaseResponseRepository baseResponseRepository) {
-        return new AddUserUseCase(baseResponseRepository);
+    AddUserUseCase proviceAddUserUseCase(UserRepository userRepository) {
+        return new AddUserUseCase(userRepository);
     }
 
     @Provides
-    DeleteUserUseCase provideDeleteUserUseCase(BaseResponseRepository baseResponseRepository) {
-        return new DeleteUserUseCase(baseResponseRepository);
+    DeleteUserUseCase provideDeleteUserUseCase(UserRepository userRepository) {
+        return new DeleteUserUseCase(userRepository);
     }
 
     @Provides
@@ -117,13 +111,13 @@ public class UserModule {
     }
 
     @Provides
-    UpdateUserUseCase provideUpdateUserUseCase(BaseResponseRepository baseResponseRepository) {
-        return new UpdateUserUseCase(baseResponseRepository);
+    UpdateUserUseCase provideUpdateUserUseCase(UserRepository userRepository) {
+        return new UpdateUserUseCase(userRepository);
     }
 
     @Provides
-    CheckInUseCase provideCheckInUseCase (BaseResponseRepository baseResponseRepository) {
-        return new CheckInUseCase(baseResponseRepository);
+    CheckInUseCase provideCheckInUseCase (UserRepository userRepository) {
+        return new CheckInUseCase(userRepository);
     }
 
     @Provides
@@ -149,6 +143,11 @@ public class UserModule {
     @Provides
     RejectOverrideUseCase provideRejectOverrideUseCase(OverrideRepository overrideRepository) {
         return new RejectOverrideUseCase(overrideRepository);
+    }
+
+    @Provides
+    UploadImageUseCase provideUploadImageUseCase(UserRepository userRepository) {
+        return new UploadImageUseCase(userRepository);
     }
 
 }

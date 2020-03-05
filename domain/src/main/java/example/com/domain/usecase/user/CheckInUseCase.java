@@ -2,19 +2,19 @@ package example.com.domain.usecase.user;
 
 import example.com.domain.model.BaseResponse;
 import example.com.domain.model.CheckInReq;
-import example.com.domain.repository.BaseResponseRepository;
+import example.com.domain.repository.UserRepository;
 import example.com.domain.usecase.SingleUseCaseWithParam;
 import io.reactivex.Single;
 
 public class CheckInUseCase implements SingleUseCaseWithParam<CheckInReq, BaseResponse> {
-    private final BaseResponseRepository baseResponseRepository;
+    private final UserRepository userRepository;
 
-    public CheckInUseCase(BaseResponseRepository baseResponseRepository) {
-        this.baseResponseRepository = baseResponseRepository;
+    public CheckInUseCase(UserRepository userRepository) {
+        this.userRepository = userRepository;
     }
 
     @Override
     public Single<BaseResponse> execute(CheckInReq parameter) {
-        return baseResponseRepository.doCheckUser(parameter);
+        return userRepository.doCheckUser(parameter);
     }
 }

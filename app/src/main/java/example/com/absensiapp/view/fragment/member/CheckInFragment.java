@@ -19,6 +19,7 @@ import android.widget.Toast;
 
 import org.opencv.android.OpenCVLoader;
 
+import java.io.File;
 import java.util.Calendar;
 
 import androidx.annotation.NonNull;
@@ -26,6 +27,7 @@ import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
+import ch.zhaw.facerecognitionlibrary.Helpers.FileHelper;
 import example.com.absensiapp.R;
 import example.com.absensiapp.databinding.FragmentCheckInBinding;
 import example.com.absensiapp.databinding.OverrideRequestLayoutBinding;
@@ -34,6 +36,7 @@ import example.com.absensiapp.model.CheckInReqModel;
 import example.com.absensiapp.model.OverrideReqModel;
 import example.com.absensiapp.view.activity.member.RecognitionActivity;
 import example.com.absensiapp.view.listener.CheckInListener;
+import example.com.absensiapp.view.utils.UtilsFormatter;
 import example.com.absensiapp.viewmodel.OverrideViewModel;
 import example.com.absensiapp.viewmodel.UserViewModel;
 
@@ -45,6 +48,8 @@ public class CheckInFragment extends Fragment implements CheckInListener {
     private FragmentCheckInBinding checkInBinding;
     private OverrideRequestLayoutBinding overrideBinding;
     private AlertDialog overrideDialog;
+    private UtilsFormatter utilsFormatter = new UtilsFormatter();
+    private FileHelper fh;
 
 
     static {
@@ -67,15 +72,21 @@ public class CheckInFragment extends Fragment implements CheckInListener {
     @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        //Disable Button Semisal Belum InitTrainData
+        File file = new File(fh.DATA_PATH);
+        if(!file.exists()) {
+            checkInBinding.btnIn.setEnabled(false);
+            checkInBinding.btnOut.setEnabled(false);
+        }
         //Ambil UserId Dari SharedPreferences
         SharedPreferences sharedPreferences = this.requireActivity().getSharedPreferences("LoginDetails", Context.MODE_PRIVATE);
         userId = sharedPreferences.getString("UserId", "");
         //Inisialisasi ViewModel
         userViewModel = ViewModelProviders.of(requireActivity()).get(UserViewModel.class);
         overrideViewModel = ViewModelProviders.of(requireActivity()).get(OverrideViewModel.class);
-
+        //Buat Object Dulu Agar Tidak Null
         checkInBinding.setCheck(new CheckInReqModel());
-
         //Menampilkan DatePickerDialog
         overrideBinding.etDate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -88,7 +99,7 @@ public class CheckInFragment extends Fragment implements CheckInListener {
 
                 DatePickerDialog mDatePicker = new DatePickerDialog(requireActivity(), new DatePickerDialog.OnDateSetListener() {
                     public void onDateSet(DatePicker datepicker, int selectedyear, int selectedmonth, int selectedday) {
-                        overrideBinding.etDate.setText(selectedyear+"-"+selectedmonth+"-"+selectedday);
+                        overrideBinding.etDate.setText(selectedyear+"-"+(selectedmonth+1)+"-"+selectedday);
                     }
                 },mYear, mMonth, mDay);
                 mDatePicker.setTitle("Select dates");
@@ -121,7 +132,7 @@ public class CheckInFragment extends Fragment implements CheckInListener {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 final String spinnerValue =overrideBinding.spinnerStatus.getSelectedItem().toString();
-                overrideReqModel.setAction(spinnerValue);
+                overrideReqModel.setAction(utilsFormatter.InputFormatter(spinnerValue));
             }
 
             @Override
@@ -187,7 +198,7 @@ public class CheckInFragment extends Fragment implements CheckInListener {
        overrideViewModel.getBaseResp().observe(requireActivity(), new Observer<BaseResponseModel>() {
             @Override
             public void onChanged(BaseResponseModel baseResponseModel) {
-                Toast.makeText(requireActivity(), baseResponseModel.getErrorMessage(), Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getActivity(), baseResponseModel.getErrorMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -199,7 +210,7 @@ public class CheckInFragment extends Fragment implements CheckInListener {
 
     }
 
-    public boolean checkIfFilled() {
+    private boolean checkIfFilled() {
         return overrideBinding.etTime.getText().toString().matches("") || overrideBinding.etDate.getText().toString().matches("");
     }
 

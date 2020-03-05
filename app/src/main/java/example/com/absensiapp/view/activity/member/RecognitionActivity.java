@@ -142,9 +142,8 @@ public class RecognitionActivity extends AppCompatActivity implements CameraBrid
                 String name = rec.recognize(images.get(i), "");
                 state = name.equals(sharedPreferences.getString("Name", ""));
                 if(state) {
-                    Log.d("Posisi", "Sampe Sini");
                     userViewModel.checkInUser(check);
-                    Log.d("Posisi", "Sampe Sini 2");
+                    Log.d("Status", "SUCCESS CHECK IN/OUT");
                 }
             }
             return imgRgba;

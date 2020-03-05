@@ -62,11 +62,4 @@ public class HistoryViewModel extends ViewModel {
                     }
                 });
     }
-
-    public void resetHistory() {
-        historyResp.setValue(null);
-    }
-
-
-
 }

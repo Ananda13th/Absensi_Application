@@ -9,7 +9,6 @@ import example.com.data.entity.UserListEntity;
 import example.com.data.entity.mapper.UserEntityMapper;
 import example.com.data.net.Service;
 import example.com.data.net.ServiceGenerator;
-import example.com.data.repository.BaseResponseRepositoryImpl;
 import example.com.data.repository.UserRepositoryImpl;
 import example.com.domain.model.BaseResponse;
 import example.com.domain.model.CheckInReq;
@@ -152,8 +151,8 @@ public class UserTest {
         UserEntityMapper userMapper = new UserEntityMapper();
         Scheduler scheduler = Schedulers.io();
         Service service = ServiceGenerator.getService();
-        BaseResponseRepositoryImpl baseResponseRepository = new BaseResponseRepositoryImpl(userMapper,scheduler,service);
-        Single<BaseResponse> resp = baseResponseRepository.doDeleteUser("512");
+        UserRepositoryImpl userRepository = new  UserRepositoryImpl(userMapper,scheduler,service);
+        Single<BaseResponse> resp = userRepository.doDeleteUser("512");
 
         TestObserver<BaseResponse> testObserver = new TestObserver<>();
         resp.subscribe(testObserver);
@@ -167,9 +166,9 @@ public class UserTest {
         UserEntityMapper userMapper = new UserEntityMapper();
         Scheduler scheduler = Schedulers.io();
         Service service = ServiceGenerator.getService();
-        BaseResponseRepositoryImpl baseResponseRepository = new BaseResponseRepositoryImpl(userMapper,scheduler,service);
+        UserRepositoryImpl userRepository = new  UserRepositoryImpl(userMapper,scheduler,service);
         User user = new User();
-        Single<BaseResponse> resp = baseResponseRepository.doUpdateUser("512", user);
+        Single<BaseResponse> resp = userRepository.doUpdateUser("512", user);
 
         TestObserver<BaseResponse> testObserver = new TestObserver<>();
         resp.subscribe(testObserver);
@@ -183,9 +182,9 @@ public class UserTest {
         UserEntityMapper userMapper = new UserEntityMapper();
         Scheduler scheduler = Schedulers.io();
         Service service = ServiceGenerator.getService();
-        BaseResponseRepositoryImpl baseResponseRepository = new BaseResponseRepositoryImpl(userMapper,scheduler,service);
+        UserRepositoryImpl userRepository = new  UserRepositoryImpl(userMapper,scheduler,service);
         User user = new User();
-        Single<BaseResponse> resp = baseResponseRepository.doAddUser(user);
+        Single<BaseResponse> resp = userRepository.doAddUser(user);
 
         TestObserver<BaseResponse> testObserver = new TestObserver<>();
         resp.subscribe(testObserver);
@@ -256,7 +255,7 @@ public class UserTest {
         UserEntityMapper userMapper = new UserEntityMapper();
         Scheduler scheduler = Schedulers.io();
         Service service = ServiceGenerator.getService();
-        BaseResponseRepositoryImpl userRepository = new BaseResponseRepositoryImpl(userMapper,scheduler,service);
+        UserRepositoryImpl userRepository = new  UserRepositoryImpl(userMapper,scheduler,service);
         DeleteUserUseCase deleteUseCase = new DeleteUserUseCase(userRepository);
 
         Single<BaseResponse> resp =deleteUseCase.execute("512");
@@ -273,7 +272,7 @@ public class UserTest {
         UserEntityMapper userMapper = new UserEntityMapper();
         Scheduler scheduler = Schedulers.io();
         Service service = ServiceGenerator.getService();
-        BaseResponseRepositoryImpl userRepository = new BaseResponseRepositoryImpl(userMapper,scheduler,service);
+        UserRepositoryImpl userRepository = new  UserRepositoryImpl(userMapper,scheduler,service);
         UpdateUserUseCase updateUseCase = new UpdateUserUseCase(userRepository);
         User user = new User();
         user.setUserId("512");
@@ -291,7 +290,7 @@ public class UserTest {
         UserEntityMapper userMapper = new UserEntityMapper();
         Scheduler scheduler = Schedulers.io();
         Service service = ServiceGenerator.getService();
-        BaseResponseRepositoryImpl userRepository = new BaseResponseRepositoryImpl(userMapper,scheduler,service);
+        UserRepositoryImpl userRepository = new  UserRepositoryImpl(userMapper,scheduler,service);
         AddUserUseCase addUseCase = new AddUserUseCase(userRepository);
         User user = new User();
         Single<BaseResponse> resp =addUseCase.execute(user);
@@ -308,7 +307,7 @@ public class UserTest {
         UserEntityMapper userMapper = new UserEntityMapper();
         Scheduler scheduler = Schedulers.io();
         Service service = ServiceGenerator.getService();
-        BaseResponseRepositoryImpl userRepository = new BaseResponseRepositoryImpl(userMapper,scheduler,service);
+        UserRepositoryImpl userRepository = new  UserRepositoryImpl(userMapper,scheduler,service);
         CheckInUseCase checkInUseCase = new CheckInUseCase(userRepository);
         CheckInReq check = new CheckInReq();
         Single<BaseResponse> resp =checkInUseCase.execute(check);

@@ -13,7 +13,7 @@ import example.com.absensiapp.model.InputHistoryModel;
 import example.com.absensiapp.model.OutputHistoryModel;
 import example.com.absensiapp.view.adapter.HistoryAdapter;
 import example.com.absensiapp.view.listener.HistoryRecycleListener;
-import example.com.absensiapp.view.utils.MonthFormatter;
+import example.com.absensiapp.view.utils.UtilsFormatter;
 import example.com.absensiapp.viewmodel.HistoryViewModel;
 import lombok.SneakyThrows;
 
@@ -31,7 +31,7 @@ public class HistoryFragment extends Fragment implements HistoryRecycleListener 
     private FragmentHistoryBinding historyBinding;
     private HistoryViewModel historyViewModel = new HistoryViewModel();
     private InputHistoryModel inputHistoryModel = new InputHistoryModel();
-    private MonthFormatter monthFormatter = new MonthFormatter();
+    private UtilsFormatter utilsFormatter = new UtilsFormatter();
     private HistoryAdapter historyAdapter = new HistoryAdapter();
 
     @Override
@@ -53,7 +53,7 @@ public class HistoryFragment extends Fragment implements HistoryRecycleListener 
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 final String spinnerValue =historyBinding.monthSpinner.getSelectedItem().toString();
-                String month = monthFormatter.StringToNumberMonth(spinnerValue);
+                String month = utilsFormatter.StringToNumberMonth(spinnerValue);
                 inputHistoryModel.setMonth(month);
             }
 

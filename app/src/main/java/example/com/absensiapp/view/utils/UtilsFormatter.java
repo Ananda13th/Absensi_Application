@@ -1,6 +1,6 @@
 package example.com.absensiapp.view.utils;
 
-public class MonthFormatter {
+public class UtilsFormatter {
 
     private String result;
     public String StringToNumberMonth(String string) {
@@ -28,7 +28,14 @@ public class MonthFormatter {
             result="11";
         if(string.equals("Desember"))
             result="12";
+        return result;
+    }
 
+    public String InputFormatter(String string) {
+        if(string.equals("In"))
+            result="I";
+        if(string.equals("Out"))
+            result="O";
         return result;
     }
 }

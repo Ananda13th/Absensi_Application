@@ -42,12 +42,10 @@ public class TrainingDataActivity extends Activity implements CameraBridgeViewBa
     private long lastTime;
     private PreProcessorFactory ppF;
     private FileHelper fh;
-    //    private String subfolder;
     private String name;
     private int total;
     private int numberOfPictures;
     private int method;
-//    private ImageButton btn_Capture;
     private boolean capturePressed;
     private boolean front_camera;
     private boolean night_portrait;
@@ -66,23 +64,15 @@ public class TrainingDataActivity extends Activity implements CameraBridgeViewBa
         setContentView(R.layout.activity_training_data);
         SharedPreferences sharedPreferences = this.getSharedPreferences("LoginDetails", Context.MODE_PRIVATE);
         Intent intent = getIntent();
-        String folder = intent.getStringExtra("Folder");
-//        if(folder.equals("Test")){
-//            subfolder = intent.getStringExtra("Subfolder");
-//        }
         name = sharedPreferences.getString("Name", "");
+        File file = new File(fh.TRAINING_PATH + name);
+        if(file.isDirectory() && file.exists()) {
+            Intent skipActivity = new Intent(this.getApplicationContext(), MemberDashboardActivity.class);
+            startActivity(skipActivity);
+            finish();
+        }
         method = intent.getIntExtra("Method", 0);
         capturePressed = false;
-//        if(method == MANUALLY){
-//            btn_Capture = (ImageButton)findViewById(R.id.btn_Capture);
-//            btn_Capture.setVisibility(View.VISIBLE);
-//            btn_Capture.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    capturePressed = true;
-//                }
-//            });
-//        }
 
         fh = new FileHelper();
         total = 0;
@@ -91,7 +81,7 @@ public class TrainingDataActivity extends Activity implements CameraBridgeViewBa
         SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         timerDiff = Integer.valueOf(sharedPrefs.getString("key_timerDiff", "500"));
 
-        mAddPersonView = (CustomCameraView) findViewById(R.id.AddPersonPreview);
+        mAddPersonView = findViewById(R.id.AddPersonPreview);
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
         front_camera = sharedPref.getBoolean("key_front_camera", true);
 
@@ -150,7 +140,6 @@ public class TrainingDataActivity extends Activity implements CameraBridgeViewBa
                     if((faces != null) && (faces.length == 1)){
                         faces = MatOperation.rotateFaces(imgRgba, faces, ppF.getAngleForRecognition());
                         if(((method == MANUALLY) && capturePressed) || (method == TIME)){
-
                             MatName m = new MatName(name + "_" + total, img);
                             String wholeFolderPath = fh.TRAINING_PATH + name;
                             new File(wholeFolderPath).mkdirs();

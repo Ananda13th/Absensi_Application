@@ -2,7 +2,6 @@ package example.com.domain.usecase.user;
 
 import example.com.domain.model.User;
 import example.com.domain.repository.UserRepository;
-import example.com.domain.usecase.SingleUseCase;
 import example.com.domain.usecase.SingleUseCaseWithParam;
 import io.reactivex.Single;
 

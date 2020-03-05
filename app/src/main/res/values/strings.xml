@@ -17,8 +17,8 @@
     </string-array>
 
     <string-array name="override">
-        <item>I</item>
-        <item>O</item>
+        <item>In</item>
+        <item>Out</item>
     </string-array>
 
     <string name="shr_hint_userid">UserId</string>

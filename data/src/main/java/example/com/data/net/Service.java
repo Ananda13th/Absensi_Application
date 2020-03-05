@@ -42,28 +42,27 @@ public interface Service {
     @PUT("interns/{userId}")
     Single<BaseResponseEntity> updateUser(@Path("userId") String id, @Body UserEntity user);
 
-    @POST("/absentmg-in-out/absent")
+    @POST("absentmg-in-out/absent")
     Single<BaseResponseEntity> checkUser(@Body CheckInReqEntity check);
 
-    @POST("/absentmg-in-out/history")
+    @POST("absentmg-in-out/history")
     Single<OutputHistoryEntity> historyUser(@Body InputHistoryEntity inputHistory);
 
-    @POST("/absentmg-in-out/override")
+    @POST("absentmg-in-out/override")
     Single<BaseResponseEntity> overrideUser(@Body OverrideReqEntity overrideInput);
 
-    @GET("/absentmg-in-out/override/list")
+    @GET("absentmg-in-out/override/list")
     Single<OverrideRespListEntity> getOverrideList();
 
-    @POST("/absentmg-in-out/override/accept")
+    @POST("absentmg-in-out/override/accept")
     Single<BaseResponseEntity> acceptOverride(@Body OverrideRespEntity overrideInput);
 
-    @DELETE("/absentmg-in-out/override/reject/{id}")
+    @DELETE("absentmg-in-out/override/reject/{id}")
     Single<BaseResponseEntity> rejectOverride(@Path("id") String id);
 
     @Multipart
     @PUT("/interns/upload-image/{userid}")
     Single<BaseResponseEntity> uploadImage(
-            @Part("userid") String id,
-            @Part MultipartBody.Part image
-    );
+            @Part("userid") RequestBody userid,
+            @Part MultipartBody.Part[] mulyipartTypedOutput);
 }

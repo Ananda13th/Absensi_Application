@@ -128,7 +128,8 @@
             android:layout_height="140dp"
             app:layout_constraintStart_toStartOf="@id/cv_sycn"
             app:layout_constraintTop_toTopOf="@+id/cv_log_out"
-            android:background="@drawable/cardview_backgorund_white">
+            android:background="@drawable/cardview_backgorund_white"
+            android:onClick="@{()->onClick.onClickDownloadButton()}">
 
             <ImageView
                 android:layout_width="60dp"

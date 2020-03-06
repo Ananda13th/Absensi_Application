@@ -28,6 +28,7 @@ public class UserListFragment extends Fragment {
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
         return inflater.inflate(R.layout.fragment_user_list, container, false);
     }
 
@@ -35,6 +36,7 @@ public class UserListFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        getActivity().setTitle("Daftar Member");
         setUserList();
         setRecycleView();
         userAdapter.setOnClick(new UserRecycleListener() {

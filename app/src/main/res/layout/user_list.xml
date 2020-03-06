@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
     <data>
         <variable
             name="user"
@@ -11,8 +12,6 @@
 
     <androidx.cardview.widget.CardView
 
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:card_view="http://schemas.android.com/apk/res-auto"
         android:id="@+id/card_view_dosen"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -21,7 +20,6 @@
         card_view:cardUseCompatPadding="true">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
@@ -34,23 +32,42 @@
                 android:layout_height="wrap_content"
                 android:text="@={user.userId}"
                 card_view:layout_constraintStart_toStartOf="parent"
-                card_view:layout_constraintTop_toTopOf="parent"/>
+                card_view:layout_constraintTop_toTopOf="parent"
+                android:textStyle="bold"/>
             <TextView
                 android:id="@+id/tv_nama"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@={user.name}"
                 card_view:layout_constraintStart_toStartOf="@id/tv_id"
-                card_view:layout_constraintTop_toBottomOf="@id/tv_id"/>
+                card_view:layout_constraintTop_toBottomOf="@id/tv_id"
+                android:textStyle="bold"/>
 
-            <Button
+            <androidx.appcompat.widget.AppCompatImageButton
                 android:id="@+id/btn_delete"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="320dp"
                 android:onClick="@{()->onClick.onClickDeleteButton(user.userId)}"
-                android:text="DELETE"
-                card_view:layout_constraintStart_toStartOf="@id/tv_id"
-                card_view:layout_constraintTop_toBottomOf="@id/tv_nama"/>
+                android:src="@drawable/ic_delete"
+                android:backgroundTint="@color/red"
+                android:tint="@color/white"
+                android:background="@drawable/circle_button"
+                card_view:layout_constraintEnd_toEndOf="parent"
+                card_view:layout_constraintTop_toTopOf="parent"/>
+
+            <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/btn_edit"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginEnd="8dp"
+                android:background="@drawable/circle_button"
+                android:backgroundTint="@color/green"
+                android:onClick="@{()->onClick.onClickDeleteButton(user.userId)}"
+                android:src="@drawable/ic_create"
+                android:tint="@color/white"
+                card_view:layout_constraintEnd_toStartOf="@id/btn_delete"
+                card_view:layout_constraintTop_toTopOf="@id/btn_delete" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -1,6 +1,6 @@
 package example.com.absensiapp.view.fragment.admin;
 
-import android.app.Activity;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 
@@ -37,10 +37,12 @@ public class OverrideFragment extends Fragment {
     private OverrideViewModel overrideViewModel = new OverrideViewModel();
     private OverrideListAdapter overrideAdapter = new OverrideListAdapter();
     private SwipeRefreshLayout swipeRefreshLayout;
+    private Context context;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         overrideListBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_override, container, false);
+        context = getActivity();
         return overrideListBinding.getRoot();
     }
 
@@ -48,6 +50,7 @@ public class OverrideFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        getActivity().setTitle("Daftar Override");
         overrideViewModel = ViewModelProviders.of(requireActivity()).get(OverrideViewModel.class);
         swipeRefreshLayout = overrideListBinding.swipeRefresh;
         setRecycleView();
@@ -92,14 +95,32 @@ public class OverrideFragment extends Fragment {
     }
 
     private void overrideObserver() {
-        Activity activity = getActivity();
-        overrideViewModel.getBaseResp().observe(requireActivity(), new Observer<BaseResponseModel>() {
+
+        final Observer<BaseResponseModel> observer = new Observer<BaseResponseModel>() {
             @Override
             public void onChanged(BaseResponseModel baseResponseModel) {
-                Toast.makeText(activity, baseResponseModel.getErrorMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, baseResponseModel.getErrorMessage(), Toast.LENGTH_SHORT).show();
+                overrideViewModel.getBaseResp().removeObserver(this);
             }
-        });
+        };
 
+        overrideViewModel.getBaseResp().observe(requireActivity(), observer);
+
+
+
+//        overrideViewModel.getBaseResp().observe(requireActivity(), new Observer<BaseResponseModel>() {
+//            @Override
+//            public void onChanged(BaseResponseModel baseResponseModel) {
+//                Toast.makeText(context, baseResponseModel.getErrorMessage(), Toast.LENGTH_SHORT).show();
+//            }
+//        });
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+//        if(overrideViewModel != null && overrideViewModel.getBaseResp().hasObservers())
+//            overrideViewModel.getBaseResp().removeObserver(this);
     }
 
     private void setRecycleView() {

@@ -75,7 +75,7 @@ public class LoginActivity extends AppCompatActivity implements LoginListener {
                     startActivity(intent);
                     finish();
                 }
-                else
+                else if(userModel.getRole().matches("member"))
                 {
                     saveLoginDetails(userModel);
                     Intent intent = new Intent(getApplicationContext(), TrainingDataActivity.class);
@@ -83,6 +83,10 @@ public class LoginActivity extends AppCompatActivity implements LoginListener {
                     intent.putExtra("Folder", "Training");
                     startActivity(intent);
                     finish();
+                }
+                else
+                {
+                    Toast.makeText(LoginActivity.this, userModel.getErrorMessage(), Toast.LENGTH_SHORT).show();
                 }
             }
         });

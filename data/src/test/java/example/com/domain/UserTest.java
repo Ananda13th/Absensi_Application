@@ -2,10 +2,6 @@ package example.com.domain;
 
 import org.junit.Assert;
 import org.junit.Test;
-
-import example.com.data.entity.BaseResponseEntity;
-import example.com.data.entity.UserEntity;
-import example.com.data.entity.UserListEntity;
 import example.com.data.entity.mapper.UserEntityMapper;
 import example.com.data.net.Service;
 import example.com.data.net.ServiceGenerator;
@@ -28,78 +24,7 @@ import io.reactivex.schedulers.Schedulers;
 
 public class UserTest {
     @Test
-    public void T001_GetUserListTest() {
-        Service service = ServiceGenerator.getService();
-        Single<UserListEntity> resp = service.getUserList();
-
-        TestObserver<UserListEntity> testObserver = new TestObserver<>();
-        resp.subscribe(testObserver);
-        testObserver.assertComplete();
-        testObserver.assertNoErrors();
-    }
-
-    @Test
-    public void T002_GetUserTest() {
-        Service service = ServiceGenerator.getService();
-        Single<UserEntity> resp = service.getUser("512");
-
-        TestObserver<UserEntity> testObserver = new TestObserver<>();
-        resp.subscribe(testObserver);
-        testObserver.assertComplete();
-        testObserver.assertNoErrors();
-    }
-
-    @Test
-    public void T003_LoginTest() {
-        Service service = ServiceGenerator.getService();
-        UserEntity user = new UserEntity();
-        user.setUserId("512");
-        user.setPassword("12345678");
-        Single<UserEntity> resp = service.loginUser(user);
-
-        TestObserver<UserEntity> testObserver = new TestObserver<>();
-        resp.subscribe(testObserver);
-        testObserver.assertComplete();
-        testObserver.assertNoErrors();
-    }
-
-    @Test
-    public void T004_DeleteUserTest() {
-        Service service = ServiceGenerator.getService();
-        Single<BaseResponseEntity> resp = service.deleteUser("512");
-
-        TestObserver<BaseResponseEntity> testObserver = new TestObserver<>();
-        resp.subscribe(testObserver);
-        testObserver.assertComplete();
-        testObserver.assertNoErrors();
-    }
-
-    @Test
-    public void T005_UpdateUserTest() {
-        Service service = ServiceGenerator.getService();
-        UserEntity user = new UserEntity();
-        Single<BaseResponseEntity> resp = service.updateUser("512", user);
-
-        TestObserver<BaseResponseEntity> testObserver = new TestObserver<>();
-        resp.subscribe(testObserver);
-        testObserver.assertComplete();
-        testObserver.assertNoErrors();
-    }
-
-    @Test
-    public void T006_AddUserTest() {
-        Service service = ServiceGenerator.getService();
-        UserEntity user = new UserEntity();
-        Single<BaseResponseEntity> resp = service.addUser(user);
-
-        TestObserver<BaseResponseEntity> testObserver = new TestObserver<>();
-        resp.subscribe(testObserver);
-        testObserver.assertComplete();
-        testObserver.assertNoErrors();
-    }
-
-    @Test
-    public void T007_GetUserListImplementationTest() {
+    public void T001_GetUserListImplementationTest() {
         UserEntityMapper userMapper = new UserEntityMapper();
         Scheduler scheduler = Schedulers.io();
         Service service = ServiceGenerator.getService();
@@ -114,7 +39,7 @@ public class UserTest {
     }
 
     @Test
-    public void T008_GetUserImplementationTest() {
+    public void T002_GetUserImplementationTest() {
         UserEntityMapper userMapper = new UserEntityMapper();
         Scheduler scheduler = Schedulers.io();
         Service service = ServiceGenerator.getService();
@@ -129,7 +54,7 @@ public class UserTest {
     }
 
     @Test
-    public void T009_LoginImplementationTest() {
+    public void T003_LoginImplementationTest() {
         UserEntityMapper userMapper = new UserEntityMapper();
         Scheduler scheduler = Schedulers.io();
         Service service = ServiceGenerator.getService();
@@ -147,7 +72,7 @@ public class UserTest {
     }
 
     @Test
-    public void T010_DeleteImplementationTest() {
+    public void T004_DeleteImplementationTest() {
         UserEntityMapper userMapper = new UserEntityMapper();
         Scheduler scheduler = Schedulers.io();
         Service service = ServiceGenerator.getService();
@@ -162,7 +87,7 @@ public class UserTest {
     }
 
     @Test
-    public void T011_UpdateUserImplementationTest() {
+    public void T005_UpdateUserImplementationTest() {
         UserEntityMapper userMapper = new UserEntityMapper();
         Scheduler scheduler = Schedulers.io();
         Service service = ServiceGenerator.getService();
@@ -178,7 +103,7 @@ public class UserTest {
     }
 
     @Test
-    public void T012_AddUserImplementationTest() {
+    public void T006_AddUserImplementationTest() {
         UserEntityMapper userMapper = new UserEntityMapper();
         Scheduler scheduler = Schedulers.io();
         Service service = ServiceGenerator.getService();
@@ -194,7 +119,7 @@ public class UserTest {
     }
 
     @Test
-    public void T013_GetUserListUseCaseTest() {
+    public void T007_GetUserListUseCaseTest() {
         UserEntityMapper userMapper = new UserEntityMapper();
         Scheduler scheduler = Schedulers.io();
         Service service = ServiceGenerator.getService();
@@ -213,7 +138,7 @@ public class UserTest {
     }
 
     @Test
-    public void T014_GetUserUseCaseTest() {
+    public void T008_GetUserUseCaseTest() {
         UserEntityMapper userMapper = new UserEntityMapper();
         Scheduler scheduler = Schedulers.io();
         Service service = ServiceGenerator.getService();
@@ -231,7 +156,7 @@ public class UserTest {
     }
 
     @Test
-    public void T015_LoginUserUseCaseTest() {
+    public void T009_LoginUserUseCaseTest() {
         UserEntityMapper userMapper = new UserEntityMapper();
         Scheduler scheduler = Schedulers.io();
         Service service = ServiceGenerator.getService();
@@ -251,7 +176,7 @@ public class UserTest {
     }
 
     @Test
-    public void T016_DeleteUserUseCaseTest() {
+    public void T010_DeleteUserUseCaseTest() {
         UserEntityMapper userMapper = new UserEntityMapper();
         Scheduler scheduler = Schedulers.io();
         Service service = ServiceGenerator.getService();
@@ -268,7 +193,7 @@ public class UserTest {
     }
 
     @Test
-    public void T017_DeleteUserUseCaseTest() {
+    public void T011_DeleteUserUseCaseTest() {
         UserEntityMapper userMapper = new UserEntityMapper();
         Scheduler scheduler = Schedulers.io();
         Service service = ServiceGenerator.getService();
@@ -286,7 +211,7 @@ public class UserTest {
     }
 
     @Test
-    public void T018_AddUserUseCaseTest() {
+    public void T012_AddUserUseCaseTest() {
         UserEntityMapper userMapper = new UserEntityMapper();
         Scheduler scheduler = Schedulers.io();
         Service service = ServiceGenerator.getService();
@@ -303,7 +228,7 @@ public class UserTest {
     }
 
     @Test
-    public void T019_CheckStateUseCaseTest() {
+    public void T013_CheckStateUseCaseTest() {
         UserEntityMapper userMapper = new UserEntityMapper();
         Scheduler scheduler = Schedulers.io();
         Service service = ServiceGenerator.getService();

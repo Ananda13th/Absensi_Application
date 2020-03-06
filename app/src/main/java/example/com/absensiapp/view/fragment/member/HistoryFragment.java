@@ -26,6 +26,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 
+import java.util.Calendar;
+
 public class HistoryFragment extends Fragment implements HistoryRecycleListener {
 
     private FragmentHistoryBinding historyBinding;
@@ -37,6 +39,7 @@ public class HistoryFragment extends Fragment implements HistoryRecycleListener 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         historyBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_history, container, false);
+
         return historyBinding.getRoot();
     }
 
@@ -44,10 +47,15 @@ public class HistoryFragment extends Fragment implements HistoryRecycleListener 
     @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        getActivity().setTitle("Riwayat Presensi");
         historyViewModel = ViewModelProviders.of(requireActivity()).get(HistoryViewModel.class);
         SharedPreferences sharedPreferences = this.requireActivity().getSharedPreferences("LoginDetails", Context.MODE_PRIVATE);
         String userId = sharedPreferences.getString("UserId", "");
         inputHistoryModel.setUserId(userId);
+
+        int indexofmonth = Calendar.getInstance().get(Calendar.MONTH);
+
+        historyBinding.monthSpinner.setSelection(indexofmonth);
 
         historyBinding.monthSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override

@@ -21,7 +21,7 @@
             android:background="@drawable/rounded_button"
             android:drawableTop="@drawable/ic_create"
             android:onClick="@{()->onClick.onClickChangePasswordButton()}"
-            android:text="CHANGE PASSWORD"
+            android:text="GANTI PASSWORD"
             android:textColor="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.498"

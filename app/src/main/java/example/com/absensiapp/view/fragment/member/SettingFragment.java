@@ -61,12 +61,14 @@ public class SettingFragment extends Fragment implements SettingListener {
 
     @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        getActivity().setTitle("");
         sharedPreferences = this.requireActivity().getSharedPreferences("LoginDetails", Context.MODE_PRIVATE);
         name = sharedPreferences.getString("Name", "");
         fragmentSettingBinding.setOnClick(this);
         changePasswordLayoutBinding.setOnClick(this);
         changePasswordLayoutBinding.setUser(new UserModel());
-        super.onViewCreated(view, savedInstanceState);
+
         userViewModel = ViewModelProviders.of(requireActivity()).get(UserViewModel.class);
         userObserver();
     }

@@ -1,6 +1,5 @@
 package example.com.absensiapp.view.fragment.member;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
@@ -49,7 +48,7 @@ public class CheckInFragment extends Fragment implements CheckInListener {
     private OverrideRequestLayoutBinding overrideBinding;
     private AlertDialog overrideDialog;
     private UtilsFormatter utilsFormatter = new UtilsFormatter();
-    private FileHelper fh;
+    private Context context;
 
 
     static {
@@ -65,14 +64,15 @@ public class CheckInFragment extends Fragment implements CheckInListener {
         overrideBinding = DataBindingUtil.inflate(inflater, R.layout.override_request_layout, container, false);
         overrideBinding.setOnClick(this);
         checkInBinding.setOnClick(this);
-
+        context = getActivity();
         return checkInBinding.getRoot();
     }
 
     @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
+        getActivity().setTitle("Presensi");
+        FileHelper fh = new FileHelper();
         //Disable Button Semisal Belum InitTrainData
         File file = new File(fh.DATA_PATH);
         if(!file.exists()) {
@@ -102,6 +102,7 @@ public class CheckInFragment extends Fragment implements CheckInListener {
                         overrideBinding.etDate.setText(selectedyear+"-"+(selectedmonth+1)+"-"+selectedday);
                     }
                 },mYear, mMonth, mDay);
+                mDatePicker.getDatePicker().setMaxDate(mcurrentDate.getTimeInMillis());
                 mDatePicker.setTitle("Select dates");
                 mDatePicker.show();  }
         });
@@ -132,7 +133,7 @@ public class CheckInFragment extends Fragment implements CheckInListener {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 final String spinnerValue =overrideBinding.spinnerStatus.getSelectedItem().toString();
-                overrideReqModel.setAction(utilsFormatter.InputFormatter(spinnerValue));
+                overrideReqModel.setAction(utilsFormatter.ActionInputFormatter(spinnerValue));
             }
 
             @Override
@@ -185,20 +186,20 @@ public class CheckInFragment extends Fragment implements CheckInListener {
     }
 
     private void checkObserver() {
-        Activity activity = getActivity();
         userViewModel.getBaseResp().observe(requireActivity(), new Observer<BaseResponseModel>() {
             @Override
             public void onChanged(BaseResponseModel baseResponseModel) {
-                Toast.makeText(activity, baseResponseModel.getErrorMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, baseResponseModel.getErrorMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
 
     private void overrideObserver() {
+
        overrideViewModel.getBaseResp().observe(requireActivity(), new Observer<BaseResponseModel>() {
             @Override
             public void onChanged(BaseResponseModel baseResponseModel) {
-                //Toast.makeText(getActivity(), baseResponseModel.getErrorMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, baseResponseModel.getErrorMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }

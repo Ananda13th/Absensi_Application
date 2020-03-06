@@ -1,6 +1,7 @@
 package example.com.absensiapp.viewmodel;
 
 import android.annotation.SuppressLint;
+import android.widget.Toast;
 
 import javax.inject.Inject;
 
@@ -15,6 +16,7 @@ import example.com.absensiapp.model.UserModel;
 import example.com.absensiapp.model.UserListModel;
 import example.com.absensiapp.model.mapper.BaseResponseMapper;
 import example.com.absensiapp.model.mapper.UserMapper;
+import example.com.absensiapp.view.activity.LoginActivity;
 import example.com.domain.usecase.user.AddUserUseCase;
 import example.com.domain.usecase.user.CheckInUseCase;
 import example.com.domain.usecase.user.DeleteUserUseCase;
@@ -177,7 +179,7 @@ public class UserViewModel extends ViewModel {
 
                     @Override
                     public void onError(Throwable e) {
-
+                        e.getMessage();
                     }
                 });
     }

@@ -48,7 +48,10 @@
             android:requestLegacyExternalStorage="true"
             android:screenOrientation="landscape"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
-        <activity android:name=".view.activity.member.MemberDashboardActivity" />
+        <activity
+            android:name=".view.activity.member.MemberDashboardActivity"
+            android:screenOrientation="portrait"
+            />
         <activity android:name=".view.fragment.member.HistoryFragment" />
         <activity android:name=".view.activity.admin.InsertActivity" />
         <activity android:name=".view.activity.admin.AdminBoardActivity" />

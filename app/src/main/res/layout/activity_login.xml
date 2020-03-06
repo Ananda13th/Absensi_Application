@@ -22,28 +22,15 @@
             android:layout_height="200dp"
             android:src="@drawable/bca_logo"
             app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="50dp"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginTop="50dp"/>
-
-        <TextView
-            android:id="@+id/tv_login"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="190dp"
-            android:text="Enter UserId  And Password To Login"
-            android:textAppearance="@style/TextAppearance.AppCompat.Large"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:textSize="10sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:textColor="#808080	"/>
+            app:layout_constraintTop_toTopOf="parent"/>
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="310dp"
+            android:layout_marginTop="340dp"
             android:layout_marginEnd="8dp"
             android:src="@drawable/ic_person_blue"
             app:layout_constraintEnd_toStartOf="@id/tv_userid"
@@ -52,7 +39,7 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="390dp"
+            android:layout_marginTop="420dp"
             android:layout_marginEnd="8dp"
             android:src="@drawable/ic_lock_blue"
             app:layout_constraintEnd_toStartOf="@id/tv_password"
@@ -62,11 +49,11 @@
             android:id="@+id/tv_userid"
             android:layout_width="250dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="70dp"
+            android:layout_marginTop="50dp"
             android:layout_marginStart="90dp"
             android:hint="@string/shr_hint_userid"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_login">
+            app:layout_constraintTop_toBottomOf="@+id/title_logo">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/et_userid"
@@ -100,12 +87,13 @@
             style="@style/Widget.MaterialComponents.Button.TextButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="130dp"
+            android:layout_marginTop="30dp"
             android:onClick="@{()->onClick.onCLickLoginButton(user)}"
             android:text="LOGIN"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.498"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_password" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

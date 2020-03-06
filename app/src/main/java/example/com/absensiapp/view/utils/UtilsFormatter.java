@@ -4,25 +4,25 @@ public class UtilsFormatter {
 
     private String result;
     public String StringToNumberMonth(String string) {
-        if(string.equals("January"))
+        if(string.equals("Januari"))
             result="01";
-        if(string.equals("February"))
+        if(string.equals("Februari"))
             result="02";
-        if(string.equals("March"))
+        if(string.equals("Maret"))
             result="03";
         if(string.equals("April"))
             result="04";
-        if(string.equals("May"))
+        if(string.equals("Mei"))
             result="05";
-        if(string.equals("June"))
+        if(string.equals("Juni"))
             result="06";
-        if(string.equals("July"))
+        if(string.equals("Juli"))
             result="07";
-        if(string.equals("August"))
+        if(string.equals("Agustus"))
             result="08";
         if(string.equals("September"))
             result="09";
-        if(string.equals("October"))
+        if(string.equals("Oktober"))
             result="10";
         if(string.equals("November"))
             result="11";
@@ -31,10 +31,10 @@ public class UtilsFormatter {
         return result;
     }
 
-    public String InputFormatter(String string) {
-        if(string.equals("In"))
+    public String ActionInputFormatter(String string) {
+        if(string.equals("Masuk"))
             result="I";
-        if(string.equals("Out"))
+        if(string.equals("Keluar"))
             result="O";
         return result;
     }

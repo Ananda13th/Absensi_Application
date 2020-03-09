@@ -19,6 +19,7 @@ import example.com.domain.repository.HistoryRepository;
 import example.com.domain.repository.OverrideRepository;
 import example.com.domain.repository.UserRepository;
 import example.com.domain.usecase.override.AcceptOverrideUseCase;
+import example.com.domain.usecase.override.GetOverrideHistoryUseCase;
 import example.com.domain.usecase.override.RejectOverrideUseCase;
 import example.com.domain.usecase.user.AddUserUseCase;
 import example.com.domain.usecase.user.CheckInUseCase;
@@ -143,6 +144,11 @@ public class UserModule {
     @Provides
     RejectOverrideUseCase provideRejectOverrideUseCase(OverrideRepository overrideRepository) {
         return new RejectOverrideUseCase(overrideRepository);
+    }
+
+    @Provides
+    GetOverrideHistoryUseCase provideGetOverrideHistoryUseCase(OverrideRepository overrideRepository) {
+        return new GetOverrideHistoryUseCase(overrideRepository);
     }
 
     @Provides

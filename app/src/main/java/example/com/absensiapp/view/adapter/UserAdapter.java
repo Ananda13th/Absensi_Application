@@ -1,6 +1,5 @@
 package example.com.absensiapp.view.adapter;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
@@ -20,7 +19,6 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> im
 
     private List<UserModel> userList = new ArrayList<>();
     private UserRecycleListener clickListener;
-    private UserAdapter userAdapter = this;
 
     public void setUserList(List<UserModel> userList) {
         this.userList = userList;
@@ -39,7 +37,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> im
         this.clickListener = listener;
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder {
+    static class ViewHolder extends RecyclerView.ViewHolder {
         UserListBinding listBinding;
 
         private ViewHolder(UserListBinding listBinding) {
@@ -73,6 +71,11 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> im
     @Override
     public void onClickDeleteButton(String userId) {
         clickListener.onClickDeleteButton(userId);
+    }
+
+    @Override
+    public void onClickEditButton(UserModel userModel) {
+        clickListener.onClickEditButton(userModel);
     }
 
 }

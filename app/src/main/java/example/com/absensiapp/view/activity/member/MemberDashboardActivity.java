@@ -11,8 +11,10 @@ import ch.zhaw.facerecognitionlibrary.PreProcessor.PreProcessorFactory;
 import ch.zhaw.facerecognitionlibrary.Recognition.Recognition;
 import ch.zhaw.facerecognitionlibrary.Recognition.RecognitionFactory;
 import example.com.absensiapp.R;
+import example.com.absensiapp.view.fragment.admin.OverrideFragment;
 import example.com.absensiapp.view.fragment.member.CheckInFragment;
 import example.com.absensiapp.view.fragment.member.HistoryFragment;
+import example.com.absensiapp.view.fragment.member.HistoryOverrideFragment;
 import example.com.absensiapp.view.fragment.member.SettingFragment;
 
 import android.app.ProgressDialog;
@@ -77,7 +79,7 @@ public class MemberDashboardActivity extends AppCompatActivity{
                         fragmentManager.beginTransaction().replace(R.id.fragment_layout, fragment).commit();
                         break;
                     case R.id.navigation_history:
-                        fragment = new HistoryFragment();
+                        fragment = new HistoryOverrideFragment();
                         fragmentManager.beginTransaction().replace(R.id.fragment_layout, fragment).commit();
                         break;
                 }

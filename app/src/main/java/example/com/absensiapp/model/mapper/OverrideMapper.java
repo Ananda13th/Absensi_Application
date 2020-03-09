@@ -1,16 +1,22 @@
 package example.com.absensiapp.model.mapper;
 
+import com.google.gson.Gson;
+
 import java.util.ArrayList;
 import java.util.List;
 
+import example.com.absensiapp.model.OverrideHistoryRespListModel;
 import example.com.absensiapp.model.OverrideRespListModel;
 import example.com.absensiapp.model.OverrideReqModel;
 import example.com.absensiapp.model.OverrideRespModel;
+import example.com.domain.model.OverrideHistoryRespList;
 import example.com.domain.model.OverrideReq;
 import example.com.domain.model.OverrideResp;
 import example.com.domain.model.OverrideRespList;
 
 public class OverrideMapper extends BaseResponseMapper{
+
+    Gson gson = new Gson();
 
     public OverrideReq acceptOverrideToDomain(OverrideReqModel overrideReqModel) {
         OverrideReq overrideReq = new OverrideReq();
@@ -56,5 +62,11 @@ public class OverrideMapper extends BaseResponseMapper{
         }
         overrideRespListModel.setOverrideList(overrideList);
         return overrideRespListModel;
+    }
+
+    public OverrideHistoryRespListModel overrideHistoryToView(OverrideHistoryRespList overrideHistoryRespList) {
+        String overrideHistoryRespListJson = gson.toJson(overrideHistoryRespList);
+        OverrideHistoryRespListModel overrideHistoryRespListModel = gson.fromJson(overrideHistoryRespListJson,OverrideHistoryRespListModel.class);
+        return overrideHistoryRespListModel;
     }
 }

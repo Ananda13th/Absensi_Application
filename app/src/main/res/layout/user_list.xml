@@ -63,7 +63,7 @@
                 android:layout_marginEnd="8dp"
                 android:background="@drawable/circle_button"
                 android:backgroundTint="@color/green"
-                android:onClick="@{()->onClick.onClickDeleteButton(user.userId)}"
+                android:onClick="@{()->onClick.onClickEditButton(user)}"
                 android:src="@drawable/ic_create"
                 android:tint="@color/white"
                 card_view:layout_constraintEnd_toStartOf="@id/btn_delete"

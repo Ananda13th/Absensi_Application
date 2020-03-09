@@ -37,31 +37,26 @@
 
                 <Spinner
                     android:id="@+id/month_spinner"
-                    android:layout_width="200dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="35dp"
-                    android:layout_marginStart="40dp"
+                    android:layout_marginStart="56dp"
                     android:layout_marginTop="33dp"
-                    android:layout_marginEnd="22dp"
                     android:layout_marginBottom="32dp"
                     android:entries="@array/month"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/et_year"
-                    app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_bias="0.0" />
 
-                <EditText
-                    android:id="@+id/et_year"
-                    android:layout_width="71dp"
-                    android:layout_height="43dp"
-                    android:layout_marginEnd="13dp"
-                    android:ems="10"
-                    android:inputType="date"
-                    android:text="@={inputHistory.year}"
+                <Spinner
+                    android:id="@+id/spinner_year"
+                    android:layout_width="wrap_content"
+                    android:layout_height="35dp"
+                    android:scrollbarSize="20dp"
                     app:layout_constraintBottom_toBottomOf="@+id/month_spinner"
                     app:layout_constraintEnd_toStartOf="@+id/btn_search"
-                    app:layout_constraintTop_toTopOf="@+id/month_spinner" />
+                    app:layout_constraintTop_toTopOf="@+id/month_spinner"
+                    app:layout_constraintVertical_bias="0.0"/>
 
                 <ImageButton
                     android:id="@+id/btn_search"

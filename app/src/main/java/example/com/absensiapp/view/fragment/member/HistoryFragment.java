@@ -25,8 +25,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 public class HistoryFragment extends Fragment implements HistoryRecycleListener {
 
@@ -35,6 +38,7 @@ public class HistoryFragment extends Fragment implements HistoryRecycleListener 
     private InputHistoryModel inputHistoryModel = new InputHistoryModel();
     private UtilsFormatter utilsFormatter = new UtilsFormatter();
     private HistoryAdapter historyAdapter = new HistoryAdapter();
+    Context context;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -48,10 +52,34 @@ public class HistoryFragment extends Fragment implements HistoryRecycleListener 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         getActivity().setTitle("Riwayat Presensi");
+        context = getActivity();
         historyViewModel = ViewModelProviders.of(requireActivity()).get(HistoryViewModel.class);
         SharedPreferences sharedPreferences = this.requireActivity().getSharedPreferences("LoginDetails", Context.MODE_PRIVATE);
         String userId = sharedPreferences.getString("UserId", "");
         inputHistoryModel.setUserId(userId);
+
+        int year = Calendar.getInstance().get(Calendar.YEAR);
+        int yearBefore = year-1;
+        String[] arrayOfYear = new String[] {
+                String.valueOf(yearBefore), String.valueOf(year)
+        };
+        ArrayAdapter<String> yearToSpinner = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_dropdown_item, arrayOfYear);
+        yearToSpinner.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item);
+        historyBinding.spinnerYear.setAdapter(yearToSpinner);
+        historyBinding.spinnerYear.setSelection(1);
+        historyBinding.spinnerYear.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                final String yearValue = historyBinding.spinnerYear.getSelectedItem().toString();
+                inputHistoryModel.setYear(yearValue);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
 
         int indexofmonth = Calendar.getInstance().get(Calendar.MONTH);
 

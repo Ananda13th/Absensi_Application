@@ -7,8 +7,11 @@ import android.view.ViewGroup;
 
 import com.google.android.material.tabs.TabLayout;
 
+import java.util.Objects;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
@@ -26,7 +29,7 @@ public class HistoryOverrideFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        getActivity().setTitle("History Override");
+        Objects.requireNonNull(getActivity()).setTitle("History Override");
         TabLayout tabLayout = view.findViewById(R.id.history_tab);
         tabLayout.addTab(tabLayout.newTab().setText("Diterima"));
         tabLayout.addTab(tabLayout.newTab().setText("Ditolak"));

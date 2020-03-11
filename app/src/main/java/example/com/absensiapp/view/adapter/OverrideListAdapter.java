@@ -4,6 +4,7 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import androidx.annotation.NonNull;
@@ -33,7 +34,7 @@ public class OverrideListAdapter extends RecyclerView.Adapter<OverrideListAdapte
         overrideRecycleListener.onClickRejectButton(overrideRespModel);
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder {
+    static class ViewHolder extends RecyclerView.ViewHolder {
         OverrideListBinding overrideListBinding;
 
         private ViewHolder(OverrideListBinding overrideListBinding) {
@@ -44,6 +45,12 @@ public class OverrideListAdapter extends RecyclerView.Adapter<OverrideListAdapte
 
     public void setOverrideList(List<OverrideRespModel> overrideList) {
         this.overrideList = overrideList;
+        for(Iterator<OverrideRespModel> iterator = overrideList.iterator(); iterator.hasNext();) {
+            OverrideRespModel overrideHistoryRespModel = iterator.next();
+            if(!overrideHistoryRespModel.getStatus().equals("Diproses")) {
+                iterator.remove();
+            }
+        }
         notifyDataSetChanged();
     }
 

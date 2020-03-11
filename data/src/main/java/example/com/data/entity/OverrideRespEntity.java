@@ -9,4 +9,5 @@ public class OverrideRespEntity {
     private String userId;
     private String dates;
     private String times;
+    private String status;
 }

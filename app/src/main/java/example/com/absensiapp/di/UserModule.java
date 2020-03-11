@@ -8,7 +8,7 @@ import example.com.absensiapp.model.mapper.OverrideMapper;
 import example.com.absensiapp.model.mapper.UserMapper;
 import example.com.data.entity.mapper.BaseResponseEntityMapper;
 import example.com.data.entity.mapper.HistoryEntityMapper;
-import example.com.data.entity.mapper.OverrideReqEntityMapper;
+import example.com.data.entity.mapper.OverrideEntityMapper;
 import example.com.data.entity.mapper.UserEntityMapper;
 import example.com.data.net.Service;
 import example.com.data.net.ServiceGenerator;
@@ -19,6 +19,7 @@ import example.com.domain.repository.HistoryRepository;
 import example.com.domain.repository.OverrideRepository;
 import example.com.domain.repository.UserRepository;
 import example.com.domain.usecase.override.AcceptOverrideUseCase;
+import example.com.domain.usecase.override.DeletePendingOverrideUseCase;
 import example.com.domain.usecase.override.GetOverrideHistoryUseCase;
 import example.com.domain.usecase.override.RejectOverrideUseCase;
 import example.com.domain.usecase.user.AddUserUseCase;
@@ -67,7 +68,7 @@ public class UserModule {
     HistoryEntityMapper provideHistoryEntityMapper() {return new HistoryEntityMapper();}
 
     @Provides
-    OverrideReqEntityMapper provideOverrideEntityMapper() {return new OverrideReqEntityMapper();}
+    OverrideEntityMapper provideOverrideEntityMapper() {return new OverrideEntityMapper();}
 
     //Provide Repository
     @Provides
@@ -81,8 +82,8 @@ public class UserModule {
     }
 
     @Provides
-    OverrideRepository provideOverrideRepository(OverrideReqEntityMapper overrideReqEntityMapper, Scheduler scheduler, Service service) {
-        return new OverrideRepositoryImpl(overrideReqEntityMapper, scheduler, service);
+    OverrideRepository provideOverrideRepository(OverrideEntityMapper overrideEntityMapper, Scheduler scheduler, Service service) {
+        return new OverrideRepositoryImpl(overrideEntityMapper, scheduler, service);
     }
 
     //Provide UseCase
@@ -149,6 +150,11 @@ public class UserModule {
     @Provides
     GetOverrideHistoryUseCase provideGetOverrideHistoryUseCase(OverrideRepository overrideRepository) {
         return new GetOverrideHistoryUseCase(overrideRepository);
+    }
+
+    @Provides
+    DeletePendingOverrideUseCase provideDeletePendingOverrideUseCase(OverrideRepository overrideRepository) {
+        return new DeletePendingOverrideUseCase(overrideRepository);
     }
 
     @Provides

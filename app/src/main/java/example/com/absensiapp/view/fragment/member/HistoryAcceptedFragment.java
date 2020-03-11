@@ -21,7 +21,7 @@ import example.com.absensiapp.viewmodel.OverrideViewModel;
 public class HistoryAcceptedFragment extends Fragment {
     private OverrideViewModel overrideViewModel = new OverrideViewModel();
     private String userid;
-    private OverrideHistoryAdapter overrideHistoryAdapter = new OverrideHistoryAdapter("accepted");
+    private OverrideHistoryAdapter overrideHistoryAdapter = new OverrideHistoryAdapter("Diterima");
 
 
     @Nullable

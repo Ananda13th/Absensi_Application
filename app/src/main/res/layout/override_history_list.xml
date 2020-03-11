@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/tools">
     <data>
         <variable
-            name="overideHistory"
+            name="overrideHistory"
             type="example.com.absensiapp.model.OverrideHistoryRespModel" />
+        <variable
+            name="onClick"
+            type="example.com.absensiapp.view.listener.OverrideHistoryListener" />
     </data>
     <androidx.cardview.widget.CardView
         android:id="@+id/card_view_override_history"
@@ -22,19 +25,30 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
-                    android:text="@={overideHistory.action}"/>
+                    android:text="@={overrideHistory.action}"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
-                    android:text="@={overideHistory.dates}"/>
+                    android:text="@={overrideHistory.dates}"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
-                    android:text="@={overideHistory.times}"/>
-
+                    android:text="@={overrideHistory.times}"/>
             </LinearLayout>
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/btn_delete"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="330dp"
+            android:layout_marginTop="10dp"
+            android:src="@drawable/ic_delete"
+            android:backgroundTint="@color/red"
+            android:tint="@color/white"
+            android:background="@drawable/circle_button"
+            card_view:layout_constraintEnd_toEndOf="parent"
+            card_view:layout_constraintTop_toTopOf="parent"
+            android:onClick="@{()->onClick.onClickDeleteButton(overrideHistory.id)}"/>
     </androidx.cardview.widget.CardView>
-
 </layout>

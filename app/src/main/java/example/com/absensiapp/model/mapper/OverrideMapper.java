@@ -18,7 +18,7 @@ public class OverrideMapper extends BaseResponseMapper{
 
     Gson gson = new Gson();
 
-    public OverrideReq acceptOverrideToDomain(OverrideReqModel overrideReqModel) {
+    public OverrideReq requestOverrideToDomain(OverrideReqModel overrideReqModel) {
         OverrideReq overrideReq = new OverrideReq();
 
         overrideReq.setAction(overrideReqModel.getAction());
@@ -37,6 +37,20 @@ public class OverrideMapper extends BaseResponseMapper{
         overrideResp.setDates(overrideRespModel.getDates());
         overrideResp.setTimes(overrideRespModel.getTimes());
         overrideResp.setUserId(overrideRespModel.getUserId());
+        overrideResp.setStatus("Diterima");
+
+        return overrideResp;
+    }
+
+    public OverrideResp rejectOverrideToDomain(OverrideRespModel overrideRespModel) {
+        OverrideResp overrideResp = new OverrideResp();
+
+        overrideResp.setId(overrideRespModel.getId());
+        overrideResp.setAction(overrideRespModel.getAction());
+        overrideResp.setDates(overrideRespModel.getDates());
+        overrideResp.setTimes(overrideRespModel.getTimes());
+        overrideResp.setUserId(overrideRespModel.getUserId());
+        overrideResp.setStatus("Ditolak");
 
         return overrideResp;
     }
@@ -57,6 +71,7 @@ public class OverrideMapper extends BaseResponseMapper{
             overrideRespModel.setTimes(overrideResp.getTimes());
             overrideRespModel.setDates(overrideResp.getDates());
             overrideRespModel.setAction(overrideResp.getAction());
+            overrideRespModel.setStatus(overrideResp.getStatus());
 
             overrideList.add(overrideRespModel);
         }

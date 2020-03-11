@@ -6,27 +6,36 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
+
+import java.util.Objects;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import example.com.absensiapp.R;
+import example.com.absensiapp.databinding.OverrideHistoryListBinding;
+import example.com.absensiapp.model.BaseResponseModel;
 import example.com.absensiapp.model.OverrideHistoryRespListModel;
 import example.com.absensiapp.view.adapter.OverrideHistoryAdapter;
+import example.com.absensiapp.view.listener.OverrideHistoryListener;
 import example.com.absensiapp.viewmodel.OverrideViewModel;
 
 public class HistoryPendingFragment extends Fragment {
     private OverrideViewModel overrideViewModel = new OverrideViewModel();
     private String userid;
-    private OverrideHistoryAdapter overrideHistoryAdapter = new OverrideHistoryAdapter("pending");
+    private OverrideHistoryAdapter overrideHistoryAdapter = new OverrideHistoryAdapter("Diproses");
+    private OverrideHistoryListBinding overrideHistoryListBinding;
 
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        overrideHistoryListBinding = DataBindingUtil.inflate(inflater, R.layout.override_history_list, container, false);
         return inflater.inflate(R.layout.fragment_override_pending, container, false);
     }
 
@@ -37,6 +46,14 @@ public class HistoryPendingFragment extends Fragment {
         userid = sharedPreferences.getString("UserId", "");
         setOverrideHistory();
         setRecycleView();
+        overrideHistoryAdapter.setOnClick(new OverrideHistoryListener() {
+            @Override
+            public void onClickDeleteButton(String overrideId) {
+                Toast.makeText(getActivity(), "Clicked", Toast.LENGTH_SHORT).show();
+                //overrideViewModel.deletePendingOverride(overrideId);
+            }
+        });
+        overrideObserver();
     }
 
     private void setOverrideHistory() {
@@ -48,11 +65,20 @@ public class HistoryPendingFragment extends Fragment {
         });
     }
 
-
     private void setRecycleView() {
-        RecyclerView recyclerView = getView().findViewById(R.id.override_history_recycleview);
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(requireActivity());
+        RecyclerView recyclerView = Objects.requireNonNull(getView()).findViewById(R.id.override_history_recycleview);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(overrideHistoryAdapter);
+    }
+
+
+    private void overrideObserver() {
+        overrideViewModel.getBaseResp().observe(getViewLifecycleOwner(), new Observer<BaseResponseModel>() {
+            @Override
+            public void onChanged(BaseResponseModel baseResponseModel) {
+                Toast.makeText(getActivity(), baseResponseModel.getErrorMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }

@@ -69,6 +69,11 @@ public class SettingFragment extends Fragment implements SettingListener {
         changePasswordLayoutBinding.setOnClick(this);
         changePasswordLayoutBinding.setUser(new UserModel());
 
+        final AlertDialog.Builder changePasswordBuilder = new AlertDialog.Builder(getActivity());
+        changePasswordBuilder.setView(changePasswordLayoutBinding.getRoot());
+        changePasswordDialog = changePasswordBuilder.create();
+        changePasswordDialog.setTitle("CHANGE PASSWORD");
+
         userViewModel = ViewModelProviders.of(requireActivity()).get(UserViewModel.class);
         userObserver();
     }
@@ -82,10 +87,7 @@ public class SettingFragment extends Fragment implements SettingListener {
 
     @Override
     public void onClickChangePasswordButton() {
-        final AlertDialog.Builder changePasswordBuilder = new AlertDialog.Builder(getActivity());
-        changePasswordBuilder.setView(changePasswordLayoutBinding.getRoot());
-        changePasswordDialog = changePasswordBuilder.create();
-        changePasswordDialog.setTitle("CHANGE PASSWORD");
+
         changePasswordDialog.show();
     }
 
@@ -144,7 +146,7 @@ public class SettingFragment extends Fragment implements SettingListener {
     }
 
     private void userObserver() {
-        userViewModel.getBaseResp().observe(requireActivity(), new Observer<BaseResponseModel>() {
+        userViewModel.getBaseResp().observe(getViewLifecycleOwner(), new Observer<BaseResponseModel>() {
             @Override
             public void onChanged(BaseResponseModel baseResponseModel) {
                 if(changePasswordDialog!=null)

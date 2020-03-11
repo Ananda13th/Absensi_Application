@@ -15,6 +15,7 @@ import example.com.absensiapp.model.OverrideReqModel;
 import example.com.absensiapp.model.OverrideRespModel;
 import example.com.absensiapp.model.mapper.OverrideMapper;
 import example.com.domain.usecase.override.AcceptOverrideUseCase;
+import example.com.domain.usecase.override.DeletePendingOverrideUseCase;
 import example.com.domain.usecase.override.GetOverrideHistoryUseCase;
 import example.com.domain.usecase.override.GetOverrideListUseCase;
 import example.com.domain.usecase.override.OverrideUseCase;
@@ -48,6 +49,8 @@ public class OverrideViewModel extends ViewModel {
     RejectOverrideUseCase rejectOverrideUseCase;
     @Inject
     GetOverrideHistoryUseCase getOverrideHistoryUseCase;
+    @Inject
+    DeletePendingOverrideUseCase deletePendingOverrideUseCase;
 
     public LiveData<OverrideReqModel> getOverride() {
         if(overrideResp == null) {
@@ -81,7 +84,7 @@ public class OverrideViewModel extends ViewModel {
 
     @SuppressLint("CheckResult")
     public void sendOverrideReq(OverrideReqModel overrideReqModel) {
-        overrideUseCase.execute(overrideMapper.acceptOverrideToDomain(overrideReqModel))
+        overrideUseCase.execute(overrideMapper.requestOverrideToDomain(overrideReqModel))
                 .map(overrideMapper::baseResponseToView)
                 .subscribeOn(scheduler)
                 .observeOn(AndroidSchedulers.mainThread())
@@ -140,7 +143,7 @@ public class OverrideViewModel extends ViewModel {
 
     @SuppressLint("CheckResult")
     public void rejectOverride(OverrideRespModel overrideRespModel) {
-        rejectOverrideUseCase.execute(overrideRespModel.getId())
+        rejectOverrideUseCase.execute(overrideMapper.rejectOverrideToDomain(overrideRespModel))
                 .map(overrideMapper::baseResponseToView)
                 .subscribeOn(scheduler)
                 .observeOn(AndroidSchedulers.mainThread())
@@ -158,7 +161,7 @@ public class OverrideViewModel extends ViewModel {
     }
 
     @SuppressLint("CheckResult")
-    public void getOverrideHistoryList(String userid) {
+    private void getOverrideHistoryList(String userid) {
         getOverrideHistoryUseCase.execute(userid)
                 .map(overrideMapper::overrideHistoryToView)
                 .subscribeOn(scheduler)
@@ -172,6 +175,25 @@ public class OverrideViewModel extends ViewModel {
                     @Override
                     public void onError(Throwable e) {
 
+                    }
+                });
+    }
+
+    @SuppressLint("CheckResult")
+    public void deletePendingOverride(String overrideId) {
+        deletePendingOverrideUseCase.execute(overrideId)
+                .map(overrideMapper::baseResponseToView)
+                .subscribeOn(scheduler)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(new DisposableSingleObserver<BaseResponseModel>() {
+                    @Override
+                    public void onSuccess(BaseResponseModel baseResponseModel) {
+                        baseResp.setValue(baseResponseModel);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        e.getMessage();
                     }
                 });
     }

@@ -9,4 +9,5 @@ public class OverrideResp {
     private String userId;
     private String dates;
     private String times;
+    private String status;
 }

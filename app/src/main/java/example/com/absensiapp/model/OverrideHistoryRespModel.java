@@ -4,6 +4,7 @@ import lombok.Data;
 
 @Data
 public class OverrideHistoryRespModel {
+    private String id;
     private String action;
     private String dates;
     private String times;

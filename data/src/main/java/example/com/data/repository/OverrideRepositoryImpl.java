@@ -1,8 +1,9 @@
 package example.com.data.repository;
 
-import example.com.data.entity.mapper.OverrideReqEntityMapper;
+import example.com.data.entity.mapper.OverrideEntityMapper;
 import example.com.data.net.Service;
 import example.com.domain.model.BaseResponse;
+import example.com.domain.model.OverrideHistoryRespList;
 import example.com.domain.model.OverrideReq;
 import example.com.domain.model.OverrideResp;
 import example.com.domain.model.OverrideRespList;
@@ -12,11 +13,11 @@ import io.reactivex.Single;
 
 public class OverrideRepositoryImpl implements OverrideRepository {
 
-    private final OverrideReqEntityMapper overrideMapper;
+    private final OverrideEntityMapper overrideMapper;
     private final Scheduler scheduler;
     private final Service service;
 
-    public OverrideRepositoryImpl(OverrideReqEntityMapper overrideMapper, Scheduler scheduler, Service service) {
+    public OverrideRepositoryImpl(OverrideEntityMapper overrideMapper, Scheduler scheduler, Service service) {
         this.overrideMapper = overrideMapper;
         this.scheduler = scheduler;
         this.service = service;
@@ -24,7 +25,7 @@ public class OverrideRepositoryImpl implements OverrideRepository {
 
     @Override
     public Single<OverrideRespList> doGetOverrideList() {
-        return Single.defer(()->service.getOverrideList())
+        return Single.defer(service::getOverrideList)
                 .map(overrideMapper::getOverrideListToDomain)
                 .subscribeOn(scheduler);
     }
@@ -44,8 +45,22 @@ public class OverrideRepositoryImpl implements OverrideRepository {
     }
 
     @Override
-    public Single<BaseResponse> doRejectOverride(String id) {
-        return Single.defer(()->service.rejectOverride(id))
+    public Single<BaseResponse> doRejectOverride(OverrideResp overrideResp) {
+        return Single.defer(()->service.rejectOverride(overrideResp.getId()))
+                .map(overrideMapper::baseResponseToDomain)
+                .subscribeOn(scheduler);
+    }
+
+    @Override
+    public Single<OverrideHistoryRespList> doGetOverrideHistoryList(String id) {
+        return Single.defer(()->service.historyOverride(id))
+                .map(overrideMapper::overrideHistory)
+                .subscribeOn(scheduler);
+    }
+
+    @Override
+    public Single<BaseResponse> doDeletePendingOverride(String overrideId) {
+        return Single.defer(()->service.deletePendingOverride(overrideId))
                 .map(overrideMapper::baseResponseToDomain)
                 .subscribeOn(scheduler);
     }

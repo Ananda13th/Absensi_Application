@@ -1,11 +1,10 @@
 package example.com.data.net;
 
-import android.graphics.Bitmap;
-
 import example.com.data.entity.BaseResponseEntity;
 import example.com.data.entity.CheckInReqEntity;
 import example.com.data.entity.InputHistoryEntity;
 import example.com.data.entity.OutputHistoryEntity;
+import example.com.data.entity.OverrideHistoryRespListEntity;
 import example.com.data.entity.OverrideReqEntity;
 import example.com.data.entity.OverrideRespEntity;
 import example.com.data.entity.OverrideRespListEntity;
@@ -57,12 +56,18 @@ public interface Service {
     @POST("absentmg-in-out/override/accept")
     Single<BaseResponseEntity> acceptOverride(@Body OverrideRespEntity overrideInput);
 
-    @DELETE("absentmg-in-out/override/reject/{id}")
+    @PUT("absentmg-in-out/override/reject/{id}")
     Single<BaseResponseEntity> rejectOverride(@Path("id") String id);
 
     @Multipart
-    @PUT("/interns/upload-image/{userid}")
+    @PUT("interns/upload-image/{userid}")
     Single<BaseResponseEntity> uploadImage(
             @Part("userid") RequestBody userid,
             @Part MultipartBody.Part[] mulyipartTypedOutput);
+
+    @POST("absentmg-in-out/override/history/{userid}")
+    Single<OverrideHistoryRespListEntity> historyOverride(@Path("userid") String userid);
+
+    @DELETE("absentmg-in-out/override/delete/{userid}")
+    Single<BaseResponseEntity> deletePendingOverride(@Path("userid") String userid);
 }

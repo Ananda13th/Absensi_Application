@@ -1,6 +1,7 @@
 package example.com.absensiapp.view.adapter;
 
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.ArrayList;
@@ -13,14 +14,25 @@ import androidx.recyclerview.widget.RecyclerView;
 import example.com.absensiapp.R;
 import example.com.absensiapp.databinding.OverrideHistoryListBinding;
 import example.com.absensiapp.model.OverrideHistoryRespModel;
+import example.com.absensiapp.view.listener.OverrideHistoryListener;
 
-public class OverrideHistoryAdapter extends RecyclerView.Adapter<OverrideHistoryAdapter.ViewHolder>  {
+public class OverrideHistoryAdapter extends RecyclerView.Adapter<OverrideHistoryAdapter.ViewHolder> implements OverrideHistoryListener {
 
     private String status;
     private List<OverrideHistoryRespModel> overideHistoryList = new ArrayList<>();
+    private OverrideHistoryListener overrideHistoryListener;
 
     public OverrideHistoryAdapter(String status) {
         this.status = status;
+    }
+
+    public void setOnClick(OverrideHistoryListener listener) {
+        this.overrideHistoryListener = listener;
+    }
+
+    @Override
+    public void onClickDeleteButton(String overrideId) {
+        overrideHistoryListener.onClickDeleteButton(overrideId);
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
@@ -54,8 +66,11 @@ public class OverrideHistoryAdapter extends RecyclerView.Adapter<OverrideHistory
     @Override
     public void onBindViewHolder(@NonNull OverrideHistoryAdapter.ViewHolder holder, int position) {
         OverrideHistoryRespModel overrideHistoryResp = overideHistoryList.get(position);
-        holder.overrideHistoryListBinding.setOverideHistory(overrideHistoryResp);
-
+        holder.overrideHistoryListBinding.setOverrideHistory(overrideHistoryResp);
+        if(!holder.overrideHistoryListBinding.getOverrideHistory().getStatus().matches("Diproses")) {
+            holder.overrideHistoryListBinding.btnDelete.setVisibility(View.INVISIBLE);
+            holder.overrideHistoryListBinding.btnDelete.setEnabled(false);
+        }
     }
 
     @Override

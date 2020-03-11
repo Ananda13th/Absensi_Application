@@ -121,11 +121,10 @@ public class HistoryFragment extends Fragment implements HistoryRecycleListener 
     }
 
     private void setHistory() {
-        historyViewModel.getHistory().observe(requireActivity(), new Observer<OutputHistoryModel>() {
+        historyViewModel.getHistory().observe(getViewLifecycleOwner(), new Observer<OutputHistoryModel>() {
             @Override
             public void onChanged(OutputHistoryModel outputHistoryModel) {
                 historyAdapter.setHistoryList(outputHistoryModel.getHistData());
-                Log.d("TET", outputHistoryModel.toString());
                 historyBinding.tvNumberOfAttend.setText(outputHistoryModel.getOutputAttend());
             }
         });

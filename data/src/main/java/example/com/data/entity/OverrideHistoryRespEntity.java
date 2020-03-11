@@ -1,12 +1,11 @@
-package example.com.absensiapp.model;
+package example.com.data.entity;
 
 import lombok.Data;
 
 @Data
-public class OverrideRespModel {
+public class OverrideHistoryRespEntity {
     private String id;
     private String action;
-    private String userId;
     private String dates;
     private String times;
     private String status;

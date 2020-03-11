@@ -117,7 +117,6 @@ public class UserViewModel extends ViewModel {
                     @Override
                     public void onSuccess(BaseResponseModel baseResponseModel) {
                         baseResp.setValue(baseResponseModel);
-                        getRespUser();
                     }
 
                     @Override

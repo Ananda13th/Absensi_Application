@@ -33,7 +33,6 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> im
     }
 
     public void setOnClick(UserRecycleListener listener) {
-
         this.clickListener = listener;
     }
 
@@ -76,6 +75,11 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> im
     @Override
     public void onClickEditButton(UserModel userModel) {
         clickListener.onClickEditButton(userModel);
+    }
+
+    @Override
+    public void onClickSubmitButton(UserModel userModel) {
+        clickListener.onClickSubmitButton(userModel);
     }
 
 }

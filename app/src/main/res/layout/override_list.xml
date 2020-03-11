@@ -127,7 +127,7 @@
                 android:id="@+id/btn_accept"
                 android:layout_width="40dp"
                 android:layout_height="32dp"
-                android:layout_marginStart="156dp"
+                android:layout_marginStart="184dp"
                 android:layout_marginBottom="28dp"
                 android:background="@color/green"
                 android:onClick="@{()->onClick.onClickAcceptButton(overrideItem)}"

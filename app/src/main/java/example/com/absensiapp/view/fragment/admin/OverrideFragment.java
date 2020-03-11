@@ -85,7 +85,7 @@ public class OverrideFragment extends Fragment {
     }
 
     private void setOverrideList() {
-        overrideViewModel.getOverrideList().observe(this, new Observer<OverrideRespListModel>() {
+        overrideViewModel.getOverrideList().observe(getViewLifecycleOwner(), new Observer<OverrideRespListModel>() {
             @Override
             public void onChanged(OverrideRespListModel overrideRespListModel) {
                 overrideAdapter.setOverrideList(overrideRespListModel.getOverrideList());
@@ -96,24 +96,12 @@ public class OverrideFragment extends Fragment {
 
     private void overrideObserver() {
 
-        final Observer<BaseResponseModel> observer = new Observer<BaseResponseModel>() {
+        overrideViewModel.getBaseResp().observe(getViewLifecycleOwner(), new Observer<BaseResponseModel>() {
             @Override
             public void onChanged(BaseResponseModel baseResponseModel) {
                 Toast.makeText(context, baseResponseModel.getErrorMessage(), Toast.LENGTH_SHORT).show();
-                overrideViewModel.getBaseResp().removeObserver(this);
             }
-        };
-
-        overrideViewModel.getBaseResp().observe(requireActivity(), observer);
-
-
-
-//        overrideViewModel.getBaseResp().observe(requireActivity(), new Observer<BaseResponseModel>() {
-//            @Override
-//            public void onChanged(BaseResponseModel baseResponseModel) {
-//                Toast.makeText(context, baseResponseModel.getErrorMessage(), Toast.LENGTH_SHORT).show();
-//            }
-//        });
+        });
     }
 
     @Override

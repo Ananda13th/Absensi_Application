@@ -8,6 +8,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.databinding.DataBindingUtil;
@@ -22,18 +25,22 @@ import example.com.absensiapp.model.UserListModel;
 import example.com.absensiapp.model.UserModel;
 import example.com.absensiapp.view.adapter.UserAdapter;
 import example.com.absensiapp.view.listener.UserRecycleListener;
+import example.com.absensiapp.view.utils.AeSimpleSHA1;
 import example.com.absensiapp.viewmodel.UserViewModel;
 import lombok.SneakyThrows;
 
-public class UserListFragment extends Fragment {
+public class UserListFragment extends Fragment implements UserRecycleListener{
 
     private UserViewModel userViewModel = new UserViewModel();
     private UserAdapter userAdapter = new UserAdapter();
     private Context context;
+    private AlertDialog updateUserDialog;
+    private UpdateUserLayoutBinding updateUserLayoutBinding;
+    private AeSimpleSHA1 encrypt = new AeSimpleSHA1();
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        UpdateUserLayoutBinding updateUserLayoutBinding = DataBindingUtil.inflate(inflater, R.layout.update_user_layout, container, false);
+        updateUserLayoutBinding = DataBindingUtil.inflate(inflater, R.layout.update_user_layout, container, false);
         return inflater.inflate(R.layout.fragment_user_list, container, false);
     }
 
@@ -45,6 +52,10 @@ public class UserListFragment extends Fragment {
         context = getActivity();
         setUserList();
         setRecycleView();
+        final AlertDialog.Builder updateUserBuilder = new AlertDialog.Builder(context);
+        updateUserBuilder.setView(updateUserLayoutBinding.getRoot());
+        updateUserDialog = updateUserBuilder.create();
+        updateUserLayoutBinding.setOnClick(this);
         userAdapter.setOnClick(new UserRecycleListener() {
             @Override
             public void onClickDeleteButton(String userId) {
@@ -53,15 +64,16 @@ public class UserListFragment extends Fragment {
 
             @Override
             public void onClickEditButton(UserModel userModel) {
-                final android.app.AlertDialog.Builder updateUserBuilder = new android.app.AlertDialog.Builder(getActivity());
-                updateUserBuilder.setView(updateUserLayoutBinding.getRoot());
-                updateUserLayoutBinding = updateUserBuilder.create();
-                updateUserLayoutBinding.setTitle("CHANGE PASSWORD");
-                updateUserLayoutBinding.show();
+                updateUserLayoutBinding.setUser(userModel);
+                updateUserDialog.show();
+            }
+
+            @Override
+            public void onClickSubmitButton(UserModel userModel) {
+                //Dipanggil di bawah karena beda layout binding
             }
         });
         userObserver();
-
     }
 
     private void deleteConfirmation(final String id) {
@@ -103,4 +115,41 @@ public class UserListFragment extends Fragment {
         recyclerView.setAdapter(userAdapter);
     }
 
+    private boolean checkIfFilled() {
+        return updateUserLayoutBinding.etPassword.getText().toString().matches("") &&
+                updateUserLayoutBinding.etName.getText().toString().matches("") &&
+                updateUserLayoutBinding.etUserid.getText().toString().matches("");
+    }
+
+    @Override
+    public void onClickDeleteButton(String userId) {
+        //Sudah dipanggil di adapter setOnClick
+        //Jangan dipakai karena beda layout, pasti null
+    }
+
+    @Override
+    public void onClickEditButton(UserModel userModel) {
+        //Sudah dipanggil di adapter setOnClick
+        //Jangan dipakai karena beda layout, pasti null
+    }
+
+    @Override
+    public void onClickSubmitButton(UserModel userModel) {
+
+        if (checkIfFilled())
+            Toast.makeText(requireActivity(), "Field Not Filled!", Toast.LENGTH_SHORT).show();
+        else {
+            try {
+                userModel.setPassword(encrypt.SHA1(userModel.getPassword()));
+            } catch (NoSuchAlgorithmException e) {
+                e.printStackTrace();
+            } catch (UnsupportedEncodingException e) {
+                e.getMessage();
+            }
+            updateUserLayoutBinding.getUser();
+            userViewModel.updateUser(userModel);
+            updateUserDialog.dismiss();
+        }
+
+    }
 }

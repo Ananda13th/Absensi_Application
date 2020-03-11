@@ -69,24 +69,28 @@ public class LoginActivity extends AppCompatActivity implements LoginListener {
         userViewModel.getuser().observe(this, new Observer<UserModel>() {
             @Override
             public void onChanged(UserModel userModel) {
-                if(userModel.getRole().matches("admin")) {
-                    saveLoginDetails(userModel);
-                    Intent intent = new Intent(getApplicationContext(), AdminBoardActivity.class);
-                    startActivity(intent);
-                    finish();
-                }
-                else if(userModel.getRole().matches("member"))
+                if(!userModel.getErrorCode().equals("00"))
                 {
-                    saveLoginDetails(userModel);
-                    Intent intent = new Intent(getApplicationContext(), TrainingDataActivity.class);
-                    intent.putExtra("Method",TrainingDataActivity.TIME);
-                    intent.putExtra("Folder", "Training");
-                    startActivity(intent);
-                    finish();
+                    Toast.makeText(LoginActivity.this, userModel.getErrorMessage(), Toast.LENGTH_SHORT).show();
                 }
                 else
                 {
-                    Toast.makeText(LoginActivity.this, userModel.getErrorMessage(), Toast.LENGTH_SHORT).show();
+                    if(userModel.getRole().matches("admin")) {
+                        saveLoginDetails(userModel);
+                        Intent intent = new Intent(getApplicationContext(), AdminBoardActivity.class);
+                        startActivity(intent);
+                        finish();
+                    }
+                    if(userModel.getRole().matches("member"))
+                    {
+                        saveLoginDetails(userModel);
+                        Intent intent = new Intent(getApplicationContext(), TrainingDataActivity.class);
+                        intent.putExtra("Method",TrainingDataActivity.TIME);
+                        intent.putExtra("Folder", "Training");
+                        startActivity(intent);
+                        finish();
+                    }
+
                 }
             }
         });

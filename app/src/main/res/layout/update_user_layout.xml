@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
         <variable
@@ -7,7 +8,7 @@
             type="example.com.absensiapp.model.UserModel" />
         <variable
             name="onClick"
-            type="example.com.absensiapp.view.listener.SettingListener" />
+            type="example.com.absensiapp.view.listener.UserRecycleListener" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -18,46 +19,46 @@
             android:id="@+id/tv_userid"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
-            android:hint="New Userid"
-            android:layout_marginBottom="50dp"
+            android:hint="Userid Baru"
+            android:layout_marginTop="20dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toTopOf="@+id/btnSubmit">
+            app:layout_constraintTop_toTopOf="parent">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_userid"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
-                android:inputType="textPassword"
-                android:text="@={user.password}" />
+                android:text="@={user.userId}" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/tv_name"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
-            android:hint="New Name"
+            android:hint="Nama Baru"
             app:layout_constraintStart_toStartOf="@id/tv_userid"
             app:layout_constraintTop_toBottomOf="@id/tv_userid">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
-                android:inputType="textPassword"
-                android:text="@={user.password}" />
+                android:text="@={user.name}" />
         </com.google.android.material.textfield.TextInputLayout>
-
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/tv_password"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
-            android:hint="New Password"
+            android:hint="Password Baru"
             app:layout_constraintStart_toStartOf="@id/tv_userid"
             app:layout_constraintTop_toBottomOf="@id/tv_name">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
@@ -69,10 +70,13 @@
             android:id="@+id/btnSubmit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:onClick="@{()->onClick.onClickSubmitButton(user)}"
-            android:text="SUBMIT"
+            android:text="KIRIM"
             app:layout_constraintTop_toBottomOf="@id/tv_password"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"/>
+            android:layout_marginTop="30dp"
+            app:layout_constraintStart_toStartOf="parent"
+            android:onClick="@{()->onClick.onClickSubmitButton(user)}"/>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </layout>

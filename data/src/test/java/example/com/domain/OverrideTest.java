@@ -3,15 +3,17 @@ package example.com.domain;
 import org.junit.Assert;
 import org.junit.Test;
 
-import example.com.data.entity.mapper.OverrideReqEntityMapper;
+import example.com.data.entity.mapper.OverrideEntityMapper;
 import example.com.data.net.Service;
 import example.com.data.net.ServiceGenerator;
 import example.com.data.repository.OverrideRepositoryImpl;
 import example.com.domain.model.BaseResponse;
+import example.com.domain.model.OverrideHistoryRespList;
 import example.com.domain.model.OverrideReq;
 import example.com.domain.model.OverrideResp;
 import example.com.domain.model.OverrideRespList;
 import example.com.domain.usecase.override.AcceptOverrideUseCase;
+import example.com.domain.usecase.override.GetOverrideHistoryUseCase;
 import example.com.domain.usecase.override.GetOverrideListUseCase;
 import example.com.domain.usecase.override.OverrideUseCase;
 import example.com.domain.usecase.override.RejectOverrideUseCase;
@@ -24,7 +26,7 @@ public class OverrideTest {
 
     @Test
     public void T001_OverrideUseCaseTest() {
-        OverrideReqEntityMapper mapper = new OverrideReqEntityMapper();
+        OverrideEntityMapper mapper = new OverrideEntityMapper();
         Scheduler scheduler = Schedulers.io();
         Service service = ServiceGenerator.getService();
         OverrideRepositoryImpl overrideRepository = new OverrideRepositoryImpl(mapper, scheduler, service);
@@ -42,7 +44,7 @@ public class OverrideTest {
 
     @Test
     public void T002_GetOverrideListUseCaseTest() {
-        OverrideReqEntityMapper mapper = new OverrideReqEntityMapper();
+        OverrideEntityMapper mapper = new OverrideEntityMapper();
         Scheduler scheduler = Schedulers.io();
         Service service = ServiceGenerator.getService();
         OverrideRepositoryImpl overrideRepository = new OverrideRepositoryImpl(mapper, scheduler, service);
@@ -59,7 +61,7 @@ public class OverrideTest {
 
     @Test
     public void T003_AcceptOverrideUseCaseTest() {
-        OverrideReqEntityMapper mapper = new OverrideReqEntityMapper();
+        OverrideEntityMapper mapper = new OverrideEntityMapper();
         Scheduler scheduler = Schedulers.io();
         Service service = ServiceGenerator.getService();
         OverrideRepositoryImpl overrideRepository = new OverrideRepositoryImpl(mapper, scheduler, service);
@@ -76,14 +78,14 @@ public class OverrideTest {
 
     @Test
     public void T004_RejectOverrideUseCaseTest() {
-        OverrideReqEntityMapper mapper = new OverrideReqEntityMapper();
+        OverrideEntityMapper mapper = new OverrideEntityMapper();
         Scheduler scheduler = Schedulers.io();
         Service service = ServiceGenerator.getService();
         OverrideRepositoryImpl overrideRepository = new OverrideRepositoryImpl(mapper, scheduler, service);
         RejectOverrideUseCase rejectOverrideUseCase = new  RejectOverrideUseCase(overrideRepository);
         OverrideResp overrideResp = new OverrideResp();
         overrideResp.setId("1");
-        Single<BaseResponse> resp = rejectOverrideUseCase.execute(overrideResp.getId());
+        Single<BaseResponse> resp = rejectOverrideUseCase.execute(overrideResp);
         TestObserver<BaseResponse> testObserver = new TestObserver<>();
         resp.subscribe(testObserver);
         testObserver.awaitTerminalEvent();
@@ -91,5 +93,23 @@ public class OverrideTest {
         testObserver.assertNoErrors();
         Assert.assertEquals("00", testObserver.values().get(0).getErrorCode());
 
+    }
+
+    @Test
+    public void T005_GetOverrideHistoryUseCaseTest() {
+        OverrideEntityMapper mapper = new OverrideEntityMapper();
+        Scheduler scheduler = Schedulers.io();
+        Service service = ServiceGenerator.getService();
+        OverrideRepositoryImpl overrideRepository = new OverrideRepositoryImpl(mapper, scheduler, service);
+        GetOverrideHistoryUseCase getOverrideHistoryUseCase = new   GetOverrideHistoryUseCase(overrideRepository);
+        OverrideResp overrideResp = new OverrideResp();
+        overrideResp.setId("512");
+        Single<OverrideHistoryRespList> resp = getOverrideHistoryUseCase.execute(overrideResp.getId());
+        TestObserver<OverrideHistoryRespList> testObserver = new TestObserver<>();
+        resp.subscribe(testObserver);
+        testObserver.awaitTerminalEvent();
+        testObserver.assertComplete();
+        testObserver.assertNoErrors();
+        Assert.assertEquals("00", testObserver.values().get(0).getErrorCode());
     }
 }

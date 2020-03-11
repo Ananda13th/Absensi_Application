@@ -186,7 +186,7 @@ public class CheckInFragment extends Fragment implements CheckInListener {
     }
 
     private void checkObserver() {
-        userViewModel.getBaseResp().observe(requireActivity(), new Observer<BaseResponseModel>() {
+        userViewModel.getBaseResp().observe(getViewLifecycleOwner(), new Observer<BaseResponseModel>() {
             @Override
             public void onChanged(BaseResponseModel baseResponseModel) {
                 Toast.makeText(context, baseResponseModel.getErrorMessage(), Toast.LENGTH_SHORT).show();
@@ -196,7 +196,7 @@ public class CheckInFragment extends Fragment implements CheckInListener {
 
     private void overrideObserver() {
 
-       overrideViewModel.getBaseResp().observe(requireActivity(), new Observer<BaseResponseModel>() {
+       overrideViewModel.getBaseResp().observe(getViewLifecycleOwner(), new Observer<BaseResponseModel>() {
             @Override
             public void onChanged(BaseResponseModel baseResponseModel) {
                 Toast.makeText(context, baseResponseModel.getErrorMessage(), Toast.LENGTH_SHORT).show();

@@ -6,4 +6,5 @@ public interface UserRecycleListener {
 
     void onClickDeleteButton(String userId);
     void onClickEditButton(UserModel userModel);
+    void onClickSubmitButton(UserModel userModel);
 }

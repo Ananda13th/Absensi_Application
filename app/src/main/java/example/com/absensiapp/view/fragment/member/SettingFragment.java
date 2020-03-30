@@ -97,6 +97,7 @@ public class SettingFragment extends Fragment implements SettingListener {
             Toast.makeText(requireActivity(), "Field Not Filled!", Toast.LENGTH_SHORT).show();
         else {
             userModel.setUserId(sharedPreferences.getString("UserId", ""));
+            String name = sharedPreferences.getString("Name", "");
             try {
                 userModel.setPassword(encrypt.SHA1(userModel.getPassword()));
             } catch (NoSuchAlgorithmException e) {

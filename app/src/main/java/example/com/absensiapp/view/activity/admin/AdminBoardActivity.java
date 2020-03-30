@@ -59,6 +59,7 @@ public class AdminBoardActivity extends AppCompatActivity {
                         CustomDialog customDialog = new CustomDialog(AdminBoardActivity.this);
                         customDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                         customDialog.show();
+
                         break;
                 }
                 return false;

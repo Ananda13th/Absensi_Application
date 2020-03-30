@@ -79,6 +79,10 @@ public class MemberDashboardActivity extends AppCompatActivity{
                         fragmentManager.beginTransaction().replace(R.id.fragment_layout, fragment).commit();
                         break;
                     case R.id.navigation_history:
+                        fragment = new HistoryFragment();
+                        fragmentManager.beginTransaction().replace(R.id.fragment_layout, fragment).commit();
+                        break;
+                    case R.id.navigation_history_override:
                         fragment = new HistoryOverrideFragment();
                         fragmentManager.beginTransaction().replace(R.id.fragment_layout, fragment).commit();
                         break;
@@ -94,7 +98,7 @@ public class MemberDashboardActivity extends AppCompatActivity{
 
         @Override
         protected void onPreExecute() {
-            dialog.setMessage("Initializing...");
+            dialog.setMessage("Sedang Memproses Data...");
             dialog.setCancelable(false);
             dialog.show();
             super.onPreExecute();

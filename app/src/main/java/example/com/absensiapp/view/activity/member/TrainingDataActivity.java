@@ -69,7 +69,7 @@ public class TrainingDataActivity extends Activity implements CameraBridgeViewBa
         if(file.isDirectory() && file.exists()) {
             Intent skipActivity = new Intent(this.getApplicationContext(), MemberDashboardActivity.class);
             startActivity(skipActivity);
-            finish();
+            this.finish();
         }
         method = intent.getIntExtra("Method", 0);
         capturePressed = false;

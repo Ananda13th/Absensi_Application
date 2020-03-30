@@ -9,7 +9,10 @@ import ch.zhaw.facerecognitionlibrary.Recognition.RecognitionFactory;
 import example.com.absensiapp.R;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -41,7 +44,13 @@ public class InitDataTrainingActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_init_data_training);
+        SharedPreferences sharedPreferences = this.getSharedPreferences("LoginDetails", Context.MODE_PRIVATE);
+        sharedPreferences.getBoolean("SynchData", true);
         progress = findViewById(R.id.progressText);
+        ProgressDialog dialog = new ProgressDialog(InitDataTrainingActivity.this);
+        dialog.setMessage("Sedang Memproses Data...");
+        dialog.setCancelable(false);
+        dialog.show();
         progress.setMovementMethod(new ScrollingMovementMethod());
     }
 
@@ -53,7 +62,7 @@ public class InitDataTrainingActivity extends Activity {
         final Handler handler = new Handler(Looper.getMainLooper());
         thread = new Thread(new Runnable() {
             public void run() {
-                if(!Thread.currentThread().isInterrupted()){
+                if(!Thread.currentThread().isInterrupted()) {
                     PreProcessorFactory ppF = new PreProcessorFactory(getApplicationContext());
                     PreferencesHelper preferencesHelper = new PreferencesHelper(getApplicationContext());
                     String algorithm = preferencesHelper.getClassificationMethod();
@@ -64,6 +73,7 @@ public class InitDataTrainingActivity extends Activity {
                     if (persons.length > 0) {
                         Recognition rec = RecognitionFactory.getRecognitionAlgorithm(getApplicationContext(), Recognition.TRAINING, algorithm);
                         for (File person : persons) {
+
                             if (person.isDirectory()){
                                 File[] files = person.listFiles();
                                 int counter = 1;
@@ -98,7 +108,7 @@ public class InitDataTrainingActivity extends Activity {
                                         progress.post(new Runnable() {
                                             @Override
                                             public void run() {
-                                                progress.append("Image " + counterPost + " of " + filesLength + " from " + name + " imported.\n");
+                                                //progress.append("Image " + counterPost + " of " + filesLength + " from " + name + " imported.\n");
                                             }
                                         });
 
@@ -106,6 +116,7 @@ public class InitDataTrainingActivity extends Activity {
                                     }
                                 }
                             }
+
                         }
                         final Intent intent = new Intent(getApplicationContext(), MemberDashboardActivity.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -127,6 +138,7 @@ public class InitDataTrainingActivity extends Activity {
             }
         });
         thread.start();
+
     }
 
     @Override

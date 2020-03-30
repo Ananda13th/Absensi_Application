@@ -43,7 +43,7 @@ public class HistoryAcceptedFragment extends Fragment {
         overrideViewModel.getOverrideHistory(userid).observe(this, new Observer<OverrideHistoryRespListModel>() {
             @Override
             public void onChanged(OverrideHistoryRespListModel overrideHistoryRespListModel) {
-                overrideHistoryAdapter.setOverrideHistory(overrideHistoryRespListModel.getOverrideHistoryList());
+                overrideHistoryAdapter.setOverrideHistory(overrideHistoryRespListModel.getOverrideList());
             }
         });
     }

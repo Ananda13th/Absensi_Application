@@ -8,5 +8,5 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = true)
 @Data
 public class OverrideHistoryRespListModel extends BaseResponseModel{
-    List<OverrideHistoryRespModel> overrideHistoryList;
+    List<OverrideHistoryRespModel> overrideList;
 }

@@ -103,7 +103,7 @@ public class OverrideTest {
         OverrideRepositoryImpl overrideRepository = new OverrideRepositoryImpl(mapper, scheduler, service);
         GetOverrideHistoryUseCase getOverrideHistoryUseCase = new   GetOverrideHistoryUseCase(overrideRepository);
         OverrideResp overrideResp = new OverrideResp();
-        overrideResp.setId("512");
+        overrideResp.setId("U536736");
         Single<OverrideHistoryRespList> resp = getOverrideHistoryUseCase.execute(overrideResp.getId());
         TestObserver<OverrideHistoryRespList> testObserver = new TestObserver<>();
         resp.subscribe(testObserver);

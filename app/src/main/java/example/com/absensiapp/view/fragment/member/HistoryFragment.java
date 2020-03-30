@@ -20,16 +20,12 @@ import lombok.SneakyThrows;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
 
 public class HistoryFragment extends Fragment implements HistoryRecycleListener {
 
@@ -38,7 +34,6 @@ public class HistoryFragment extends Fragment implements HistoryRecycleListener 
     private InputHistoryModel inputHistoryModel = new InputHistoryModel();
     private UtilsFormatter utilsFormatter = new UtilsFormatter();
     private HistoryAdapter historyAdapter = new HistoryAdapter();
-    Context context;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -52,7 +47,7 @@ public class HistoryFragment extends Fragment implements HistoryRecycleListener 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         getActivity().setTitle("Riwayat Presensi");
-        context = getActivity();
+        Context context = getActivity();
         historyViewModel = ViewModelProviders.of(requireActivity()).get(HistoryViewModel.class);
         SharedPreferences sharedPreferences = this.requireActivity().getSharedPreferences("LoginDetails", Context.MODE_PRIVATE);
         String userId = sharedPreferences.getString("UserId", "");
@@ -115,7 +110,7 @@ public class HistoryFragment extends Fragment implements HistoryRecycleListener 
         historyViewModel.getHistory().observe(this, new Observer<OutputHistoryModel>() {
             @Override
             public void onChanged(OutputHistoryModel outputHistoryModel) {
-                Log.d("History", outputHistoryModel.getErrorMessage());
+
             }
         });
     }
@@ -135,11 +130,5 @@ public class HistoryFragment extends Fragment implements HistoryRecycleListener 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(requireActivity());
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(historyAdapter);
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        //historyViewModel.resetHistory();
     }
 }

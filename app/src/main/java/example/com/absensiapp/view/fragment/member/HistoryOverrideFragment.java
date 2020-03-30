@@ -29,16 +29,18 @@ public class HistoryOverrideFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        Objects.requireNonNull(getActivity()).setTitle("History Override");
+        Objects.requireNonNull(getActivity()).setTitle("Riwayat Override");
         TabLayout tabLayout = view.findViewById(R.id.history_tab);
         tabLayout.addTab(tabLayout.newTab().setText("Diterima"));
         tabLayout.addTab(tabLayout.newTab().setText("Ditolak"));
-        tabLayout.addTab(tabLayout.newTab().setText("Pending"));
+        tabLayout.addTab(tabLayout.newTab().setText("Diproses"));
         final ViewPager viewPager = view.findViewById(R.id.viewPagerHistory);
         viewPager.setAdapter(new PagerAdapter(getFragmentManager(), tabLayout.getTabCount()));
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.setupWithViewPager(viewPager);
         tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
+        tabLayout.setTabGravity(TabLayout.GRAVITY_CENTER);
+        tabLayout.setTabMode(TabLayout.MODE_FIXED);
         tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
 
             @Override
@@ -61,7 +63,7 @@ public class HistoryOverrideFragment extends Fragment {
 
     public static class PagerAdapter extends FragmentStatePagerAdapter {
         int mNumOfTabs;
-        private String[] tabTitles = new String[]{"Diterima", "Ditolak", "Pending"};
+        private String[] tabTitles = new String[]{"Diterima", "Ditolak", "Diproses"};
 
         @Nullable
         @Override

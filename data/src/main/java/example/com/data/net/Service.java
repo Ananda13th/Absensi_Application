@@ -65,7 +65,7 @@ public interface Service {
             @Part("userid") RequestBody userid,
             @Part MultipartBody.Part[] mulyipartTypedOutput);
 
-    @POST("absentmg-in-out/override/history/{userid}")
+    @GET("absentmg-in-out/override/history/{userid}")
     Single<OverrideHistoryRespListEntity> historyOverride(@Path("userid") String userid);
 
     @DELETE("absentmg-in-out/override/delete/{userid}")

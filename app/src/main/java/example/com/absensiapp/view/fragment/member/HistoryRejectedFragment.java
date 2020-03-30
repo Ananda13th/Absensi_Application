@@ -44,11 +44,10 @@ public class HistoryRejectedFragment extends Fragment {
         overrideViewModel.getOverrideHistory(userid).observe(this, new Observer<OverrideHistoryRespListModel>() {
             @Override
             public void onChanged(OverrideHistoryRespListModel overrideHistoryRespListModel) {
-                overrideHistoryAdapter.setOverrideHistory(overrideHistoryRespListModel.getOverrideHistoryList());
+                overrideHistoryAdapter.setOverrideHistory(overrideHistoryRespListModel.getOverrideList());
             }
         });
     }
-
 
     private void setRecycleView() {
         RecyclerView recyclerView = getView().findViewById(R.id.override_history_recycleview);
@@ -56,4 +55,5 @@ public class HistoryRejectedFragment extends Fragment {
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(overrideHistoryAdapter);
     }
+
 }

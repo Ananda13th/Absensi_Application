@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+<layout
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/tools">
     <data>
@@ -37,6 +38,7 @@
                     android:layout_marginStart="10dp"
                     android:text="@={overrideHistory.times}"/>
             </LinearLayout>
+
         <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/btn_delete"
             android:layout_width="40dp"

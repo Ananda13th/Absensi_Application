@@ -126,27 +126,30 @@
             <ImageButton
                 android:id="@+id/btn_accept"
                 android:layout_width="40dp"
-                android:layout_height="32dp"
-                android:layout_marginStart="184dp"
+                android:layout_height="40dp"
+                android:layout_marginEnd="10dp"
                 android:layout_marginBottom="28dp"
-                android:background="@color/green"
+                android:background="@drawable/circle_button"
+                android:backgroundTint="@color/green"
                 android:onClick="@{()->onClick.onClickAcceptButton(overrideItem)}"
                 android:src="@drawable/ic_yes"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintCircleRadius="50dp"
-                app:layout_constraintStart_toEndOf="@id/tv_userid" />
+                app:layout_constraintEnd_toStartOf="@+id/btn_reject" />
 
             <ImageButton
                 android:id="@+id/btn_reject"
                 android:layout_width="40dp"
-                android:layout_height="32dp"
+                android:layout_height="40dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginBottom="28dp"
-                android:background="@color/red"
+                android:background="@drawable/circle_button"
+                android:backgroundTint="@color/red"
+                android:layout_marginEnd="20dp"
                 android:src="@drawable/ic_no"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintCircleRadius="50dp"
-                app:layout_constraintStart_toEndOf="@+id/btn_accept"
+                app:layout_constraintEnd_toEndOf="parent"
                 android:onClick="@{()->onClick.onClickRejectButton(overrideItem)}"/>
 
 

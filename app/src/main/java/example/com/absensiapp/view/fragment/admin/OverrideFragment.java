@@ -5,11 +5,13 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 
 import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,6 +45,7 @@ public class OverrideFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         overrideListBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_override, container, false);
         context = getActivity();
+        Log.d("TAT", "onCreateView OverrideFragment");
         return overrideListBinding.getRoot();
     }
 
@@ -81,7 +84,6 @@ public class OverrideFragment extends Fragment {
 
             }
         });
-        overrideObserver();
     }
 
     private void setOverrideList() {
@@ -95,21 +97,15 @@ public class OverrideFragment extends Fragment {
     }
 
     private void overrideObserver() {
-
         overrideViewModel.getBaseResp().observe(getViewLifecycleOwner(), new Observer<BaseResponseModel>() {
             @Override
             public void onChanged(BaseResponseModel baseResponseModel) {
-                Toast.makeText(context, baseResponseModel.getErrorMessage(), Toast.LENGTH_SHORT).show();
+                if(null != baseResponseModel.getErrorMessage())
+                    Toast.makeText(context, baseResponseModel.getErrorMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
 
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-//        if(overrideViewModel != null && overrideViewModel.getBaseResp().hasObservers())
-//            overrideViewModel.getBaseResp().removeObserver(this);
-    }
 
     private void setRecycleView() {
         RecyclerView recyclerView = requireView().findViewById(R.id.recycler_view_override);
@@ -120,10 +116,10 @@ public class OverrideFragment extends Fragment {
 
     private void deleteConfirmation(OverrideRespModel overrideRespModel) {
         AlertDialog deleteDialog = new AlertDialog.Builder(requireActivity())
-                .setTitle("REJECT")
-                .setMessage("Do you want to Reject")
-                .setPositiveButton("Reject", (dialog, whichButton) -> overrideViewModel.rejectOverride(overrideRespModel))
-                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                .setTitle("Tolak Override")
+                .setMessage("Anda Yakin Ingin Menolak Override Ini?")
+                .setPositiveButton("Tolak", (dialog, whichButton) -> overrideViewModel.rejectOverride(overrideRespModel))
+                .setNegativeButton("Batal", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
                     }
@@ -132,4 +128,28 @@ public class OverrideFragment extends Fragment {
         deleteDialog.show();
     }
 
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        Log.d("TAT", "onAcivityCreated OverrideFragment");
+        overrideObserver();
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        Log.d("TAT", "onDestroyView OverrideFragment");
+    }
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        Log.d("TAT", "onAttach OverrideFragment");
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        overrideViewModel.clearViewModelValue();
+    }
 }

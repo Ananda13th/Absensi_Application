@@ -1,5 +1,6 @@
 package example.com.absensiapp.view.adapter;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,12 +16,14 @@ import example.com.absensiapp.R;
 import example.com.absensiapp.databinding.OverrideHistoryListBinding;
 import example.com.absensiapp.model.OverrideHistoryRespModel;
 import example.com.absensiapp.view.listener.OverrideHistoryListener;
+import example.com.absensiapp.view.utils.UtilsFormatter;
 
 public class OverrideHistoryAdapter extends RecyclerView.Adapter<OverrideHistoryAdapter.ViewHolder> implements OverrideHistoryListener {
 
     private String status;
     private List<OverrideHistoryRespModel> overideHistoryList = new ArrayList<>();
     private OverrideHistoryListener overrideHistoryListener;
+    private UtilsFormatter utilsFormatter = new UtilsFormatter();
 
     public OverrideHistoryAdapter(String status) {
         this.status = status;
@@ -66,11 +69,13 @@ public class OverrideHistoryAdapter extends RecyclerView.Adapter<OverrideHistory
     @Override
     public void onBindViewHolder(@NonNull OverrideHistoryAdapter.ViewHolder holder, int position) {
         OverrideHistoryRespModel overrideHistoryResp = overideHistoryList.get(position);
+        holder.overrideHistoryListBinding.setOnClick(this);
         holder.overrideHistoryListBinding.setOverrideHistory(overrideHistoryResp);
         if(!holder.overrideHistoryListBinding.getOverrideHistory().getStatus().matches("Diproses")) {
             holder.overrideHistoryListBinding.btnDelete.setVisibility(View.INVISIBLE);
             holder.overrideHistoryListBinding.btnDelete.setEnabled(false);
         }
+        overrideHistoryResp.setAction(utilsFormatter.ActionOutputFormatter(overrideHistoryResp.getAction()));
     }
 
     @Override

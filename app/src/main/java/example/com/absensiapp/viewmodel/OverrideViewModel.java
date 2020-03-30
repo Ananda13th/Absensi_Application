@@ -151,6 +151,7 @@ public class OverrideViewModel extends ViewModel {
                     @Override
                     public void onSuccess(BaseResponseModel baseResponseModel) {
                         baseResp.setValue(baseResponseModel);
+                        getOverrideList();
                     }
 
                     @Override
@@ -158,6 +159,10 @@ public class OverrideViewModel extends ViewModel {
                         e.getMessage();
                     }
                 });
+    }
+
+    public void clearViewModelValue() {
+        baseResp.setValue(new BaseResponseModel());
     }
 
     @SuppressLint("CheckResult")
@@ -189,6 +194,7 @@ public class OverrideViewModel extends ViewModel {
                     @Override
                     public void onSuccess(BaseResponseModel baseResponseModel) {
                         baseResp.setValue(baseResponseModel);
+                        getOverrideList();
                     }
 
                     @Override

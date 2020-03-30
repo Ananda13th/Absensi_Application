@@ -3,11 +3,13 @@ package example.com.absensiapp.view.fragment.admin;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import java.io.File;
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
 
@@ -18,6 +20,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import ch.zhaw.facerecognitionlibrary.Helpers.FileHelper;
 import example.com.absensiapp.R;
 import example.com.absensiapp.databinding.UpdateUserLayoutBinding;
 import example.com.absensiapp.model.BaseResponseModel;
@@ -28,6 +31,7 @@ import example.com.absensiapp.view.listener.UserRecycleListener;
 import example.com.absensiapp.view.utils.AeSimpleSHA1;
 import example.com.absensiapp.viewmodel.UserViewModel;
 import lombok.SneakyThrows;
+import xdroid.toaster.Toaster;
 
 public class UserListFragment extends Fragment implements UserRecycleListener{
 
@@ -78,10 +82,10 @@ public class UserListFragment extends Fragment implements UserRecycleListener{
 
     private void deleteConfirmation(final String id) {
         AlertDialog deleteDialog = new AlertDialog.Builder(requireActivity())
-                .setTitle("Delete")
-                .setMessage("Do you want to delete selected member?")
-                .setPositiveButton("Delete", (dialog, whichButton) -> userViewModel.deleteUser(id))
-                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                .setTitle("Hapus Member")
+                .setMessage("Anda Yakin Ingin Menghapus Member Ini?")
+                .setPositiveButton("Hapus", (dialog, whichButton) -> userViewModel.deleteUser(id))
+                .setNegativeButton("Batal", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
                     }
@@ -100,7 +104,7 @@ public class UserListFragment extends Fragment implements UserRecycleListener{
     }
 
     private void userObserver() {
-        userViewModel.getBaseResp().observe(this, new Observer<BaseResponseModel>() {
+        userViewModel.getBaseResp().observe(getActivity(), new Observer<BaseResponseModel>() {
             @Override
             public void onChanged(BaseResponseModel baseResponseModel) {
                 Toast.makeText(context, baseResponseModel.getErrorMessage(), Toast.LENGTH_SHORT).show();
@@ -116,8 +120,8 @@ public class UserListFragment extends Fragment implements UserRecycleListener{
     }
 
     private boolean checkIfFilled() {
-        return updateUserLayoutBinding.etPassword.getText().toString().matches("") &&
-                updateUserLayoutBinding.etName.getText().toString().matches("") &&
+        return updateUserLayoutBinding.etPassword.getText().toString().matches("") ||
+                updateUserLayoutBinding.etName.getText().toString().matches("") ||
                 updateUserLayoutBinding.etUserid.getText().toString().matches("");
     }
 
@@ -135,9 +139,9 @@ public class UserListFragment extends Fragment implements UserRecycleListener{
 
     @Override
     public void onClickSubmitButton(UserModel userModel) {
-
+        String name = updateUserLayoutBinding.getUser().getName();
         if (checkIfFilled())
-            Toast.makeText(requireActivity(), "Field Not Filled!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(requireActivity(), "Semua Bagian Belum Terisi!", Toast.LENGTH_SHORT).show();
         else {
             try {
                 userModel.setPassword(encrypt.SHA1(userModel.getPassword()));
@@ -147,7 +151,14 @@ public class UserListFragment extends Fragment implements UserRecycleListener{
                 e.getMessage();
             }
             updateUserLayoutBinding.getUser();
-            userViewModel.updateUser(userModel);
+            FileHelper fh = new FileHelper();
+            File file = new File(fh.TRAINING_PATH+name);
+            Log.d("NAMA", file.toString());
+            File destName = new File(fh.TRAINING_PATH+userModel.getName());
+            if(file.exists()) {
+                file.renameTo(destName);
+                userViewModel.updateUser(userModel);
+            }
             updateUserDialog.dismiss();
         }
 

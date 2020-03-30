@@ -21,6 +21,7 @@ public class PrefManager {
         editor.putString("Password", userModel.getPassword());
         editor.putString("Name", userModel.getName());
         editor.putString("Role", userModel.getRole());
+        editor.putBoolean("SynchData", false);
         editor.apply();
     }
 

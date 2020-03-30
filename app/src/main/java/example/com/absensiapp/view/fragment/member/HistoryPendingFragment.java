@@ -1,6 +1,7 @@
 package example.com.absensiapp.view.fragment.member;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -12,6 +13,7 @@ import java.util.Objects;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
@@ -35,7 +37,7 @@ public class HistoryPendingFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        overrideHistoryListBinding = DataBindingUtil.inflate(inflater, R.layout.override_history_list, container, false);
+        OverrideHistoryListBinding overrideHistoryListBinding = DataBindingUtil.inflate(inflater, R.layout.override_history_list, container, false);
         return inflater.inflate(R.layout.fragment_override_pending, container, false);
     }
 
@@ -49,8 +51,7 @@ public class HistoryPendingFragment extends Fragment {
         overrideHistoryAdapter.setOnClick(new OverrideHistoryListener() {
             @Override
             public void onClickDeleteButton(String overrideId) {
-                Toast.makeText(getActivity(), "Clicked", Toast.LENGTH_SHORT).show();
-                //overrideViewModel.deletePendingOverride(overrideId);
+                deleteConfirmation(overrideId);
             }
         });
         overrideObserver();
@@ -60,7 +61,7 @@ public class HistoryPendingFragment extends Fragment {
         overrideViewModel.getOverrideHistory(userid).observe(this, new Observer<OverrideHistoryRespListModel>() {
             @Override
             public void onChanged(OverrideHistoryRespListModel overrideHistoryRespListModel) {
-                overrideHistoryAdapter.setOverrideHistory(overrideHistoryRespListModel.getOverrideHistoryList());
+                overrideHistoryAdapter.setOverrideHistory(overrideHistoryRespListModel.getOverrideList());
             }
         });
     }
@@ -77,8 +78,29 @@ public class HistoryPendingFragment extends Fragment {
         overrideViewModel.getBaseResp().observe(getViewLifecycleOwner(), new Observer<BaseResponseModel>() {
             @Override
             public void onChanged(BaseResponseModel baseResponseModel) {
-                Toast.makeText(getActivity(), baseResponseModel.getErrorMessage(), Toast.LENGTH_SHORT).show();
+                if(null != baseResponseModel.getErrorMessage())
+                    Toast.makeText(getActivity(), baseResponseModel.getErrorMessage(), Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    private void deleteConfirmation(final String id) {
+        AlertDialog deleteDialog = new AlertDialog.Builder(requireActivity())
+                .setTitle("Hapus Override")
+                .setMessage("Anda Yakin Ingin Menghapus Override Ini?")
+                .setPositiveButton("Hapus", (dialog, whichButton) -> overrideViewModel.deletePendingOverride(id))
+                .setNegativeButton("Batal", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                })
+                .create();
+        deleteDialog.show();
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        overrideViewModel.clearViewModelValue();
     }
 }

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">AbsensiApp</string>
+    <string name="app_name">Presensi</string>
 
     <string-array name="month">
         <item>Januari</item>

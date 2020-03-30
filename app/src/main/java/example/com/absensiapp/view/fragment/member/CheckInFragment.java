@@ -72,16 +72,21 @@ public class CheckInFragment extends Fragment implements CheckInListener {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         getActivity().setTitle("Presensi");
+        checkInBinding.tvRemider.setVisibility(View.INVISIBLE);
         FileHelper fh = new FileHelper();
         //Disable Button Semisal Belum InitTrainData
         File file = new File(fh.DATA_PATH);
         if(!file.exists()) {
             checkInBinding.btnIn.setEnabled(false);
             checkInBinding.btnOut.setEnabled(false);
+            checkInBinding.btnOverride.setEnabled(false);
+            checkInBinding.tvRemider.setVisibility(View.VISIBLE);
         }
         //Ambil UserId Dari SharedPreferences
         SharedPreferences sharedPreferences = this.requireActivity().getSharedPreferences("LoginDetails", Context.MODE_PRIVATE);
         userId = sharedPreferences.getString("UserId", "");
+        String name = sharedPreferences.getString("Name", "");
+        checkInBinding.tvName.setText("Selamat Datang, " + name);
         //Inisialisasi ViewModel
         userViewModel = ViewModelProviders.of(requireActivity()).get(UserViewModel.class);
         overrideViewModel = ViewModelProviders.of(requireActivity()).get(OverrideViewModel.class);
@@ -189,17 +194,18 @@ public class CheckInFragment extends Fragment implements CheckInListener {
         userViewModel.getBaseResp().observe(getViewLifecycleOwner(), new Observer<BaseResponseModel>() {
             @Override
             public void onChanged(BaseResponseModel baseResponseModel) {
-                Toast.makeText(context, baseResponseModel.getErrorMessage(), Toast.LENGTH_SHORT).show();
+                if(null != baseResponseModel.getErrorMessage())
+                    Toast.makeText(context, baseResponseModel.getErrorMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
 
     private void overrideObserver() {
-
        overrideViewModel.getBaseResp().observe(getViewLifecycleOwner(), new Observer<BaseResponseModel>() {
             @Override
             public void onChanged(BaseResponseModel baseResponseModel) {
-                Toast.makeText(context, baseResponseModel.getErrorMessage(), Toast.LENGTH_SHORT).show();
+                if(null != baseResponseModel.getErrorMessage())
+                    Toast.makeText(context, baseResponseModel.getErrorMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -215,4 +221,10 @@ public class CheckInFragment extends Fragment implements CheckInListener {
         return overrideBinding.etTime.getText().toString().matches("") || overrideBinding.etDate.getText().toString().matches("");
     }
 
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        overrideViewModel.clearViewModelValue();
+        userViewModel.clearViewModelValue();
+    }
 }

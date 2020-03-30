@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
+        android:id="@+id/navigation_history_override"
+        android:icon="@drawable/ic_assignmen"
+        android:title="Override"/>
+    <item
         android:id="@+id/navigation_history"
         android:icon="@drawable/ic_history"
         android:title="Riwayat"/>

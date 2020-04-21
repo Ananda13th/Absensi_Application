@@ -18,10 +18,11 @@ import example.com.data.repository.UserRepositoryImpl;
 import example.com.domain.repository.HistoryRepository;
 import example.com.domain.repository.OverrideRepository;
 import example.com.domain.repository.UserRepository;
-import example.com.domain.usecase.override.AcceptOverrideUseCase;
+import example.com.domain.usecase.override.ApproveOverrideUseCase;
 import example.com.domain.usecase.override.DeletePendingOverrideUseCase;
 import example.com.domain.usecase.override.GetOverrideHistoryUseCase;
 import example.com.domain.usecase.override.RejectOverrideUseCase;
+import example.com.domain.usecase.override.RequestOverrideUseCase;
 import example.com.domain.usecase.user.AddUserUseCase;
 import example.com.domain.usecase.user.CheckInUseCase;
 import example.com.domain.usecase.user.DeleteUserUseCase;
@@ -29,10 +30,9 @@ import example.com.domain.usecase.override.GetOverrideListUseCase;
 import example.com.domain.usecase.user.GetUserListUseCase;
 import example.com.domain.usecase.user.GetUserUseCase;
 import example.com.domain.usecase.user.LoginUseCase;
-import example.com.domain.usecase.override.OverrideUseCase;
 import example.com.domain.usecase.history.SearchHistoryUseCase;
 import example.com.domain.usecase.user.UpdateUserUseCase;
-import example.com.domain.usecase.user.UploadImageUseCase;
+//import example.com.domain.usecase.user.UploadImageUseCase;
 import io.reactivex.Scheduler;
 import io.reactivex.schedulers.Schedulers;
 
@@ -128,8 +128,8 @@ public class UserModule {
     }
 
     @Provides
-    OverrideUseCase provideOverrideUseCase(OverrideRepository overrideRepository) {
-        return new OverrideUseCase(overrideRepository);
+    RequestOverrideUseCase provideOverrideUseCase(OverrideRepository overrideRepository) {
+        return new RequestOverrideUseCase(overrideRepository);
     }
 
     @Provides
@@ -138,8 +138,8 @@ public class UserModule {
     }
 
     @Provides
-    AcceptOverrideUseCase provideAcceptOverrideUseCase(OverrideRepository overrideRepository) {
-        return new AcceptOverrideUseCase(overrideRepository);
+    ApproveOverrideUseCase provideAcceptOverrideUseCase(OverrideRepository overrideRepository) {
+        return new ApproveOverrideUseCase(overrideRepository);
     }
 
     @Provides
@@ -157,10 +157,10 @@ public class UserModule {
         return new DeletePendingOverrideUseCase(overrideRepository);
     }
 
-    @Provides
-    UploadImageUseCase provideUploadImageUseCase(UserRepository userRepository) {
-        return new UploadImageUseCase(userRepository);
-    }
+//    @Provides
+//    UploadImageUseCase provideUploadImageUseCase(UserRepository userRepository) {
+//        return new UploadImageUseCase(userRepository);
+//    }
 
 }
 

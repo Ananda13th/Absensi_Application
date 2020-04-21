@@ -27,61 +27,58 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     public Single<UserList> doGetListUser() {
-        final Service service = ServiceGenerator.getService();
-        return Single.defer(()->service.getUserList())
+        return service.getUserList()
                 .map(userMapper::userRespToDomain)
                 .subscribeOn(scheduler);
     }
 
     @Override
     public Single<User> doGetUser(String userId) {
-        final Service service = ServiceGenerator.getService();
-        return Single.defer(()->service.getUser(userId))
+        return service.getUser(userId)
                 .map(userMapper::userToDomain)
                 .subscribeOn(scheduler);
     }
 
     @Override
     public Single<User> doLogin(User user) {
-        final Service service = ServiceGenerator.getService();
-        return Single.defer(()->service.loginUser(userMapper.userToData(user)))
+        return service.loginUser(userMapper.userToData(user))
                 .map(userMapper::userToDomain)
                 .subscribeOn(scheduler);
     }
 
     @Override
     public Single<BaseResponse> doAddUser(User user) {
-        return Single.defer(()->service.addUser(userMapper.userToData(user)))
+        return service.addUser(userMapper.userToData(user))
                 .map(userMapper::baseResponseToDomain)
                 .subscribeOn(scheduler);
     }
 
     @Override
     public Single<BaseResponse> doDeleteUser(String userId) {
-        return Single.defer(()->service.deleteUser(userId))
+        return service.deleteUser(userId)
                 .map(userMapper::baseResponseToDomain)
                 .subscribeOn(scheduler);
     }
 
     @Override
     public Single<BaseResponse> doUpdateUser(String userId, User user) {
-        return Single.defer(()->service.updateUser(userId,userMapper.userToData(user)))
+        return service.updateUser(userId,userMapper.userToData(user))
                 .map(userMapper::baseResponseToDomain)
                 .subscribeOn(scheduler);
     }
 
     @Override
     public Single<BaseResponse> doCheckUser(CheckInReq check) {
-        return Single.defer(()->service.checkUser(userMapper.userToData(check)))
+        return service.checkUser(userMapper.userToData(check))
                 .map(userMapper::baseResponseToDomain)
                 .subscribeOn(scheduler);
     }
 
-    @Override
-    public Single<BaseResponse> doUploadImage(RequestBody userId, MultipartBody.Part[] image) {
-        return Single.defer(()->service.uploadImage(userId, image))
-                .map(userMapper::baseResponseToDomain)
-                .subscribeOn(scheduler);
-    }
+//    @Override
+//    public Single<BaseResponse> doUploadImage(RequestBody userId, MultipartBody.Part[] image) {
+//        return service.uploadImage(userId, image)
+//                .map(userMapper::baseResponseToDomain)
+//                .subscribeOn(scheduler);
+//    }
 
 }

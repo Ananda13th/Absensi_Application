@@ -6,16 +6,16 @@ import example.com.domain.repository.OverrideRepository;
 import example.com.domain.usecase.SingleUseCaseWithParam;
 import io.reactivex.Single;
 
-public class AcceptOverrideUseCase implements SingleUseCaseWithParam<OverrideResp, BaseResponse> {
+public class ApproveOverrideUseCase implements SingleUseCaseWithParam<OverrideResp, BaseResponse> {
 
     private final OverrideRepository overrideRepository;
 
-    public AcceptOverrideUseCase(OverrideRepository overrideRepository) {
+    public ApproveOverrideUseCase(OverrideRepository overrideRepository) {
         this.overrideRepository = overrideRepository;
     }
 
     @Override
     public Single<BaseResponse> execute(OverrideResp parameter) {
-        return overrideRepository.doAcceptOverride(parameter);
+        return overrideRepository.doApproveOverride(parameter);
     }
 }

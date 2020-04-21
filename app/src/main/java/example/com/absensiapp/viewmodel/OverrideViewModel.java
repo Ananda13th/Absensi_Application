@@ -14,11 +14,11 @@ import example.com.absensiapp.model.OverrideRespListModel;
 import example.com.absensiapp.model.OverrideReqModel;
 import example.com.absensiapp.model.OverrideRespModel;
 import example.com.absensiapp.model.mapper.OverrideMapper;
-import example.com.domain.usecase.override.AcceptOverrideUseCase;
+import example.com.domain.usecase.override.ApproveOverrideUseCase;
 import example.com.domain.usecase.override.DeletePendingOverrideUseCase;
 import example.com.domain.usecase.override.GetOverrideHistoryUseCase;
 import example.com.domain.usecase.override.GetOverrideListUseCase;
-import example.com.domain.usecase.override.OverrideUseCase;
+import example.com.domain.usecase.override.RequestOverrideUseCase;
 import example.com.domain.usecase.override.RejectOverrideUseCase;
 import io.reactivex.Scheduler;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -40,11 +40,11 @@ public class OverrideViewModel extends ViewModel {
     @Inject
     OverrideMapper overrideMapper;
     @Inject
-    OverrideUseCase overrideUseCase;
+    RequestOverrideUseCase requestOverrideUseCase;
     @Inject
     GetOverrideListUseCase getOverrideListUseCase;
     @Inject
-    AcceptOverrideUseCase acceptOverrideUseCase;
+    ApproveOverrideUseCase approveOverrideUseCase;
     @Inject
     RejectOverrideUseCase rejectOverrideUseCase;
     @Inject
@@ -84,7 +84,7 @@ public class OverrideViewModel extends ViewModel {
 
     @SuppressLint("CheckResult")
     public void sendOverrideReq(OverrideReqModel overrideReqModel) {
-        overrideUseCase.execute(overrideMapper.requestOverrideToDomain(overrideReqModel))
+        requestOverrideUseCase.execute(overrideMapper.requestOverrideToDomain(overrideReqModel))
                 .map(overrideMapper::baseResponseToView)
                 .subscribeOn(scheduler)
                 .observeOn(AndroidSchedulers.mainThread())
@@ -122,7 +122,7 @@ public class OverrideViewModel extends ViewModel {
 
     @SuppressLint("CheckResult")
     public void acceptOverride(OverrideRespModel overrideRespModel) {
-        acceptOverrideUseCase.execute(overrideMapper.acceptOverrideToDomain(overrideRespModel))
+        approveOverrideUseCase.execute(overrideMapper.acceptOverrideToDomain(overrideRespModel))
                 .map(overrideMapper::baseResponseToView)
                 .subscribeOn(scheduler)
                 .observeOn(AndroidSchedulers.mainThread())

@@ -75,7 +75,7 @@ public class OverrideHistoryAdapter extends RecyclerView.Adapter<OverrideHistory
             holder.overrideHistoryListBinding.btnDelete.setVisibility(View.INVISIBLE);
             holder.overrideHistoryListBinding.btnDelete.setEnabled(false);
         }
-        overrideHistoryResp.setAction(utilsFormatter.ActionOutputFormatter(overrideHistoryResp.getAction()));
+        //overrideHistoryResp.setAction(utilsFormatter.ActionOutputFormatter(overrideHistoryResp.getAction()));
     }
 
     @Override

@@ -3,13 +3,11 @@ package example.com.absensiapp.view.fragment.admin;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import java.io.File;
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
 
@@ -20,7 +18,6 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import ch.zhaw.facerecognitionlibrary.Helpers.FileHelper;
 import example.com.absensiapp.R;
 import example.com.absensiapp.databinding.UpdateUserLayoutBinding;
 import example.com.absensiapp.model.BaseResponseModel;
@@ -31,7 +28,6 @@ import example.com.absensiapp.view.listener.UserRecycleListener;
 import example.com.absensiapp.view.utils.AeSimpleSHA1;
 import example.com.absensiapp.viewmodel.UserViewModel;
 import lombok.SneakyThrows;
-import xdroid.toaster.Toaster;
 
 public class UserListFragment extends Fragment implements UserRecycleListener{
 
@@ -151,14 +147,7 @@ public class UserListFragment extends Fragment implements UserRecycleListener{
                 e.getMessage();
             }
             updateUserLayoutBinding.getUser();
-            FileHelper fh = new FileHelper();
-            File file = new File(fh.TRAINING_PATH+name);
-            Log.d("NAMA", file.toString());
-            File destName = new File(fh.TRAINING_PATH+userModel.getName());
-            if(file.exists()) {
-                file.renameTo(destName);
-                userViewModel.updateUser(userModel);
-            }
+            userViewModel.updateUser(userModel);
             updateUserDialog.dismiss();
         }
 

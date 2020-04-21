@@ -1,4 +1,4 @@
-package example.com.domain;
+package example.com.data;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -15,7 +15,7 @@ import io.reactivex.Single;
 import io.reactivex.observers.TestObserver;
 import io.reactivex.schedulers.Schedulers;
 
-public class HistoryTest {
+public class HistoryIntergrationTest {
     @Test
     public void T001_SearchHistoryUseCaseTest() {
         HistoryEntityMapper mapper = new HistoryEntityMapper();

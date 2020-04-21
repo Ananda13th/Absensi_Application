@@ -21,6 +21,6 @@
         <item>Keluar</item>
     </string-array>
 
-    <string name="shr_hint_userid">UserId</string>
+    <string name="shr_hint_userid">User ID</string>
     <string name="shr_hint_password">Password</string>
 </resources>

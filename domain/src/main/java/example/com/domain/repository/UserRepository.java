@@ -17,5 +17,5 @@ public interface UserRepository {
     Single<BaseResponse> doDeleteUser(String userId);
     Single<BaseResponse> doUpdateUser(String userId, User user);
     Single<BaseResponse> doCheckUser(CheckInReq check);
-    Single<BaseResponse> doUploadImage(RequestBody userId, MultipartBody.Part[] image);
+//    Single<BaseResponse> doUploadImage(RequestBody userId, MultipartBody.Part[] image);
 }

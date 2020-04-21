@@ -10,8 +10,8 @@ import io.reactivex.Single;
 public interface OverrideRepository {
 
     Single<OverrideRespList> doGetOverrideList();
-    Single<BaseResponse> doOverrideUser(OverrideReq overrideReq);
-    Single<BaseResponse> doAcceptOverride(OverrideResp overrideResp);
+    Single<BaseResponse> doRequestOverride(OverrideReq overrideReq);
+    Single<BaseResponse> doApproveOverride(OverrideResp overrideResp);
     Single<BaseResponse> doRejectOverride(OverrideResp overrideResp);
     Single<OverrideHistoryRespList> doGetOverrideHistoryList(String userid);
     Single<BaseResponse> doDeletePendingOverride(String overrideId);

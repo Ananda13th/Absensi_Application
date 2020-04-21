@@ -1,4 +1,4 @@
-package example.com.domain;
+package example.com.data;
 
 import android.content.Context;
 

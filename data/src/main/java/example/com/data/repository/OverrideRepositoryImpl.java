@@ -25,42 +25,42 @@ public class OverrideRepositoryImpl implements OverrideRepository {
 
     @Override
     public Single<OverrideRespList> doGetOverrideList() {
-        return Single.defer(service::getOverrideList)
+        return service.getOverrideList()
                 .map(overrideMapper::getOverrideListToDomain)
                 .subscribeOn(scheduler);
     }
 
     @Override
-    public Single<BaseResponse> doOverrideUser(OverrideReq overrideReq) {
-        return Single.defer(()->service.overrideUser(overrideMapper.overrideReqToData(overrideReq)))
+    public Single<BaseResponse> doRequestOverride(OverrideReq overrideReq) {
+        return service.requestOverride(overrideMapper.overrideReqToData(overrideReq))
                 .map(overrideMapper::baseResponseToDomain)
                 .subscribeOn(scheduler);
     }
 
     @Override
-    public Single<BaseResponse> doAcceptOverride(OverrideResp overrideResp) {
-        return Single.defer(()->service.acceptOverride(overrideMapper.acceptOverrideToData(overrideResp)))
+    public Single<BaseResponse> doApproveOverride(OverrideResp overrideResp) {
+        return service.approveOverride(overrideMapper.acceptOverrideToData(overrideResp))
                 .map(overrideMapper::baseResponseToDomain)
                 .subscribeOn(scheduler);
     }
 
     @Override
     public Single<BaseResponse> doRejectOverride(OverrideResp overrideResp) {
-        return Single.defer(()->service.rejectOverride(overrideResp.getId()))
+        return service.rejectOverride(overrideResp.getId())
                 .map(overrideMapper::baseResponseToDomain)
                 .subscribeOn(scheduler);
     }
 
     @Override
     public Single<OverrideHistoryRespList> doGetOverrideHistoryList(String id) {
-        return Single.defer(()->service.historyOverride(id))
+        return service.getOverrideHistoryList(id)
                 .map(overrideMapper::overrideHistory)
                 .subscribeOn(scheduler);
     }
 
     @Override
     public Single<BaseResponse> doDeletePendingOverride(String overrideId) {
-        return Single.defer(()->service.deletePendingOverride(overrideId))
+        return service.deletePendingOverride(overrideId)
                 .map(overrideMapper::baseResponseToDomain)
                 .subscribeOn(scheduler);
     }

@@ -20,7 +20,6 @@ public class CustomDialog extends Dialog implements View.OnClickListener {
 
     public CustomDialog(Activity activity) {
         super(activity);
-
         this.activity=activity;
     }
 
@@ -43,6 +42,10 @@ public class CustomDialog extends Dialog implements View.OnClickListener {
                 sharedPreferences.edit().clear().apply();
                 dismiss();
                 Intent intent = new Intent(activity, LoginActivity.class);
+                intent.putExtra("finish", true);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |
+                        Intent.FLAG_ACTIVITY_CLEAR_TASK |
+                        Intent.FLAG_ACTIVITY_NEW_TASK);
                 activity.startActivity(intent);
                 activity.finish();
                 break;

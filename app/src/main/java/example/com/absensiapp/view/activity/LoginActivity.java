@@ -49,6 +49,7 @@ public class LoginActivity extends AppCompatActivity implements LoginListener {
         }
         PreferenceManager.setDefaultValues(this, R.xml.mypreferences, false);
         loginBinding = DataBindingUtil.setContentView(this, R.layout.activity_login);
+
         if(!new PrefManager(this).isUserLogedOut() && new PrefManager(this).isAdmin()) {
             Intent intent = new Intent(getApplicationContext(), AdminBoardActivity.class);
             startActivity(intent);
@@ -138,7 +139,6 @@ public class LoginActivity extends AppCompatActivity implements LoginListener {
                 Manifest.permission.CAMERA,
                 Manifest.permission.INTERNET
         };
-
         if (!hasPermissions(this, PERMISSIONS)) {
             ActivityCompat.requestPermissions(this, PERMISSIONS, PERMISSION_ALL);
         }
@@ -174,4 +174,5 @@ public class LoginActivity extends AppCompatActivity implements LoginListener {
     public boolean checkIfFilled() {
         return loginBinding.etUserid.getText().toString().matches("") || loginBinding.etPassword.getText().toString().matches("");
     }
+
 }

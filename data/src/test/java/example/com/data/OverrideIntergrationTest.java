@@ -1,4 +1,4 @@
-package example.com.domain;
+package example.com.data;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -12,17 +12,17 @@ import example.com.domain.model.OverrideHistoryRespList;
 import example.com.domain.model.OverrideReq;
 import example.com.domain.model.OverrideResp;
 import example.com.domain.model.OverrideRespList;
-import example.com.domain.usecase.override.AcceptOverrideUseCase;
+import example.com.domain.usecase.override.ApproveOverrideUseCase;
 import example.com.domain.usecase.override.GetOverrideHistoryUseCase;
 import example.com.domain.usecase.override.GetOverrideListUseCase;
-import example.com.domain.usecase.override.OverrideUseCase;
+import example.com.domain.usecase.override.RequestOverrideUseCase;
 import example.com.domain.usecase.override.RejectOverrideUseCase;
 import io.reactivex.Scheduler;
 import io.reactivex.Single;
 import io.reactivex.observers.TestObserver;
 import io.reactivex.schedulers.Schedulers;
 
-public class OverrideTest {
+public class OverrideIntergrationTest {
 
     @Test
     public void T001_OverrideUseCaseTest() {
@@ -30,9 +30,9 @@ public class OverrideTest {
         Scheduler scheduler = Schedulers.io();
         Service service = ServiceGenerator.getService();
         OverrideRepositoryImpl overrideRepository = new OverrideRepositoryImpl(mapper, scheduler, service);
-        OverrideUseCase overrideUseCase = new OverrideUseCase(overrideRepository);
+        RequestOverrideUseCase requestOverrideUseCase = new RequestOverrideUseCase(overrideRepository);
         OverrideReq overrideReq = new OverrideReq();
-        Single<BaseResponse> resp = overrideUseCase.execute(overrideReq);
+        Single<BaseResponse> resp = requestOverrideUseCase.execute(overrideReq);
         TestObserver<BaseResponse> testObserver = new TestObserver<>();
         resp.subscribe(testObserver);
         testObserver.awaitTerminalEvent();
@@ -65,9 +65,9 @@ public class OverrideTest {
         Scheduler scheduler = Schedulers.io();
         Service service = ServiceGenerator.getService();
         OverrideRepositoryImpl overrideRepository = new OverrideRepositoryImpl(mapper, scheduler, service);
-        AcceptOverrideUseCase acceptOverrideUseCasetOverrideListUseCase = new  AcceptOverrideUseCase(overrideRepository);
+        ApproveOverrideUseCase approveOverrideUseCasetOverrideListUseCase = new ApproveOverrideUseCase(overrideRepository);
         OverrideResp overrideResp = new OverrideResp();
-        Single<BaseResponse> resp = acceptOverrideUseCasetOverrideListUseCase.execute(overrideResp);
+        Single<BaseResponse> resp = approveOverrideUseCasetOverrideListUseCase.execute(overrideResp);
         TestObserver<BaseResponse> testObserver = new TestObserver<>();
         resp.subscribe(testObserver);
         testObserver.awaitTerminalEvent();
@@ -103,7 +103,7 @@ public class OverrideTest {
         OverrideRepositoryImpl overrideRepository = new OverrideRepositoryImpl(mapper, scheduler, service);
         GetOverrideHistoryUseCase getOverrideHistoryUseCase = new   GetOverrideHistoryUseCase(overrideRepository);
         OverrideResp overrideResp = new OverrideResp();
-        overrideResp.setId("U536736");
+        overrideResp.setId("512");
         Single<OverrideHistoryRespList> resp = getOverrideHistoryUseCase.execute(overrideResp.getId());
         TestObserver<OverrideHistoryRespList> testObserver = new TestObserver<>();
         resp.subscribe(testObserver);

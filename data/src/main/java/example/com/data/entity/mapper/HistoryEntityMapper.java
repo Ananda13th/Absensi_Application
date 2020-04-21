@@ -2,13 +2,8 @@ package example.com.data.entity.mapper;
 
 import com.google.gson.Gson;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import example.com.data.entity.HistDataEntity;
 import example.com.data.entity.InputHistoryEntity;
 import example.com.data.entity.OutputHistoryEntity;
-import example.com.domain.model.HistData;
 import example.com.domain.model.InputHistory;
 import example.com.domain.model.OutputHistory;
 

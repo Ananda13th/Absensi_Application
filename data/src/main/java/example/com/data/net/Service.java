@@ -41,33 +41,33 @@ public interface Service {
     @PUT("interns/{userId}")
     Single<BaseResponseEntity> updateUser(@Path("userId") String id, @Body UserEntity user);
 
-    @POST("absentmg-in-out/absent")
+    @POST("interns/absent")
     Single<BaseResponseEntity> checkUser(@Body CheckInReqEntity check);
 
-    @POST("absentmg-in-out/history")
+    @POST("interns/history")
     Single<OutputHistoryEntity> historyUser(@Body InputHistoryEntity inputHistory);
 
-    @POST("absentmg-in-out/override")
-    Single<BaseResponseEntity> overrideUser(@Body OverrideReqEntity overrideInput);
+    @POST("override")
+    Single<BaseResponseEntity> requestOverride(@Body OverrideReqEntity overrideInput);
 
-    @GET("absentmg-in-out/override/list")
+    @GET("override")
     Single<OverrideRespListEntity> getOverrideList();
 
-    @POST("absentmg-in-out/override/accept")
-    Single<BaseResponseEntity> acceptOverride(@Body OverrideRespEntity overrideInput);
+    @POST("override/accept")
+    Single<BaseResponseEntity> approveOverride(@Body OverrideRespEntity overrideInput);
 
-    @PUT("absentmg-in-out/override/reject/{id}")
-    Single<BaseResponseEntity> rejectOverride(@Path("id") String id);
+    @PUT("override/{overrideId}")
+    Single<BaseResponseEntity> rejectOverride(@Path("overrideId") String id);
 
-    @Multipart
-    @PUT("interns/upload-image/{userid}")
-    Single<BaseResponseEntity> uploadImage(
-            @Part("userid") RequestBody userid,
-            @Part MultipartBody.Part[] mulyipartTypedOutput);
+    @GET("override/{userid}")
+    Single<OverrideHistoryRespListEntity> getOverrideHistoryList(@Path("userid") String userid);
 
-    @GET("absentmg-in-out/override/history/{userid}")
-    Single<OverrideHistoryRespListEntity> historyOverride(@Path("userid") String userid);
+    @DELETE("override/{overrideId}")
+    Single<BaseResponseEntity> deletePendingOverride(@Path("overrideId") String userid);
 
-    @DELETE("absentmg-in-out/override/delete/{userid}")
-    Single<BaseResponseEntity> deletePendingOverride(@Path("userid") String userid);
+//    @Multipart
+//    @PUT("interns/upload-image/{userid}")
+//    Single<BaseResponseEntity> uploadImage(
+//            @Part("userid") RequestBody userid,
+//            @Part MultipartBody.Part[] mulyipartTypedOutput);
 }

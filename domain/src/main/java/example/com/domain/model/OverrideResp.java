@@ -7,6 +7,7 @@ public class OverrideResp {
     private String id;
     private String action;
     private String userId;
+    private String name;
     private String dates;
     private String times;
     private String status;

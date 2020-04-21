@@ -106,7 +106,14 @@ public class SettingFragment extends Fragment implements SettingListener {
                 e.getMessage();
             }
             changePasswordLayoutBinding.getUser();
-            userViewModel.updateUser(userModel);
+            FileHelper fh = new FileHelper();
+            File file = new File(fh.TRAINING_PATH+name);
+            Log.d("NAMA", file.toString());
+            File destName = new File(fh.TRAINING_PATH+userModel.getName());
+            if(file.exists()) {
+                file.renameTo(destName);
+                userViewModel.updateUser(userModel);
+            }
         }
     }
 

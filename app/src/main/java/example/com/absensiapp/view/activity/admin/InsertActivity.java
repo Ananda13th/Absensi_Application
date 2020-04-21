@@ -57,7 +57,7 @@ public class InsertActivity extends AppCompatActivity implements InsertListener 
     public void onClickInsertListener(UserModel user) {
         insertBinding.getUser();
         if(checkIfFilled())
-            Toast.makeText(this, "Fill All Field!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Isi Semua Bagian!!", Toast.LENGTH_SHORT).show();
         else {
             try {
                 user.setPassword(encrypt.SHA1(user.getPassword()));

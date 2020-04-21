@@ -22,7 +22,7 @@ import example.com.domain.usecase.user.GetUserListUseCase;
 import example.com.domain.usecase.user.GetUserUseCase;
 import example.com.domain.usecase.user.LoginUseCase;
 import example.com.domain.usecase.user.UpdateUserUseCase;
-import example.com.domain.usecase.user.UploadImageUseCase;
+//import example.com.domain.usecase.user.UploadImageUseCase;
 import io.reactivex.Scheduler;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.observers.DisposableSingleObserver;
@@ -59,8 +59,8 @@ public class UserViewModel extends ViewModel {
     GetUserUseCase getUserUseCase;
     @Inject
     CheckInUseCase checkInUseCase;
-    @Inject
-    UploadImageUseCase uploadImageUseCase;
+//    @Inject
+//    UploadImageUseCase uploadImageUseCase;
 
     public LiveData<UserListModel> getRespUser() {
         if(userResp == null) {
@@ -203,24 +203,24 @@ public class UserViewModel extends ViewModel {
                 });
     }
 
-    @SuppressLint("CheckResult")
-    public void uploadImage(UploadImageReqModel uploadImageReqModel) {
-        uploadImageUseCase.execute(userMapper.imageToDomain(uploadImageReqModel))
-                .map(baseResponseMapper::baseResponseToView)
-                .subscribeOn(scheduler)
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeWith(new DisposableSingleObserver<BaseResponseModel>() {
-                    @Override
-                    public void onSuccess(BaseResponseModel baseResponseModel) {
-                        baseResp.setValue(baseResponseModel);
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-
-                    }
-                });
-    }
+//    @SuppressLint("CheckResult")
+//    public void uploadImage(UploadImageReqModel uploadImageReqModel) {
+//        uploadImageUseCase.execute(userMapper.imageToDomain(uploadImageReqModel))
+//                .map(baseResponseMapper::baseResponseToView)
+//                .subscribeOn(scheduler)
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribeWith(new DisposableSingleObserver<BaseResponseModel>() {
+//                    @Override
+//                    public void onSuccess(BaseResponseModel baseResponseModel) {
+//                        baseResp.setValue(baseResponseModel);
+//                    }
+//
+//                    @Override
+//                    public void onError(Throwable e) {
+//
+//                    }
+//                });
+//    }
 
     public void clearViewModelValue() {
         baseResp.setValue(new BaseResponseModel());

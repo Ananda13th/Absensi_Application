@@ -66,6 +66,7 @@ public class OverrideEntityMapper extends BaseResponseEntityMapper {
 
             overrideResp.setId(overrideRespEntity.getId());
             overrideResp.setUserId(overrideRespEntity.getUserId());
+            overrideResp.setName(overrideRespEntity.getName());
             overrideResp.setTimes(overrideRespEntity.getTimes());
             overrideResp.setDates(overrideRespEntity.getDates());
             overrideResp.setAction(overrideRespEntity.getAction());

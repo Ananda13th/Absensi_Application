@@ -11,7 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 import example.com.absensiapp.R;
-import example.com.absensiapp.databinding.OverrideListBinding;
+import example.com.absensiapp.databinding.ListOverrideBinding;
 import example.com.absensiapp.model.OverrideRespModel;
 import example.com.absensiapp.view.listener.OverrideRecycleListener;
 
@@ -35,9 +35,9 @@ public class OverrideListAdapter extends RecyclerView.Adapter<OverrideListAdapte
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
-        OverrideListBinding overrideListBinding;
+        ListOverrideBinding overrideListBinding;
 
-        private ViewHolder(OverrideListBinding overrideListBinding) {
+        private ViewHolder(ListOverrideBinding overrideListBinding) {
             super(overrideListBinding.getRoot());
             this.overrideListBinding = overrideListBinding;
         }
@@ -57,7 +57,7 @@ public class OverrideListAdapter extends RecyclerView.Adapter<OverrideListAdapte
     @NonNull
     @Override
     public OverrideListAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        OverrideListBinding overrideBinding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()), R.layout.override_list, parent, false);
+        ListOverrideBinding overrideBinding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()), R.layout.list_override, parent, false);
         overrideBinding.setOnClick(this);
         return new ViewHolder(overrideBinding);
     }

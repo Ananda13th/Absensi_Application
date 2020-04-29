@@ -28,7 +28,7 @@ public class CustomDialog extends Dialog implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         sharedPreferences = activity.getSharedPreferences("LoginDetails", Context.MODE_PRIVATE);
-        setContentView(R.layout.logout_confirmation_layout);
+        setContentView(R.layout.layout_logout_confirmation);
         Button yes = findViewById(R.id.btn_yes);
         Button no = findViewById(R.id.btn_no);
         yes.setOnClickListener(this);

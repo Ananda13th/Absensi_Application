@@ -109,6 +109,7 @@ public class OverrideIntergrationTest {
         resp.subscribe(testObserver);
         testObserver.awaitTerminalEvent();
         testObserver.assertComplete();
+        Assert.assertNotNull(resp);
         testObserver.assertNoErrors();
         Assert.assertEquals("00", testObserver.values().get(0).getErrorCode());
     }

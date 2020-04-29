@@ -19,7 +19,7 @@
             android:id="@+id/tv_userid"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
-            android:hint="Userid Baru"
+            android:hint="Userid"
             android:layout_marginTop="20dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -30,15 +30,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
-                android:text="@={user.userId}"
-                android:editable="false"/>
+                android:text="@={user.userId}"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/tv_name"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
-            android:hint="Nama Baru"
+            android:hint="Nama"
             app:layout_constraintStart_toStartOf="@id/tv_userid"
             app:layout_constraintTop_toBottomOf="@id/tv_userid">
 
@@ -47,14 +46,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
-                android:text="@={user.name}" />
+                android:text="@={user.name}"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/tv_password"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
-            android:hint="Password Baru"
+            android:hint="Password"
             app:layout_constraintStart_toStartOf="@id/tv_userid"
             app:layout_constraintTop_toBottomOf="@id/tv_name">
 

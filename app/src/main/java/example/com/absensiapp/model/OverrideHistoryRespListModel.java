@@ -7,6 +7,6 @@ import lombok.EqualsAndHashCode;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
-public class OverrideHistoryRespListModel extends BaseResponseModel{
-    List<OverrideHistoryRespModel> overrideList;
+public class OverrideHistoryRespListModel extends BaseResponseModel {
+    List<OverrideHistoryRespModel> resetPassList;
 }

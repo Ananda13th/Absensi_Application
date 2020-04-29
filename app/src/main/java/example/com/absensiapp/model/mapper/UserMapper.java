@@ -1,13 +1,21 @@
 package example.com.absensiapp.model.mapper;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import example.com.absensiapp.model.CheckInReqModel;
+import example.com.absensiapp.model.ResetPasswordReqModel;
+import example.com.absensiapp.model.ResetPasswordRespListModel;
+import example.com.absensiapp.model.ResetPasswordRespModel;
 import example.com.absensiapp.model.UploadImageReqModel;
 import example.com.absensiapp.model.UserModel;
 import example.com.absensiapp.model.UserListModel;
 import example.com.domain.model.CheckInReq;
+import example.com.domain.model.ResetPasswordReq;
+import example.com.domain.model.ResetPasswordResp;
+import example.com.domain.model.ResetPasswordRespList;
 import example.com.domain.model.UploadImageReq;
 import example.com.domain.model.User;
 import example.com.domain.model.UserList;
@@ -61,6 +69,35 @@ public class UserMapper extends BaseResponseMapper {
         checkInReq.setState(check.getState());
 
         return checkInReq;
+    }
+
+    public ResetPasswordReq resetPasswordToDomain(ResetPasswordReqModel reqModel) {
+        ResetPasswordReq resetPasswordReq = new ResetPasswordReq();
+
+        resetPasswordReq.setUserId(reqModel.getUserId());
+        resetPasswordReq.setPassword(reqModel.getPassword());
+
+        return  resetPasswordReq;
+    }
+
+    public ResetPasswordRespListModel resetListRespToView(ResetPasswordRespList resetListFromDomain) {
+        ResetPasswordRespListModel resetList = new ResetPasswordRespListModel();
+        List<ResetPasswordRespModel> resetModelList = new ArrayList<>();
+        Log.d("NILAI", resetListFromDomain.getResetPassList().toString());
+        for(int i=0;i<resetListFromDomain.getResetPassList().size();i++)
+        {
+            ResetPasswordResp resetDataFromDomain = resetListFromDomain.getResetPassList().get(i);
+            ResetPasswordRespModel resetModel = new ResetPasswordRespModel();
+
+            resetModel.setName(resetDataFromDomain.getName());
+            resetModel.setUserId(resetDataFromDomain.getUserId());
+
+
+            resetModelList.add(resetModel);
+        }
+        resetList.setResetPassList(resetModelList);
+        Log.d("NILAI", resetList.toString());
+        return resetList;
     }
 
     public UploadImageReq imageToDomain(UploadImageReqModel uploadImageReqModel) {

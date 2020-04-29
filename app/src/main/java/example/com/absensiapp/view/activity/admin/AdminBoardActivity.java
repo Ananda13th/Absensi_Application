@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import example.com.absensiapp.R;
 import example.com.absensiapp.view.fragment.admin.OverrideFragment;
+import example.com.absensiapp.view.fragment.admin.ResetPasswordFragment;
 import example.com.absensiapp.view.fragment.admin.UserListFragment;
 import example.com.absensiapp.view.utils.CustomDialog;
 
@@ -59,7 +60,9 @@ public class AdminBoardActivity extends AppCompatActivity {
                         CustomDialog customDialog = new CustomDialog(AdminBoardActivity.this);
                         customDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                         customDialog.show();
-
+                    case R.id.navigation_password:
+                        fragment = new ResetPasswordFragment();
+                        fragmentManager.beginTransaction().replace(R.id.fragment_layout, fragment).commit();
                         break;
                 }
                 return false;

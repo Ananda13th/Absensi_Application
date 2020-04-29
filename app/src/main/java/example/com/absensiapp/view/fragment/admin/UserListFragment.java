@@ -19,7 +19,7 @@ import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import example.com.absensiapp.R;
-import example.com.absensiapp.databinding.UpdateUserLayoutBinding;
+import example.com.absensiapp.databinding.LayoutUpdateUserBinding;
 import example.com.absensiapp.model.BaseResponseModel;
 import example.com.absensiapp.model.UserListModel;
 import example.com.absensiapp.model.UserModel;
@@ -35,12 +35,12 @@ public class UserListFragment extends Fragment implements UserRecycleListener{
     private UserAdapter userAdapter = new UserAdapter();
     private Context context;
     private AlertDialog updateUserDialog;
-    private UpdateUserLayoutBinding updateUserLayoutBinding;
+    private LayoutUpdateUserBinding updateUserLayoutBinding;
     private AeSimpleSHA1 encrypt = new AeSimpleSHA1();
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        updateUserLayoutBinding = DataBindingUtil.inflate(inflater, R.layout.update_user_layout, container, false);
+        updateUserLayoutBinding = DataBindingUtil.inflate(inflater, R.layout.layout_update_user, container, false);
         return inflater.inflate(R.layout.fragment_user_list, container, false);
     }
 

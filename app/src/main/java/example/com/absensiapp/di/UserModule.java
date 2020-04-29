@@ -25,12 +25,16 @@ import example.com.domain.usecase.override.RejectOverrideUseCase;
 import example.com.domain.usecase.override.RequestOverrideUseCase;
 import example.com.domain.usecase.user.AddUserUseCase;
 import example.com.domain.usecase.user.CheckInUseCase;
+import example.com.domain.usecase.user.DeletePasswordRequestUseCase;
 import example.com.domain.usecase.user.DeleteUserUseCase;
 import example.com.domain.usecase.override.GetOverrideListUseCase;
+import example.com.domain.usecase.user.GetResetPasswordListUseCase;
 import example.com.domain.usecase.user.GetUserListUseCase;
 import example.com.domain.usecase.user.GetUserUseCase;
 import example.com.domain.usecase.user.LoginUseCase;
 import example.com.domain.usecase.history.SearchHistoryUseCase;
+import example.com.domain.usecase.user.RequestResetPasswordUseCase;
+import example.com.domain.usecase.user.UpdatePasswordUseCase;
 import example.com.domain.usecase.user.UpdateUserUseCase;
 //import example.com.domain.usecase.user.UploadImageUseCase;
 import io.reactivex.Scheduler;
@@ -120,6 +124,26 @@ public class UserModule {
     @Provides
     CheckInUseCase provideCheckInUseCase (UserRepository userRepository) {
         return new CheckInUseCase(userRepository);
+    }
+
+    @Provides
+    RequestResetPasswordUseCase provideResetPasswordUseCase(UserRepository userRepository) {
+        return new RequestResetPasswordUseCase(userRepository);
+    }
+
+    @Provides
+    GetResetPasswordListUseCase provideResetPasswordListUseCase(UserRepository userRepository) {
+        return new GetResetPasswordListUseCase(userRepository);
+    }
+
+    @Provides
+    UpdatePasswordUseCase provideUpdatePasswordUseCase(UserRepository userRepository) {
+        return new UpdatePasswordUseCase(userRepository);
+    }
+
+    @Provides
+    DeletePasswordRequestUseCase provideDeletePasswordRequestUseCase(UserRepository userRepository) {
+        return new DeletePasswordRequestUseCase(userRepository);
     }
 
     @Provides

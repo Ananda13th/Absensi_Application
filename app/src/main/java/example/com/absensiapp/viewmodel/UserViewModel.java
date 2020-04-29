@@ -10,19 +10,23 @@ import androidx.lifecycle.ViewModel;
 import example.com.absensiapp.di.DaggerUserComponent;
 import example.com.absensiapp.model.BaseResponseModel;
 import example.com.absensiapp.model.CheckInReqModel;
-import example.com.absensiapp.model.UploadImageReqModel;
+import example.com.absensiapp.model.ResetPasswordReqModel;
+import example.com.absensiapp.model.ResetPasswordRespListModel;
 import example.com.absensiapp.model.UserModel;
 import example.com.absensiapp.model.UserListModel;
 import example.com.absensiapp.model.mapper.BaseResponseMapper;
 import example.com.absensiapp.model.mapper.UserMapper;
 import example.com.domain.usecase.user.AddUserUseCase;
 import example.com.domain.usecase.user.CheckInUseCase;
+import example.com.domain.usecase.user.DeletePasswordRequestUseCase;
 import example.com.domain.usecase.user.DeleteUserUseCase;
+import example.com.domain.usecase.user.GetResetPasswordListUseCase;
 import example.com.domain.usecase.user.GetUserListUseCase;
 import example.com.domain.usecase.user.GetUserUseCase;
 import example.com.domain.usecase.user.LoginUseCase;
+import example.com.domain.usecase.user.RequestResetPasswordUseCase;
+import example.com.domain.usecase.user.UpdatePasswordUseCase;
 import example.com.domain.usecase.user.UpdateUserUseCase;
-//import example.com.domain.usecase.user.UploadImageUseCase;
 import io.reactivex.Scheduler;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.observers.DisposableSingleObserver;
@@ -32,6 +36,7 @@ public class UserViewModel extends ViewModel {
     private MutableLiveData<UserListModel> userResp;
     private MutableLiveData<BaseResponseModel> baseResp;
     private MutableLiveData<UserModel> user;
+    private MutableLiveData<ResetPasswordRespListModel> resetResp;
 
     public UserViewModel() {
         DaggerUserComponent.create().inject(this);
@@ -59,6 +64,14 @@ public class UserViewModel extends ViewModel {
     GetUserUseCase getUserUseCase;
     @Inject
     CheckInUseCase checkInUseCase;
+    @Inject
+    RequestResetPasswordUseCase requestResetPasswordUseCase;
+    @Inject
+    GetResetPasswordListUseCase getResetPasswordListUseCase;
+    @Inject
+    DeletePasswordRequestUseCase deletePasswordRequestUseCase;
+    @Inject
+    UpdatePasswordUseCase updatePasswordUseCase;
 //    @Inject
 //    UploadImageUseCase uploadImageUseCase;
 
@@ -72,7 +85,7 @@ public class UserViewModel extends ViewModel {
         return userResp;
     }
 
-    public LiveData<UserModel> getuser() {
+    public LiveData<UserModel> getUser() {
         if(user == null) {
             user = new MutableLiveData<>();
         }
@@ -84,6 +97,17 @@ public class UserViewModel extends ViewModel {
             baseResp = new MutableLiveData<>();
         }
         return baseResp;
+    }
+
+    public LiveData<ResetPasswordRespListModel> getResetResp() {
+        if(resetResp == null) {
+            resetResp = new MutableLiveData<>();
+            getResetPasswordList();
+        }
+        else
+            getResetPasswordList();
+
+        return resetResp;
     }
 
     @SuppressLint("CheckResult")
@@ -155,7 +179,6 @@ public class UserViewModel extends ViewModel {
                     @Override
                     public void onSuccess(BaseResponseModel baseResponseModel) {
                         baseResp.setValue(baseResponseModel);
-                        getRespUser();
                     }
 
                     @Override
@@ -194,6 +217,63 @@ public class UserViewModel extends ViewModel {
                     @Override
                     public void onSuccess(BaseResponseModel baseResponseModel) {
                         baseResp.setValue(baseResponseModel);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+                });
+    }
+
+    @SuppressLint("CheckResult")
+    public void requestResetPassword(ResetPasswordReqModel reqModel) {
+        requestResetPasswordUseCase.execute(userMapper.resetPasswordToDomain(reqModel))
+                .map(baseResponseMapper::baseResponseToView)
+                .subscribeOn(scheduler)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(new DisposableSingleObserver<BaseResponseModel>() {
+                    @Override
+                    public void onSuccess(BaseResponseModel baseResponseModel) {
+                        baseResp.setValue(baseResponseModel);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+                });
+    }
+
+    @SuppressLint("CheckResult")
+    public void getResetPasswordList() {
+        getResetPasswordListUseCase.execute()
+                .map(userMapper::resetListRespToView)
+                .subscribeOn(scheduler)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(new DisposableSingleObserver<ResetPasswordRespListModel>() {
+                    @Override
+                    public void onSuccess(ResetPasswordRespListModel resetPasswordRespListModel) {
+                        resetResp.setValue(resetPasswordRespListModel);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+                });
+    }
+
+    @SuppressLint("CheckResult")
+    public void deleteRequestResetPassword(String userid) {
+        deletePasswordRequestUseCase.execute(userid)
+                .map(baseResponseMapper::baseResponseToView)
+                .subscribeOn(scheduler)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(new DisposableSingleObserver<BaseResponseModel>() {
+                    @Override
+                    public void onSuccess(BaseResponseModel baseResponseModel) {
+
                     }
 
                     @Override

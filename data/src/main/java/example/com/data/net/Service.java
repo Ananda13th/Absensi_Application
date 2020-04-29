@@ -8,18 +8,17 @@ import example.com.data.entity.OverrideHistoryRespListEntity;
 import example.com.data.entity.OverrideReqEntity;
 import example.com.data.entity.OverrideRespEntity;
 import example.com.data.entity.OverrideRespListEntity;
+import example.com.data.entity.ResetPasswordReqEntity;
+import example.com.data.entity.ResetPasswordRespListEntity;
 import example.com.data.entity.UserEntity;
 import example.com.data.entity.UserListEntity;
+import example.com.domain.model.BaseResponse;
 import io.reactivex.Single;
-import okhttp3.MultipartBody;
-import okhttp3.RequestBody;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
-import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
-import retrofit2.http.Part;
 import retrofit2.http.Path;
 
 public interface Service {
@@ -64,6 +63,18 @@ public interface Service {
 
     @DELETE("override/{overrideId}")
     Single<BaseResponseEntity> deletePendingOverride(@Path("overrideId") String userid);
+
+    @POST("pass-req")
+    Single<BaseResponseEntity> requestChangePassword(@Body ResetPasswordReqEntity requestPassword);
+
+    @GET("pass-req")
+    Single<ResetPasswordRespListEntity> getResetPasswordList();
+
+    @PUT("pass-req/{userid}")
+    Single<BaseResponseEntity> updatePassword(@Path("userid") String userid,  @Body ResetPasswordReqEntity requestPassword);
+
+    @DELETE("pass-req/{userid}")
+    Single<BaseResponseEntity> deletePasswordRequest(@Path("userid") String userid);
 
 //    @Multipart
 //    @PUT("interns/upload-image/{userid}")

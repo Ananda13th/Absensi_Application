@@ -4,6 +4,10 @@
         android:id="@+id/navigation_override"
         android:icon="@drawable/ic_priority"
         android:title="Override" />
+    <item
+        android:id="@+id/navigation_password"
+        android:icon="@drawable/ic_lock_blue"
+        android:title="Reset" />
 
     <item
         android:id="@+id/navigation_user"

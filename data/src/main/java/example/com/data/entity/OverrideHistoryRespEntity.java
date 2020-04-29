@@ -6,6 +6,7 @@ import lombok.Data;
 public class OverrideHistoryRespEntity {
     private String id;
     private String action;
+    private String name;
     private String dates;
     private String times;
     private String status;

@@ -11,7 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 import example.com.absensiapp.R;
-import example.com.absensiapp.databinding.UserListBinding;
+import example.com.absensiapp.databinding. ListUserBinding;
 import example.com.absensiapp.model.UserModel;
 import example.com.absensiapp.view.listener.UserRecycleListener;
 
@@ -37,9 +37,9 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> im
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
-        UserListBinding listBinding;
+        ListUserBinding listBinding;
 
-        private ViewHolder(UserListBinding listBinding) {
+        private ViewHolder( ListUserBinding listBinding) {
             super(listBinding.getRoot());
             this.listBinding = listBinding;
         }
@@ -48,7 +48,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> im
     @NonNull
     @Override
     public UserAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        UserListBinding listBinding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()), R.layout.user_list, parent, false);
+        ListUserBinding listBinding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()), R.layout.list_user, parent, false);
         return new ViewHolder(listBinding);
     }
 

@@ -6,9 +6,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import example.com.data.entity.CheckInReqEntity;
+import example.com.data.entity.ResetPasswordReqEntity;
+import example.com.data.entity.ResetPasswordRespListEntity;
 import example.com.data.entity.UserEntity;
 import example.com.data.entity.UserListEntity;
+import example.com.domain.model.BaseResponse;
 import example.com.domain.model.CheckInReq;
+import example.com.domain.model.ResetPasswordReq;
+import example.com.domain.model.ResetPasswordRespList;
 import example.com.domain.model.User;
 import example.com.domain.model.UserList;
 
@@ -73,6 +78,27 @@ public class UserEntityMapper extends BaseResponseEntityMapper {
         checkInReqEntity.setUserId(check.getUserId());
         checkInReqEntity.setState(check.getState());
         return checkInReqEntity;
+    }
+
+    public ResetPasswordReqEntity reqPasswordToData(ResetPasswordReq resetPasswordReq) {
+        ResetPasswordReqEntity resetPasswordReqEntity = new ResetPasswordReqEntity();
+
+        resetPasswordReqEntity.setUserId(resetPasswordReq.getUserId());
+        return resetPasswordReqEntity;
+    }
+
+    public ResetPasswordRespList resetPasswordListToDomain(ResetPasswordRespListEntity respEntity) {
+        String resetPasswordListJson = gson.toJson(respEntity);
+        return gson.fromJson(resetPasswordListJson, ResetPasswordRespList.class);
+    }
+
+    public ResetPasswordReqEntity resetPasswordToData(ResetPasswordReq resetPasswordReq) {
+        ResetPasswordReqEntity resetPasswordReqEntity = new ResetPasswordReqEntity();
+
+        resetPasswordReqEntity.setUserId(resetPasswordReq.getUserId());
+        resetPasswordReqEntity.setPassword(resetPasswordReq.getPassword());
+
+        return  resetPasswordReqEntity;
     }
 
 }

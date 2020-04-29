@@ -10,7 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 import example.com.absensiapp.R;
-import example.com.absensiapp.databinding.HistoryListBinding;
+import example.com.absensiapp.databinding.ListHistoryBinding;
 import example.com.absensiapp.model.HistDataModel;
 import lombok.SneakyThrows;
 
@@ -30,7 +30,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHold
     @Override
     public HistoryAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         context = parent.getContext();
-        HistoryListBinding listBinding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()), R.layout.history_list, parent, false);
+        ListHistoryBinding listBinding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()), R.layout.list_history, parent, false);
         return new ViewHolder(listBinding);
     }
 
@@ -56,9 +56,9 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHold
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
-        HistoryListBinding listBinding;
+        ListHistoryBinding listBinding;
 
-        private ViewHolder( HistoryListBinding listBinding) {
+        private ViewHolder( ListHistoryBinding listBinding) {
             super(listBinding.getRoot());
             this.listBinding = listBinding;
         }

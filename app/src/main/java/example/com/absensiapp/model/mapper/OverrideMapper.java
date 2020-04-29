@@ -16,7 +16,7 @@ import example.com.domain.model.OverrideRespList;
 
 public class OverrideMapper extends BaseResponseMapper{
 
-    Gson gson = new Gson();
+    private Gson gson = new Gson();
 
     public OverrideReq requestOverrideToDomain(OverrideReqModel overrideReqModel) {
         OverrideReq overrideReq = new OverrideReq();
@@ -82,7 +82,6 @@ public class OverrideMapper extends BaseResponseMapper{
 
     public OverrideHistoryRespListModel overrideHistoryToView(OverrideHistoryRespList overrideHistoryRespList) {
         String overrideHistoryRespListJson = gson.toJson(overrideHistoryRespList);
-        OverrideHistoryRespListModel overrideHistoryRespListModel = gson.fromJson(overrideHistoryRespListJson,OverrideHistoryRespListModel.class);
-        return overrideHistoryRespListModel;
+        return gson.fromJson(overrideHistoryRespListJson,OverrideHistoryRespListModel.class);
     }
 }

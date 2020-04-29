@@ -1,6 +1,5 @@
 package example.com.absensiapp.view.adapter;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 import example.com.absensiapp.R;
-import example.com.absensiapp.databinding.OverrideHistoryListBinding;
+import example.com.absensiapp.databinding.ListOverrideHistoryBinding;
 import example.com.absensiapp.model.OverrideHistoryRespModel;
 import example.com.absensiapp.view.listener.OverrideHistoryListener;
 import example.com.absensiapp.view.utils.UtilsFormatter;
@@ -39,9 +38,9 @@ public class OverrideHistoryAdapter extends RecyclerView.Adapter<OverrideHistory
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
-        OverrideHistoryListBinding overrideHistoryListBinding;
+        ListOverrideHistoryBinding overrideHistoryListBinding;
 
-        private ViewHolder(OverrideHistoryListBinding listBinding) {
+        private ViewHolder(ListOverrideHistoryBinding listBinding) {
             super(listBinding.getRoot());
             this.overrideHistoryListBinding = listBinding;
         }
@@ -62,7 +61,7 @@ public class OverrideHistoryAdapter extends RecyclerView.Adapter<OverrideHistory
     @NonNull
     @Override
     public OverrideHistoryAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        OverrideHistoryListBinding overrideHistoryListBinding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()), R.layout.override_history_list, parent, false);
+        ListOverrideHistoryBinding overrideHistoryListBinding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()), R.layout.list_override_history, parent, false);
         return new ViewHolder(overrideHistoryListBinding);
     }
 

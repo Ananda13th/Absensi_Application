@@ -46,5 +46,6 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:backgroundTint="@color/colorAccent"
         app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/bottom_navigation_admin" />
+        app:menu="@menu/bottom_navigation_admin"
+        app:labelVisibilityMode="labeled"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

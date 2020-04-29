@@ -60,8 +60,8 @@ public class OverrideEntityMapper extends BaseResponseEntityMapper {
         overrideRespList.setErrorCode(overrideRespListEntity.getErrorCode());
         overrideRespList.setErrorMessage(overrideRespListEntity.getErrorMessage());
 
-        for(int i = 0; i< overrideRespListEntity.getOverrideList().size(); i++) {
-            OverrideRespEntity overrideRespEntity = overrideRespListEntity.getOverrideList().get(i);
+        for(int i = 0; i< overrideRespListEntity.getOverrideReqList().size(); i++) {
+            OverrideRespEntity overrideRespEntity = overrideRespListEntity.getOverrideReqList().get(i);
             OverrideResp overrideResp = new OverrideResp();
 
             overrideResp.setId(overrideRespEntity.getId());

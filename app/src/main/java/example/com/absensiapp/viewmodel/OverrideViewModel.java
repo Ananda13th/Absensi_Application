@@ -1,6 +1,7 @@
 package example.com.absensiapp.viewmodel;
 
 import android.annotation.SuppressLint;
+import android.util.Log;
 
 import javax.inject.Inject;
 

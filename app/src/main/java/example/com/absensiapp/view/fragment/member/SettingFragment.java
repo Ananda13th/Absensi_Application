@@ -28,8 +28,8 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import ch.zhaw.facerecognitionlibrary.Helpers.FileHelper;
 import example.com.absensiapp.R;
-import example.com.absensiapp.databinding.ChangePasswordLayoutBinding;
-import example.com.absensiapp.databinding.FramentSettingGridviewBinding;
+import example.com.absensiapp.databinding.FramentSettingBinding;
+import example.com.absensiapp.databinding.LayoutChangeProfileBinding;
 import example.com.absensiapp.model.BaseResponseModel;
 import example.com.absensiapp.model.UploadImageReqModel;
 import example.com.absensiapp.model.UserModel;
@@ -44,18 +44,18 @@ import okhttp3.RequestBody;
 
 public class SettingFragment extends Fragment implements SettingListener {
 
-    private FramentSettingGridviewBinding fragmentSettingBinding;
+    private FramentSettingBinding fragmentSettingBinding;
     private SharedPreferences sharedPreferences;
     private AlertDialog changePasswordDialog;
-    private ChangePasswordLayoutBinding changePasswordLayoutBinding;
+    private LayoutChangeProfileBinding changeProfileLayoutBinding;
     private UserViewModel userViewModel = new UserViewModel();
     private AeSimpleSHA1 encrypt = new AeSimpleSHA1();
     private String name;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        fragmentSettingBinding = DataBindingUtil.inflate(inflater, R.layout.frament_setting_gridview, container, false);
-        changePasswordLayoutBinding = DataBindingUtil.inflate(inflater, R.layout.change_password_layout, container, false);
+        fragmentSettingBinding = DataBindingUtil.inflate(inflater, R.layout.frament_setting, container, false);
+        changeProfileLayoutBinding = DataBindingUtil.inflate(inflater, R.layout.layout_change_profile, container, false);
         return fragmentSettingBinding.getRoot();
     }
 
@@ -66,13 +66,15 @@ public class SettingFragment extends Fragment implements SettingListener {
         sharedPreferences = this.requireActivity().getSharedPreferences("LoginDetails", Context.MODE_PRIVATE);
         name = sharedPreferences.getString("Name", "");
         fragmentSettingBinding.setOnClick(this);
-        changePasswordLayoutBinding.setOnClick(this);
-        changePasswordLayoutBinding.setUser(new UserModel());
+        changeProfileLayoutBinding.setOnClick(this);
+        UserModel userModel = new UserModel();
+        userModel.setName(name);
+        changeProfileLayoutBinding.setUser(userModel);
 
         final AlertDialog.Builder changePasswordBuilder = new AlertDialog.Builder(getActivity());
-        changePasswordBuilder.setView(changePasswordLayoutBinding.getRoot());
+        changePasswordBuilder.setView(changeProfileLayoutBinding.getRoot());
         changePasswordDialog = changePasswordBuilder.create();
-        changePasswordDialog.setTitle("CHANGE PASSWORD");
+        changePasswordDialog.setTitle("Ubah Profil");
 
         userViewModel = ViewModelProviders.of(requireActivity()).get(UserViewModel.class);
         userObserver();
@@ -105,7 +107,7 @@ public class SettingFragment extends Fragment implements SettingListener {
             } catch (UnsupportedEncodingException e) {
                 e.getMessage();
             }
-            changePasswordLayoutBinding.getUser();
+            changeProfileLayoutBinding.getUser();
             FileHelper fh = new FileHelper();
             File file = new File(fh.TRAINING_PATH+name);
             Log.d("NAMA", file.toString());
@@ -164,6 +166,6 @@ public class SettingFragment extends Fragment implements SettingListener {
     }
 
     private boolean checkIfFilled() {
-        return changePasswordLayoutBinding.etPassword.getText().toString().matches("");
+        return changeProfileLayoutBinding.etPassword.getText().toString().matches("");
     }
 }

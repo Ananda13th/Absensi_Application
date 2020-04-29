@@ -9,5 +9,5 @@ import lombok.EqualsAndHashCode;
 @Data
 public class OverrideRespListEntity extends BaseResponseEntity {
 
-    private List<OverrideRespEntity> overrideList;
+    private List<OverrideRespEntity> overrideReqList;
 }

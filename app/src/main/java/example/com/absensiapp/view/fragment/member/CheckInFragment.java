@@ -29,7 +29,7 @@ import androidx.lifecycle.ViewModelProviders;
 import ch.zhaw.facerecognitionlibrary.Helpers.FileHelper;
 import example.com.absensiapp.R;
 import example.com.absensiapp.databinding.FragmentCheckInBinding;
-import example.com.absensiapp.databinding.OverrideRequestLayoutBinding;
+import example.com.absensiapp.databinding.LayoutOverrideRequestBinding;
 import example.com.absensiapp.model.BaseResponseModel;
 import example.com.absensiapp.model.CheckInReqModel;
 import example.com.absensiapp.model.OverrideReqModel;
@@ -45,7 +45,7 @@ public class CheckInFragment extends Fragment implements CheckInListener {
     private OverrideViewModel overrideViewModel = new OverrideViewModel();
     private String userId;
     private FragmentCheckInBinding checkInBinding;
-    private OverrideRequestLayoutBinding overrideBinding;
+    private LayoutOverrideRequestBinding overrideBinding;
     private AlertDialog overrideDialog;
     private UtilsFormatter utilsFormatter = new UtilsFormatter();
     private Context context;
@@ -61,7 +61,7 @@ public class CheckInFragment extends Fragment implements CheckInListener {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         //Inisialisasi Binding Layout
         checkInBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_check_in, container, false);
-        overrideBinding = DataBindingUtil.inflate(inflater, R.layout.override_request_layout, container, false);
+        overrideBinding = DataBindingUtil.inflate(inflater, R.layout.layout_override_request, container, false);
         overrideBinding.setOnClick(this);
         checkInBinding.setOnClick(this);
         context = getActivity();

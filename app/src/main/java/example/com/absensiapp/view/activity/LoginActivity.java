@@ -19,6 +19,7 @@ import example.com.absensiapp.view.utils.PrefManager;
 import example.com.absensiapp.viewmodel.UserViewModel;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -33,7 +34,6 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
 import java.util.Objects;
 
@@ -131,15 +131,13 @@ public class LoginActivity extends AppCompatActivity implements LoginListener {
     @Override
     public void onCLickLoginButton(UserModel userModel) {
         if( checkIfFilled())
-            Toast.makeText(this, "All Field Must Be Filled!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Semua Data Harus Diisi!", Toast.LENGTH_SHORT).show();
         else
         {
             try {
                 userModel.setPassword(encrypt.SHA1(userModel.getPassword()));
             } catch (NoSuchAlgorithmException e) {
                 e.printStackTrace();
-            } catch (UnsupportedEncodingException e) {
-                e.getMessage();
             }
             loginBinding.getUser();
             userViewModel.login(userModel);
@@ -186,6 +184,7 @@ public class LoginActivity extends AppCompatActivity implements LoginListener {
     public void setupUI(View view) {
         if(!(view instanceof EditText)) {
             view.setOnTouchListener(new View.OnTouchListener() {
+                @SuppressLint("ClickableViewAccessibility")
                 @Override
                 public boolean onTouch(View view, MotionEvent motionEvent) {
                     hideSoftKeyboard(LoginActivity.this);

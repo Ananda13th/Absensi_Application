@@ -175,6 +175,7 @@ public class OverrideViewModel extends ViewModel {
                 .subscribeWith(new DisposableSingleObserver<OverrideHistoryRespListModel>() {
                     @Override
                     public void onSuccess(OverrideHistoryRespListModel overrideHistoryRespListModel) {
+                        Log.d("NILAI", overrideHistoryRespListModel.toString());
                         overrideHistoryList.setValue(overrideHistoryRespListModel);
                     }
 

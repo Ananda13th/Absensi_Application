@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
 
 import androidx.annotation.NonNull;
@@ -19,7 +18,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import example.com.absensiapp.R;
 import example.com.absensiapp.databinding.LayoutUpdateUserBinding;
-import example.com.absensiapp.databinding.ListResetPasswordBinding;
 import example.com.absensiapp.model.BaseResponseModel;
 import example.com.absensiapp.model.ResetPasswordRespListModel;
 import example.com.absensiapp.model.ResetPasswordRespModel;
@@ -35,7 +33,6 @@ public class ResetPasswordFragment extends Fragment{
 
     private UserViewModel userViewModel = new UserViewModel();
     private ResetPasswordAdapter resetPasswordAdapter = new ResetPasswordAdapter();
-    private ListResetPasswordBinding listResetPasswordBinding;
     private LayoutUpdateUserBinding updateUserLayoutBinding;
     private AlertDialog updatePassword;
     private boolean passwordOnly = true;
@@ -44,7 +41,6 @@ public class ResetPasswordFragment extends Fragment{
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        listResetPasswordBinding = DataBindingUtil.inflate(inflater, R.layout.list_reset_password, container, false);
         updateUserLayoutBinding = DataBindingUtil.inflate(inflater, R.layout.layout_update_user, container, false);
         return inflater.inflate(R.layout.fragment_reset_password, container, false);
     }
@@ -76,8 +72,6 @@ public class ResetPasswordFragment extends Fragment{
                     userModel.setPassword(encrypt.SHA1(userModel.getPassword()));
                 } catch (NoSuchAlgorithmException e) {
                     e.printStackTrace();
-                } catch (UnsupportedEncodingException e) {
-                    e.getMessage();
                 }
                 userViewModel.updateUser(userModel);
                 userViewModel.deleteRequestResetPassword(userModel.getUserId());
@@ -112,7 +106,7 @@ public class ResetPasswordFragment extends Fragment{
     }
 
     private void observer() {
-        userViewModel.getBaseResp().observe(getActivity(), new Observer<BaseResponseModel>() {
+        userViewModel.getBaseResp().observe(requireActivity(), new Observer<BaseResponseModel>() {
             @Override
             public void onChanged(BaseResponseModel baseResponseModel) {
                 Toast.makeText(getActivity(), baseResponseModel.getErrorMessage(), Toast.LENGTH_SHORT).show();

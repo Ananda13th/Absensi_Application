@@ -108,7 +108,7 @@ public class CheckInFragment extends Fragment implements CheckInListener {
                     }
                 },mYear, mMonth, mDay);
                 mDatePicker.getDatePicker().setMaxDate(mcurrentDate.getTimeInMillis());
-                mDatePicker.setTitle("Select dates");
+                mDatePicker.setTitle("Pilih Tanggal");
                 mDatePicker.show();  }
         });
 
@@ -126,7 +126,7 @@ public class CheckInFragment extends Fragment implements CheckInListener {
                         overrideBinding.etTime.setText( String.format("%02d:%02d", selectedHour, selectedMinute));
                     }
                 }, hour, minute, true);//Yes 24 hour times
-                mTimePicker.setTitle("Select Time");
+                mTimePicker.setTitle("Pilih Jam");
                 mTimePicker.show();
 
             }
@@ -180,7 +180,7 @@ public class CheckInFragment extends Fragment implements CheckInListener {
     @Override
     public void onClickRequestButton(OverrideReqModel overrideReqModel) {
         if(checkIfFilled())
-            Toast.makeText(requireActivity(), "All Field Must Be Filled!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(requireActivity(), "Semua Data Harus Diisi!", Toast.LENGTH_SHORT).show();
         else {
             overrideBinding.getOverrideInput();
             overrideViewModel.sendOverrideReq(overrideReqModel);

@@ -111,7 +111,7 @@ public class UserViewModel extends ViewModel {
     }
 
     @SuppressLint("CheckResult")
-    public void loadUserResp() {
+    private void loadUserResp() {
         getUserListUseCase.execute()
                 .map(userMapper::userListRespToView)
                 .subscribeOn(scheduler)
@@ -246,7 +246,7 @@ public class UserViewModel extends ViewModel {
     }
 
     @SuppressLint("CheckResult")
-    public void getResetPasswordList() {
+    private void getResetPasswordList() {
         getResetPasswordListUseCase.execute()
                 .map(userMapper::resetListRespToView)
                 .subscribeOn(scheduler)
@@ -273,7 +273,7 @@ public class UserViewModel extends ViewModel {
                 .subscribeWith(new DisposableSingleObserver<BaseResponseModel>() {
                     @Override
                     public void onSuccess(BaseResponseModel baseResponseModel) {
-
+                        getResetPasswordList();
                     }
 
                     @Override

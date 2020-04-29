@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
 
 import androidx.annotation.NonNull;
@@ -100,7 +99,7 @@ public class UserListFragment extends Fragment implements UserRecycleListener{
     }
 
     private void userObserver() {
-        userViewModel.getBaseResp().observe(getActivity(), new Observer<BaseResponseModel>() {
+        userViewModel.getBaseResp().observe(requireActivity(), new Observer<BaseResponseModel>() {
             @Override
             public void onChanged(BaseResponseModel baseResponseModel) {
                 Toast.makeText(context, baseResponseModel.getErrorMessage(), Toast.LENGTH_SHORT).show();
@@ -143,8 +142,6 @@ public class UserListFragment extends Fragment implements UserRecycleListener{
                 userModel.setPassword(encrypt.SHA1(userModel.getPassword()));
             } catch (NoSuchAlgorithmException e) {
                 e.printStackTrace();
-            } catch (UnsupportedEncodingException e) {
-                e.getMessage();
             }
             updateUserLayoutBinding.getUser();
             userViewModel.updateUser(userModel);

@@ -31,13 +31,11 @@ public class HistoryPendingFragment extends Fragment {
     private OverrideViewModel overrideViewModel = new OverrideViewModel();
     private String userid;
     private OverrideHistoryAdapter overrideHistoryAdapter = new OverrideHistoryAdapter("Diproses");
-    private ListOverrideHistoryBinding overrideHistoryListBinding;
 
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        ListOverrideHistoryBinding overrideHistoryListBinding = DataBindingUtil.inflate(inflater, R.layout.list_override_history, container, false);
         return inflater.inflate(R.layout.fragment_override_pending, container, false);
     }
 
@@ -61,7 +59,7 @@ public class HistoryPendingFragment extends Fragment {
         overrideViewModel.getOverrideHistory(userid).observe(this, new Observer<OverrideHistoryRespListModel>() {
             @Override
             public void onChanged(OverrideHistoryRespListModel overrideHistoryRespListModel) {
-                overrideHistoryAdapter.setOverrideHistory(overrideHistoryRespListModel.getResetPassList());
+                overrideHistoryAdapter.setOverrideHistory(overrideHistoryRespListModel.getOverrideReqList());
             }
         });
     }

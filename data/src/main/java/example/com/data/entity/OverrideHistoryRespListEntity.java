@@ -8,5 +8,5 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = true)
 @Data
 public class OverrideHistoryRespListEntity extends BaseResponseEntity{
-    List<OverrideHistoryRespEntity> resetPassList;
+    List<OverrideHistoryRespEntity> overrideReqList;
 }

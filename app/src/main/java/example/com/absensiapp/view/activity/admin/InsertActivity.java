@@ -21,7 +21,6 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
 
 public class InsertActivity extends AppCompatActivity implements InsertListener {
@@ -63,8 +62,6 @@ public class InsertActivity extends AppCompatActivity implements InsertListener 
                 user.setPassword(encrypt.SHA1(user.getPassword()));
             } catch (NoSuchAlgorithmException e) {
                 e.printStackTrace();
-            } catch (UnsupportedEncodingException e) {
-                e.getMessage();
             }
             insertBinding.getUser();
             userViewModel.addUser(user);

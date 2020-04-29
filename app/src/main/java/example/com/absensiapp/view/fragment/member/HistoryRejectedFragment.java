@@ -46,7 +46,7 @@ public class HistoryRejectedFragment extends Fragment {
         overrideViewModel.getOverrideHistory(userid).observe(this, new Observer<OverrideHistoryRespListModel>() {
             @Override
             public void onChanged(OverrideHistoryRespListModel overrideHistoryRespListModel) {
-                overrideHistoryAdapter.setOverrideHistory(overrideHistoryRespListModel.getResetPassList());
+                overrideHistoryAdapter.setOverrideHistory(overrideHistoryRespListModel.getOverrideReqList());
             }
         });
     }

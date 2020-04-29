@@ -39,11 +39,11 @@ public class UtilsFormatter {
         return result;
     }
 
-    public String ActionOutputFormatter(String string) {
-        if(string.equals("I"))
-            result="Masuk";
-        if(string.equals("O"))
-            result="Keluar";
-        return result;
-    }
+//    public String ActionOutputFormatter(String string) {
+//        if(string.equals("I"))
+//            result="Masuk";
+//        if(string.equals("O"))
+//            result="Keluar";
+//        return result;
+//    }
 }

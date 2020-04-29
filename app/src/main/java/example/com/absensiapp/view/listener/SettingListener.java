@@ -7,5 +7,5 @@ public interface SettingListener {
     void onClickChangePasswordButton();
     void onClickSubmitButton(UserModel userModel);
     void onClickSyncButton();
-    void onClickDownloadButton();
+//    void onClickDownloadButton();
 }

@@ -20,7 +20,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="44dp"
             android:layout_marginBottom="84dp"
-            android:text="Tanggal"
+            android:text="@string/date"
             app:layout_constraintBottom_toTopOf="@id/btn_request"
             app:layout_constraintStart_toStartOf="parent" />
 
@@ -30,7 +30,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:layout_marginBottom="30dp"
-            android:text="Status"
+            android:text="@string/action"
             app:layout_constraintBottom_toTopOf="@id/tv_password"
             app:layout_constraintStart_toStartOf="@+id/tv_password"
             app:layout_constraintTop_toTopOf="parent"
@@ -41,7 +41,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="36dp"
-            android:text="Waktu"
+            android:text="@string/time"
             app:layout_constraintStart_toStartOf="@+id/tv_password"
             app:layout_constraintTop_toBottomOf="@id/tv_password" />
 
@@ -68,7 +68,8 @@
             android:inputType="date"
             android:text="@={overrideInput.dates}"
             app:layout_constraintBottom_toTopOf="@id/et_time"
-            app:layout_constraintStart_toEndOf="@id/tv_password" />
+            app:layout_constraintStart_toEndOf="@id/tv_password"
+            tools:ignore="Autofill,LabelFor" />
 
         <EditText
             android:id="@+id/et_time"
@@ -81,7 +82,8 @@
             android:focusable="false"
             app:layout_constraintBottom_toTopOf="@id/btn_request"
             app:layout_constraintStart_toEndOf="@id/tv_time"
-            android:text="@={overrideInput.times}"/>
+            android:text="@={overrideInput.times}"
+            tools:ignore="Autofill,LabelFor" />
 
         <Button
             android:id="@+id/btn_request"
@@ -89,7 +91,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="128dp"
             android:layout_marginEnd="134dp"
-            android:text="REQUEST"
+            android:text="@string/submit"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.54"

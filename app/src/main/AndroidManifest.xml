@@ -29,9 +29,9 @@
         tools:ignore="GoogleAppIndexingWarning">
         <activity android:name=".view.activity.member.RecognitionActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen"
-            android:screenOrientation="landscape">
+            android:screenOrientation="landscape"
+            tools:ignore="LockedOrientationActivity">
         </activity>
-        <activity android:name=".view.activity.member.AddPersonFormActivity" />
         <activity
             android:name=".view.activity.member.InitDataTrainingActivity"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
@@ -47,10 +47,11 @@
             android:name=".view.activity.member.TrainingDataActivity"
             android:requestLegacyExternalStorage="true"
             android:screenOrientation="landscape"
-            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
+            tools:ignore="LockedOrientationActivity,UnusedAttribute" />
         <activity
             android:name=".view.activity.member.MemberDashboardActivity"
-            android:screenOrientation="portrait"
+            android:screenOrientation="fullSensor"
             />
         <activity android:name=".view.fragment.member.HistoryFragment" />
         <activity android:name=".view.activity.admin.InsertActivity" />

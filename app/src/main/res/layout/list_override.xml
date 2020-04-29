@@ -31,7 +31,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:text="User ID "
+                android:text="@string/userid"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -40,7 +40,7 @@
                 android:id="@+id/tv_name_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Nama"
+                android:text="@string/name"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="@+id/tv_userid_text"
                 app:layout_constraintTop_toBottomOf="@+id/tv_userid_text" />
@@ -49,7 +49,7 @@
                 android:id="@+id/tv_date_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Tanggal"
+                android:text="@string/date"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="@+id/tv_name_text"
                 app:layout_constraintTop_toBottomOf="@+id/tv_name_text" />
@@ -58,7 +58,7 @@
                 android:id="@+id/tv_time_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Jam"
+                android:text="@string/time"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="@+id/tv_userid_text"
                 app:layout_constraintTop_toBottomOf="@+id/tv_date_text" />
@@ -67,7 +67,7 @@
                 android:id="@+id/tv_action_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Aksi"
+                android:text="@string/action"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="@+id/tv_userid_text"
                 app:layout_constraintTop_toBottomOf="@+id/tv_time_text" />
@@ -76,7 +76,7 @@
                 android:id="@+id/tv_1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text=": "
+                android:text="@string/colon"
                 android:textStyle="bold"
                 app:layout_constraintStart_toEndOf="@+id/tv_userid_text"
                 app:layout_constraintTop_toTopOf="parent"
@@ -86,7 +86,7 @@
                 android:id="@+id/tv_2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text=": "
+                android:text="@string/colon"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="@+id/tv_1"
                 app:layout_constraintTop_toBottomOf="@+id/tv_1" />
@@ -95,7 +95,7 @@
                 android:id="@+id/tv_3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text=": "
+                android:text="@string/colon"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="@+id/tv_1"
                 app:layout_constraintTop_toBottomOf="@+id/tv_2" />
@@ -104,7 +104,7 @@
                 android:id="@+id/tv_4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text=": "
+                android:text="@string/colon"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="@+id/tv_1"
                 app:layout_constraintTop_toBottomOf="@+id/tv_3" />
@@ -113,7 +113,7 @@
                 android:id="@+id/tv_5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text=": "
+                android:text="@string/colon"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="@+id/tv_1"
                 app:layout_constraintTop_toBottomOf="@+id/tv_4" />
@@ -170,7 +170,8 @@
                 android:src="@drawable/ic_yes"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintCircleRadius="50dp"
-                app:layout_constraintEnd_toStartOf="@+id/btn_reject" />
+                app:layout_constraintEnd_toStartOf="@+id/btn_reject"
+                android:contentDescription="@string/p_button" />
 
             <ImageButton
                 android:id="@+id/btn_reject"
@@ -185,7 +186,8 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintCircleRadius="50dp"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:onClick="@{()->onClick.onClickRejectButton(overrideItem)}"/>
+                android:onClick="@{()->onClick.onClickRejectButton(overrideItem)}"
+                android:contentDescription="@string/n_button"/>
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

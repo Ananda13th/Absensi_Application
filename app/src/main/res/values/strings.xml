@@ -23,4 +23,14 @@
 
     <string name="shr_hint_userid">User ID</string>
     <string name="shr_hint_password">Password</string>
+    <string name="name">Nama</string>
+    <string name="userid">User ID</string>
+    <string name="time">Jam</string>
+    <string name="date">Tanggal</string>
+    <string name="action">Kegiatan</string>
+    <string name="password">Password</string>
+    <string name="submit">Kirim</string>
+    <string name="colon">:</string>
+    <string name="p_button">Positive Action</string>
+    <string name="n_button">Negative Action</string>
 </resources>

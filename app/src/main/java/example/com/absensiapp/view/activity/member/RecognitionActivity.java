@@ -53,8 +53,10 @@ public class RecognitionActivity extends AppCompatActivity implements CameraBrid
 
     static {
         if (!OpenCVLoader.initDebug()) {
-            Log.d("OpenCV", "OpenCV Not Loadede!");
+            Log.d("OpenCV Test", "OpenCV Not Loadede!");
         }
+        else
+            Log.d("OpenCV Test", "OpenCV Loadede!");
     }
 
     @Override

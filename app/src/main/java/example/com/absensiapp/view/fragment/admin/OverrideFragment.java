@@ -36,7 +36,7 @@ import lombok.SneakyThrows;
 public class OverrideFragment extends Fragment {
 
     private FragmentOverrideBinding overrideListBinding;
-    private OverrideViewModel overrideViewModel = new OverrideViewModel();
+    private OverrideViewModel overrideViewModel;
     private OverrideListAdapter overrideAdapter = new OverrideListAdapter();
     private SwipeRefreshLayout swipeRefreshLayout;
     private Context context;
@@ -54,7 +54,7 @@ public class OverrideFragment extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         getActivity().setTitle("Daftar Override");
-        overrideViewModel = ViewModelProviders.of(requireActivity()).get(OverrideViewModel.class);
+        overrideViewModel = ViewModelProviders.of(getActivity()).get(OverrideViewModel.class);
         swipeRefreshLayout = overrideListBinding.swipeRefresh;
         setRecycleView();
         setOverrideList();
@@ -84,10 +84,11 @@ public class OverrideFragment extends Fragment {
 
             }
         });
+        overrideObserver();
     }
 
     private void setOverrideList() {
-        overrideViewModel.getOverrideList().observe(getViewLifecycleOwner(), new Observer<OverrideRespListModel>() {
+        overrideViewModel.getOverrideList().observe(requireActivity(), new Observer<OverrideRespListModel>() {
             @Override
             public void onChanged(OverrideRespListModel overrideRespListModel) {
                 overrideAdapter.setOverrideList(overrideRespListModel.getOverrideList());
@@ -97,7 +98,7 @@ public class OverrideFragment extends Fragment {
     }
 
     private void overrideObserver() {
-        overrideViewModel.getBaseResp().observe(getViewLifecycleOwner(), new Observer<BaseResponseModel>() {
+        overrideViewModel.getBaseResp().observe(requireActivity(), new Observer<BaseResponseModel>() {
             @Override
             public void onChanged(BaseResponseModel baseResponseModel) {
                 if(null != baseResponseModel.getErrorMessage())
@@ -126,25 +127,6 @@ public class OverrideFragment extends Fragment {
                 })
                 .create();
         deleteDialog.show();
-    }
-
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        Log.d("TAT", "onAcivityCreated OverrideFragment");
-        overrideObserver();
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        Log.d("TAT", "onDestroyView OverrideFragment");
-    }
-
-    @Override
-    public void onAttach(@NonNull Context context) {
-        super.onAttach(context);
-        Log.d("TAT", "onAttach OverrideFragment");
     }
 
     @Override

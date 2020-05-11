@@ -27,6 +27,9 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.text.InputType;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -56,6 +59,7 @@ public class LoginActivity extends AppCompatActivity implements LoginListener {
         PreferenceManager.setDefaultValues(this, R.xml.mypreferences, false);
 
         loginBinding = DataBindingUtil.setContentView(this, R.layout.activity_login);
+
         loginBinding.setOnClick(this);
         loginBinding.setUser(new UserModel());
 
@@ -83,6 +87,7 @@ public class LoginActivity extends AppCompatActivity implements LoginListener {
             startActivity(intent);
             finish();
         }
+
         baseResponseObserver();
         loginObserver();
         setupUI(findViewById(android.R.id.content).getRootView());
@@ -152,6 +157,8 @@ public class LoginActivity extends AppCompatActivity implements LoginListener {
         userViewModel.requestResetPassword(reqModel);
         resetPasswordDialog.dismiss();
     }
+
+
 
     private void saveLoginDetails(UserModel userModel) {
         new PrefManager(this).saveLoginDetails(userModel);

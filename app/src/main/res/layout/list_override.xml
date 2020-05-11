@@ -80,7 +80,7 @@
                 android:textStyle="bold"
                 app:layout_constraintStart_toEndOf="@+id/tv_userid_text"
                 app:layout_constraintTop_toTopOf="parent"
-                android:layout_marginStart="10dp"/>
+                android:layout_marginStart="30dp"/>
 
             <TextView
                 android:id="@+id/tv_2"
@@ -124,7 +124,8 @@
                 android:layout_height="wrap_content"
                 android:text="@={overrideItem.userId}"
                 app:layout_constraintStart_toEndOf="@+id/tv_1"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginStart="20dp"/>
 
             <TextView
                 android:id="@+id/tv_name"

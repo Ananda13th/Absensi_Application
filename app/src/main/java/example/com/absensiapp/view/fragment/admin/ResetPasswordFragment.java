@@ -14,6 +14,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import example.com.absensiapp.R;
@@ -31,7 +32,7 @@ import lombok.SneakyThrows;
 
 public class ResetPasswordFragment extends Fragment{
 
-    private UserViewModel userViewModel = new UserViewModel();
+    private UserViewModel userViewModel;
     private ResetPasswordAdapter resetPasswordAdapter = new ResetPasswordAdapter();
     private LayoutUpdateUserBinding updateUserLayoutBinding;
     private AlertDialog updatePassword;
@@ -51,6 +52,7 @@ public class ResetPasswordFragment extends Fragment{
         super.onViewCreated(view, savedInstanceState);
         getActivity().setTitle("Daftar Reset Password");
         setRecycleView();
+        userViewModel = ViewModelProviders.of(getActivity()).get(UserViewModel.class);
         setList();
         final AlertDialog.Builder updateUserBuilder = new androidx.appcompat.app.AlertDialog.Builder(getActivity());
         updateUserBuilder.setView(updateUserLayoutBinding.getRoot());

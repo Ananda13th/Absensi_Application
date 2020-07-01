@@ -39,20 +39,24 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHold
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         HistDataModel histDataModel = historyList.get(position);
         holder.listBinding.setHistoryData(histDataModel);
-        if(holder.listBinding.getHistoryData().getOutputDesc().equals(""))
+        if(holder.listBinding.getHistoryData().getOutputDesc().equals("")) {
             holder.listBinding.statusFrame.setBackgroundColor(context.getResources().getColor(R.color.green));
-        else
-            holder.listBinding.statusFrame.setBackgroundColor(context.getResources().getColor(R.color.red));
-
-        if(holder.listBinding.getHistoryData().getOutputDesc().equals("Not 9 Hours Working Time"))
+            holder.listBinding.timeInFrame.setBackgroundColor(context.getResources().getColor(R.color.white));
+            holder.listBinding.timeOutFrame.setBackgroundColor(context.getResources().getColor(R.color.white));
+        }
+        else if(holder.listBinding.getHistoryData().getOutputDesc().equals("Not 9 Hours Working Time")) {
             holder.listBinding.statusFrame.setBackgroundColor(context.getResources().getColor(R.color.yellow));
+        }
+        else {
+            holder.listBinding.statusFrame.setBackgroundColor(context.getResources().getColor(R.color.red));
+        }
 
-        if(holder.listBinding.getHistoryData().getOutputTimeIn().equals(""))
+        if(holder.listBinding.getHistoryData().getOutputTimeIn().equals("")) {
             holder.listBinding.timeInFrame.setBackgroundColor(context.getResources().getColor(R.color.red));
-
-
-        if(holder.listBinding.getHistoryData().getOutputTimeOut().equals(""))
+        }
+        if(holder.listBinding.getHistoryData().getOutputTimeOut().equals("")) {
             holder.listBinding.timeOutFrame.setBackgroundColor(context.getResources().getColor(R.color.red));
+        }
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {

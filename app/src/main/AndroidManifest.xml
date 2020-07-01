@@ -51,7 +51,7 @@
             tools:ignore="LockedOrientationActivity,UnusedAttribute" />
         <activity
             android:name=".view.activity.member.MemberDashboardActivity"
-            android:screenOrientation="fullSensor"
+            android:screenOrientation="portrait"
             />
         <activity android:name=".view.fragment.member.HistoryFragment" />
         <activity android:name=".view.activity.admin.InsertActivity" />
